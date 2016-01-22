@@ -1,0 +1,135 @@
+!!!
+%html
+  %head
+    %meta{charset: 'utf-8'}
+    %title LOL League Schedule
+
+    :css
+      body {
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        line-height: 1.4;
+        padding: 10px;
+      }
+
+      .league-wrapper {
+        overflow-x: auto;
+        margin-bottom: 10px;
+      }
+
+      table.league {
+        border-collapse: collapse;
+      }
+
+      table.league td {
+        border: 2px solid #ddd;
+        padding: 10px;
+      }
+
+      .header {
+        font-size: 30px;
+        font-weight: bold;
+        min-width: 110px;
+        text-align: center;
+      }
+
+      .match {
+        min-width: 160px;
+      }
+
+      .match.past {
+        color: #a0a0a0;
+      }
+
+      .match.current {
+        background-color: #fcf8e3;
+      }
+
+      .time {
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+
+      .vs {
+        font-size: 24px;
+        white-space: nowrap;
+      }
+
+      .vs .side {
+        display: inline-block;
+        width: 70px;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: bold;
+      }
+
+      .vs .middle {
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+        font-size: 16px;
+        vertical-align: middle;
+      }
+
+    :javascript
+      function parseTimes() {
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var now = new Date();
+
+        var times = document.querySelectorAll(".time");
+        for(var i = 0; i < times.length; i++) {
+          var time = new Date(times[i].innerHTML);
+
+          var ampm = (time.getHours() > 12) ? 'PM' : 'AM';
+          var hours = (time.getHours() == 0) ? '12' : (time.getHours() % 12);
+          if(time.toDateString() == now.toDateString())
+            var parts = ['Today', hours + ampm];
+          else
+            var parts = [days[time.getDay()], time.getDate(), months[time.getMonth()], hours + ampm];
+          times[i].innerHTML = parts.join(" ");
+
+          var earlyStart = new Date(time.getTime());
+          earlyStart.setHours(earlyStart.getHours() - 3);
+
+          var scheduledEnd = new Date(time.getTime());
+          scheduledEnd.setHours(scheduledEnd.getHours() + 3);
+
+          var matchElement = times[i].parentNode;
+          if(scheduledEnd.getTime() < now.getTime()) matchElement.classList.add("past");
+          if((now.getTime() >= earlyStart.getTime()) && (now.getTime() <= scheduledEnd.getTime())) matchElement.classList.add("current");
+          if(time.toDateString() == now.toDateString()) matchElement.classList.add("today");
+        }
+      }
+
+      function removePastMatches() {
+        var midnight = new Date();
+        midnight.setHours(0, 0, 0, 0);
+
+        var matches = document.querySelectorAll(".match");
+        for(var i = 0; i < matches.length; i++) {
+          var timeElement = matches[i].querySelectorAll(".time")[0];
+          var time = new Date(timeElement.innerHTML);
+
+          if(time.getTime() < midnight.getTime()) matches[i].remove();
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+        removePastMatches();
+        parseTimes();
+      });
+  %body
+    #leagues
+      - data.each_pair do |league_name, tournament|
+        .league-wrapper
+          %table.league
+            %tr
+              %td.header= league_name
+              - tournament['matches'].each do |match|
+                %td.match
+                  .time= match['time']
+                  .vs<
+                    %span.side>= match['vs'].first
+                    %span.middle< vs
+                    %span.side>= match['vs'].last
