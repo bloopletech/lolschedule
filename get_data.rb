@@ -17,8 +17,11 @@ def parse_league(league_id)
   #body = File.read('scheduleItems.json')
   si = JSON.parse(body)
 
-  tournament = si['highlanderTournaments'].find { |t| t['published'] }
+  teams = Hash[si['teams'].map do |team|
+    [team['acronym'], { logo: team['logoUrl'] }]
+  end]
 
+  tournament = si['highlanderTournaments'].find { |t| t['published'] }
   scheduleItems = si['scheduleItems'].select { |s| s['tournament'] == tournament['id'] }
   scheduleItems.sort_by! { |s| Time.parse(s['scheduledTime']) }
 
@@ -35,6 +38,7 @@ def parse_league(league_id)
 
   {
     tournament_name: tournament['description'],
+    teams: teams,
     matches: matches
   }
 end
@@ -49,6 +53,12 @@ table = [data.keys]
 rows = data.values.map { |l| l[:matches].length }.max - 1
 0.upto(rows) do |row|
   table << data.keys.map { |league_name| data[league_name][:matches][row] }
+end
+=end
+
+=begin
+rosters = match['input'].map do |input|
+  tournament['rosters'][input['roster']]
 end
 =end
 

@@ -5,18 +5,30 @@
     %title LOL League Schedule
 
     :css
+      #{data.flat_map { |(league_name, league)| league['teams'].map { |(name, team)| ".#{league_name.gsub(' ', '-')}-#{name} { background-image: url(\"http://am-a.akamaihd.net/image/?f=#{team['logo']}&resize=50:50\"); }" } }.join("\n")}
+
       * {
         box-sizing: border-box;
       }
+
       body {
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
         line-height: 1.4;
         margin: 0;
-        padding: 10px;
+        padding: 8px;
       }
 
-      html, body, #leagues-wrapper, .leagues {
+      html, body, #page-wrapper, #leagues-wrapper, .leagues {
         height: 100%;
+      }
+
+      #menu {
+        height: 50px;
+      }
+
+      #leagues-wrapper {
+        padding-top: 50px;
+        margin-top: -50px;
       }
 
       #leagues-wrapper:after {
@@ -29,8 +41,8 @@
         display: flex;
         flex-direction: column;
         float: left;
-        margin-right: 10px;
-        border: 2px solid #888;
+        margin-right: 4px;
+        border: 1px solid #888;
       }
 
       #leagues-wrapper .leagues:last-child {
@@ -38,25 +50,30 @@
       }
 
       .matches {
-        flex: 1;
+        flex: 2;
         overflow: auto;
-        width: 190px;
+        width: 194px;
       }
 
       .header, .match {
-        height: 100px;
         border-bottom: 2px solid #ddd;
         padding: 10px;
       }
 
       .header {
         flex: 0 1 auto;
-        min-height: 100px;
+        min-height: 50px;
         font-size: 30px;
         font-weight: bold;
-        line-height: 78px;
+        line-height: 50px;
         text-align: center;
-        background-color: #ffffff;
+        border-bottom: 2px solid #888;
+      }
+
+      .match {
+        background-color: #111;
+        color: #fff;
+        padding: 14px 6px;
       }
 
       .matches .match:last-child {
@@ -64,11 +81,17 @@
       }
 
       .match.past {
-        color: #a0a0a0;
+        color: #888;
       }
 
       .match.current {
-        background-color: #fcf8e3;
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100 */
+        background: #45484d;
+        background: linear-gradient(135deg,  #45484d 0%,#000000 100%);
+      }
+
+      .match.current .time {
+        font-weight: bold;
       }
 
       .time {
@@ -78,23 +101,34 @@
       }
 
       .vs {
-        font-size: 24px;
+        font-size: 22px;
         white-space: nowrap;
       }
 
       .vs .side {
         display: inline-block;
-        width: 70px;
-        text-align: center;
+        width: 76px;
         vertical-align: middle;
         font-weight: bold;
       }
 
+      .vs .side:first-child {
+        text-align: right;
+      }
+
       .vs .middle {
         display: inline-block;
-        width: 20px;
+        width: 15px;
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
+        vertical-align: middle;
+      }
+
+      .logo {
+        display: inline-block;
+        background-size: cover;
+        width: 26px;
+        height: 26px;
         vertical-align: middle;
       }
 
@@ -109,7 +143,9 @@
           var time = new Date(times[i].innerHTML);
 
           var ampm = (time.getHours() > 12) ? 'PM' : 'AM';
-          var hours = (time.getHours() == 0) ? '12' : (time.getHours() % 12);
+          var hours = time.getHours() % 12;
+          if(hours == 0) hours = 12;
+
           if(time.toDateString() == now.toDateString())
             var parts = ['Today', hours + ampm];
           else
@@ -129,33 +165,38 @@
         }
       }
 
-      function removePastMatches() {
-        var midnight = new Date();
-        midnight.setHours(0, 0, 0, 0);
-
-        var matches = document.querySelectorAll(".match");
-        for(var i = 0; i < matches.length; i++) {
-          var timeElement = matches[i].querySelectorAll(".time")[0];
-          var time = new Date(timeElement.innerHTML);
-
-          if(time.getTime() < midnight.getTime()) matches[i].remove();
+      function togglePastMatches(show) {
+        var pastMatches = document.querySelectorAll(".past");
+        for(var i = 0; i < pastMatches.length; i++) {
+          pastMatches[i].style.display = show ? 'block' : 'none';
         }
       }
 
       document.addEventListener("DOMContentLoaded", function(event) {
-        removePastMatches();
         parseTimes();
+        togglePastMatches(false);
+        document.getElementById('show-past-matches').addEventListener("click", function() {
+          togglePastMatches(document.getElementById('show-past-matches').checked);
+        });
       });
   %body
-    #leagues-wrapper
-      - data.each_pair do |league_name, tournament|
-        .leagues
-          .header= league_name
-          .matches
-            - tournament['matches'].each do |match|
-              .match
-                .time= match['time']
-                .vs<
-                  %span.side>= match['vs'].first
-                  %span.middle< vs
-                  %span.side>= match['vs'].last
+    #page-wrapper
+      #menu
+        %input#show-past-matches{type: 'checkbox'}
+        %label{for: 'show-past-matches'} Show past matches
+      #leagues-wrapper
+        - data.each_pair do |league_name, tournament|
+          .leagues
+            .header= league_name
+            .matches
+              - tournament['matches'].each do |match|
+                .match
+                  .time= match['time']
+                  .vs<
+                    %span.side<
+                      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
+                      = match['vs'].first
+                    %span.middle< v
+                    %span.side<
+                      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
+                      = match['vs'].last
