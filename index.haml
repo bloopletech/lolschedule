@@ -5,35 +5,62 @@
     %title LOL League Schedule
 
     :css
+      * {
+        box-sizing: border-box;
+      }
       body {
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
         line-height: 1.4;
+        margin: 0;
         padding: 10px;
       }
 
-      .league-wrapper {
-        overflow-x: auto;
-        margin-bottom: 10px;
+      html, body, #leagues-wrapper, .leagues {
+        height: 100%;
       }
 
-      table.league {
-        border-collapse: collapse;
+      #leagues-wrapper:after {
+        content: " ";
+        display: table;
+        clear: both;
       }
 
-      table.league td {
-        border: 2px solid #ddd;
+      .leagues {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        margin-right: 10px;
+        border: 2px solid #888;
+      }
+
+      #leagues-wrapper .leagues:last-child {
+        margin-right: 0;
+      }
+
+      .matches {
+        flex: 1;
+        overflow: auto;
+        width: 190px;
+      }
+
+      .header, .match {
+        height: 100px;
+        border-bottom: 2px solid #ddd;
         padding: 10px;
       }
 
       .header {
+        flex: 0 1 auto;
+        min-height: 100px;
         font-size: 30px;
         font-weight: bold;
-        min-width: 110px;
+        line-height: 78px;
         text-align: center;
+        background-color: #ffffff;
       }
 
-      .match {
-        min-width: 160px;
+      .matches .match:last-child {
+        border-bottom: none;
       }
 
       .match.past {
@@ -120,16 +147,15 @@
         parseTimes();
       });
   %body
-    #leagues
+    #leagues-wrapper
       - data.each_pair do |league_name, tournament|
-        .league-wrapper
-          %table.league
-            %tr
-              %td.header= league_name
-              - tournament['matches'].each do |match|
-                %td.match
-                  .time= match['time']
-                  .vs<
-                    %span.side>= match['vs'].first
-                    %span.middle< vs
-                    %span.side>= match['vs'].last
+        .leagues
+          .header= league_name
+          .matches
+            - tournament['matches'].each do |match|
+              .match
+                .time= match['time']
+                .vs<
+                  %span.side>= match['vs'].first
+                  %span.middle< vs
+                  %span.side>= match['vs'].last
