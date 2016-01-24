@@ -28,7 +28,16 @@ def parse_league(league_id)
   matches = scheduleItems.select { |item| item['bracket'] }.map do |item|
     bracket = tournament['brackets'][item['bracket']]
     match = bracket['matches'][item['match']]
-    vs = match['name'].split('-') - ['vs']
+
+    match_rosters = match['input'].map do |input|
+      tournament['rosters'][input['roster']]
+    end
+
+    match_teams = match_rosters.map do |roster|
+      si['teams'].find { |team| team['id'] == roster['team'].to_i }
+    end
+
+    vs = match_teams.map { |team| team['acronym'] }
 
     {
       time: item['scheduledTime'],
