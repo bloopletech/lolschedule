@@ -4,6 +4,9 @@
     %meta{charset: 'utf-8'}
     %title LOL League Schedule
 
+    %meta{name: 'HandheldFriendly', content: 'true'}
+    %meta{name: 'viewport', content: 'width=device-width, height=device-height, user-scalable=no'}
+
     :css
       #{data.flat_map { |(league_name, league)| league['teams'].map { |(name, team)| ".#{league_name.gsub(' ', '-')}-#{name} { background-image: url(\"http://am-a.akamaihd.net/image/?f=#{team['logo']}&resize=50:50\"); }" } }.join("\n")}
 
@@ -42,6 +45,7 @@
         flex-direction: column;
         float: left;
         margin-right: 4px;
+        margin-bottom: 20px;
         border: 1px solid #888;
       }
 
