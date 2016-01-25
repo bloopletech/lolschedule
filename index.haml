@@ -15,10 +15,13 @@
       }
 
       body {
-        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-        line-height: 1.4;
         margin: 0;
         padding: 8px;
+      }
+
+      body, button {
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        line-height: 1.4;
       }
 
       html, body, #page-wrapper, #leagues-wrapper, .leagues {
@@ -27,6 +30,15 @@
 
       #menu {
         height: 50px;
+      }
+
+      #menu button {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      #menu button:last-child {
+        margin-right: 0;
       }
 
       #leagues-wrapper {
@@ -45,8 +57,8 @@
         flex-direction: column;
         float: left;
         margin-right: 4px;
-        margin-bottom: 20px;
-        border: 1px solid #888;
+        margin-bottom: 8px;
+        border: 1px solid #999;
       }
 
       #leagues-wrapper .leagues:last-child {
@@ -74,17 +86,45 @@
         border-bottom: 2px solid #888;
       }
 
-      .match {
+      .matches {
         background-color: #111;
         color: #fff;
-        padding: 14px 6px;
+      }
+
+      .match {
+        padding: 16px 6px;
+        display: none;
       }
 
       .matches .match:last-child {
         border-bottom: none;
       }
 
-      .match.past {
+      body.select-current-week .match.current-week {
+        display: block;
+      }
+
+      body.select-current-week #select-current-week {
+        font-weight: bold;
+      }
+
+      body.select-future .match.future {
+        display: block;
+      }
+
+      body.select-future #select-future {
+        font-weight: bold;
+      }
+
+      body.select-all .match {
+        display: block;
+      }
+
+      body.select-all #select-all {
+        font-weight: bold;
+      }
+
+      .match.past .time {
         color: #888;
       }
 
@@ -137,57 +177,70 @@
       }
 
     :javascript
+      #{File.read('build/moment.min.js')}
+
+    :javascript
       function parseTimes() {
-        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var now = new Date();
+        var now = moment();
 
         var times = document.querySelectorAll(".time");
         for(var i = 0; i < times.length; i++) {
-          var time = new Date(times[i].innerHTML);
+          var time = moment(times[i].getAttribute('value'));
 
-          var ampm = (time.getHours() > 12) ? 'PM' : 'AM';
-          var hours = time.getHours() % 12;
-          if(hours == 0) hours = 12;
+          var parts = [];
+          parts.push(time.isSame(now, 'day') ? '[Today] ' : 'ddd D MMM ');
+          parts.push((time.minutes() == 0) ? 'hA' : 'h:mmA');
+          times[i].innerHTML = time.format(parts.join(''));
 
-          if(time.toDateString() == now.toDateString())
-            var parts = ['Today', hours + ampm];
-          else
-            var parts = [days[time.getDay()], time.getDate(), months[time.getMonth()], hours + ampm];
-          times[i].innerHTML = parts.join(" ");
-
-          var earlyStart = new Date(time.getTime());
-          earlyStart.setHours(earlyStart.getHours() - 3);
-
-          var scheduledEnd = new Date(time.getTime());
-          scheduledEnd.setHours(scheduledEnd.getHours() + 3);
+          var earlyStart = time.subtract(3, 'hours');
+          var scheduledEnd = time.add(3, 'hours');
 
           var matchElement = times[i].parentNode;
-          if(scheduledEnd.getTime() < now.getTime()) matchElement.classList.add("past");
-          if((now.getTime() >= earlyStart.getTime()) && (now.getTime() <= scheduledEnd.getTime())) matchElement.classList.add("current");
-          if(time.toDateString() == now.toDateString()) matchElement.classList.add("today");
+          if(scheduledEnd.isBefore(now)) matchElement.classList.add("past");
+          if(now.isSameOrAfter(earlyStart) && now.isSameOrBefore(scheduledEnd)) matchElement.classList.add("current");
+          if(time.isSame(now, 'day')) matchElement.classList.add("today");
+          if(time.isSame(now, 'week')) matchElement.classList.add("current-week");
+          if(earlyStart.isSameOrAfter(now)) matchElement.classList.add("future");
         }
       }
 
-      function togglePastMatches(show) {
-        var pastMatches = document.querySelectorAll(".past");
-        for(var i = 0; i < pastMatches.length; i++) {
-          pastMatches[i].style.display = show ? 'block' : 'none';
-        }
+      function selectCurrentWeek() {
+        document.body.classList.remove("select-future");
+        document.body.classList.remove("select-all");
+        document.body.classList.add("select-current-week");
+      }
+
+      function selectFuture() {
+        document.body.classList.remove("select-current-week");
+        document.body.classList.remove("select-all");
+        document.body.classList.add("select-future");
+      }
+
+      function selectAll() {
+        document.body.classList.remove("select-future");
+        document.body.classList.remove("select-current-week");
+        document.body.classList.add("select-all");
       }
 
       document.addEventListener("DOMContentLoaded", function(event) {
         parseTimes();
-        togglePastMatches(false);
-        document.getElementById('show-past-matches').addEventListener("click", function() {
-          togglePastMatches(document.getElementById('show-past-matches').checked);
-        });
+        window.setInterval(parseTimes, 60000);
+
+        document.getElementById('select-current-week').addEventListener("click", selectCurrentWeek);
+        document.getElementById('select-future').addEventListener("click", selectFuture);
+        document.getElementById('select-all').addEventListener("click", selectAll);
+        selectCurrentWeek();
       });
   %body
     #page-wrapper
       #menu
-        %input#show-past-matches{type: 'checkbox'}
-        %label{for: 'show-past-matches'} Show past matches
+        %button#select-current-week
+          Current Week
+        %button#select-future
+          All Future
+        %button#select-all
+          All
+
       #leagues-wrapper
         - data.each_pair do |league_name, tournament|
           .leagues
@@ -195,7 +248,7 @@
             .matches
               - tournament['matches'].each do |match|
                 .match
-                  .time= match['time']
+                  .time{value: match['time']}
                   .vs<
                     %span.side<
                       %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
