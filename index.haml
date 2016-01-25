@@ -177,7 +177,7 @@
       }
 
     :javascript
-      #{File.read('build/moment.min.js')}
+      #{File.read('moment.min.js')}
 
     :javascript
       function parseTimes() {
@@ -199,7 +199,7 @@
           if(scheduledEnd.isBefore(now)) matchElement.classList.add("past");
           if(now.isSameOrAfter(earlyStart) && now.isSameOrBefore(scheduledEnd)) matchElement.classList.add("current");
           if(time.isSame(now, 'day')) matchElement.classList.add("today");
-          if(time.isSame(now, 'week')) matchElement.classList.add("current-week");
+          if(time.isSame(now, 'isoweek')) matchElement.classList.add("current-week");
           if(earlyStart.isSameOrAfter(now)) matchElement.classList.add("future");
         }
       }
