@@ -150,6 +150,14 @@
         text-align: center;
       }
 
+      .match.games {
+        cursor: pointer;
+      }
+
+      .match.games .side, .match.games .middle {
+        text-decoration: underline;
+      }
+
       .vs .side {
         display: inline-block;
         vertical-align: middle;
@@ -174,6 +182,40 @@
         width: 26px;
         height: 26px;
         vertical-align: middle;
+      }
+
+      #modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 250px;
+        height: 200px;
+        margin-left: -125px;
+        margin-top: -100px;
+        border: 1px solid #000000;
+        background-color: #ffffff;
+        padding: 16px;
+        display: none;
+      }
+
+      #modal-close {
+        float: right;
+        margin-bottom: 10px;
+      }
+
+      #modal-body {
+        text-align: center;
+        font-size: 18px;
+      }
+
+      #modal-body:before {
+        content: " ";
+        display: table;
+        clear: both;
+      }
+
+      #modal a {
+        display: block;
       }
 
     :javascript
@@ -222,6 +264,24 @@
         document.body.classList.add("select-all");
       }
 
+      function showGames(videoElement) {
+        var urls = JSON.parse(videoElement.getAttribute('urls'));
+        console.log('urls: ', urls);
+        var modal = document.getElementById('modal');
+        var modalBody = document.getElementById('modal-body');
+        modalBody.innerHTML = '';
+
+        for(var i = 0; i < urls.length; i++) {
+          var element = document.createElement('a');
+          element.href = urls[i];
+          element.innerHTML = 'Game ' + (i + 1);
+          element.target = '_blank';
+          modalBody.appendChild(element);
+        }
+
+        modal.style.display = 'block';
+      }
+
       document.addEventListener("DOMContentLoaded", function(event) {
         parseTimes();
         window.setInterval(parseTimes, 60000);
@@ -230,6 +290,19 @@
         document.getElementById('select-future').addEventListener("click", selectFuture);
         document.getElementById('select-all').addEventListener("click", selectAll);
         selectCurrentWeek();
+
+        document.body.addEventListener('click', function(event) {
+          if(event.target.matches('.match.games, .match.games *')) {
+            event.stopPropagation();
+            var target = event.target;
+            while(!target.matches('.match.games')) target = target.parentNode;
+            showGames(target);
+          }
+        });
+
+        document.getElementById('modal-close').addEventListener('click', function() {
+          document.getElementById('modal').style.display = 'none';
+        });
       });
   %body
     #page-wrapper
@@ -247,7 +320,7 @@
             .header= league_name
             .matches
               - tournament['matches'].each do |match|
-                .match
+                .match{class: "#{'games' unless match['game_urls'].empty?}", urls: match['game_urls'].to_json}
                   .time{value: match['time']}
                   .vs<
                     %span.side<
@@ -257,3 +330,6 @@
                     %span.side<
                       %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
                       = match['vs'].last
+    #modal
+      %button#modal-close Close
+      #modal-body

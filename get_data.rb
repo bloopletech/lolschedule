@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'json'
 require 'time'
+require 'cgi'
 
 LEAGUES = {
   '2' => 'NA LCS',
@@ -22,6 +23,10 @@ def parse_league(league_id)
   end]
 
   tournament = si['highlanderTournaments'].find { |t| t['published'] }
+
+  videos_body = URI.parse("http://api.lolesports.com/api/v2/videos?tournament=#{CGI::escape(tournament['id'])}").read
+  videos = JSON.parse(videos_body)
+
   scheduleItems = si['scheduleItems'].select { |s| s['tournament'] == tournament['id'] }
   scheduleItems.sort_by! { |s| Time.parse(s['scheduledTime']) }
 
@@ -39,9 +44,15 @@ def parse_league(league_id)
 
     vs = match_teams.map { |team| team['acronym'] }
 
+    game_urls = match['games'].keys.map do |game_id|
+      video = videos['videos'].find { |video| video['game'] == game_id }
+      video['source'] if video
+    end.compact
+
     {
       time: item['scheduledTime'],
-      vs: vs
+      vs: vs,
+      game_urls: game_urls
     }
   end
 
