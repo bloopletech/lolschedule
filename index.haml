@@ -14,12 +14,18 @@
         box-sizing: border-box;
       }
 
+      .clearfix:after {
+        content: " ";
+        display: table;
+        clear: both;
+      }
+
       body {
         margin: 0;
         padding: 8px;
       }
 
-      body, button {
+      body, button, input {
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
         line-height: 1.4;
       }
@@ -29,7 +35,7 @@
       }
 
       #menu {
-        height: 50px;
+        height: 80px;
       }
 
       #menu button {
@@ -41,15 +47,22 @@
         margin-right: 0;
       }
 
-      #leagues-wrapper {
-        padding-top: 50px;
-        margin-top: -50px;
+      #menu input {
+        font-size: 18px;
       }
 
-      #leagues-wrapper:after {
-        content: " ";
-        display: table;
-        clear: both;
+      #buttons {
+        float: left;
+        padding-bottom: 10px;
+      }
+
+      #filter-wrapper {
+        float: right;
+      }
+
+      #leagues-wrapper {
+        padding-top: 80px;
+        margin-top: -80px;
       }
 
       .leagues {
@@ -124,6 +137,10 @@
         font-weight: bold;
       }
 
+      body.filter .match:not(.filter-match) {
+        display: none;
+      }
+
       .match.past .time {
         color: #888;
       }
@@ -138,6 +155,18 @@
         font-weight: bold;
       }
 
+      .match.filter-no-match {
+        display: none !important;
+      }
+
+      .match.games {
+        cursor: pointer;
+      }
+
+      .match.games .side, .match.games .middle {
+        text-decoration: underline;
+      }
+
       .time {
         font-size: 18px;
         text-align: center;
@@ -148,14 +177,6 @@
         font-size: 20px;
         white-space: nowrap;
         text-align: center;
-      }
-
-      .match.games {
-        cursor: pointer;
-      }
-
-      .match.games .side, .match.games .middle {
-        text-decoration: underline;
       }
 
       .vs .side {
@@ -246,22 +267,33 @@
         }
       }
 
-      function selectCurrentWeek() {
+      function selectButton() {
         document.body.classList.remove("select-future");
         document.body.classList.remove("select-all");
-        document.body.classList.add("select-current-week");
+        document.body.classList.remove("select-current-week");
+        document.body.classList.add(this.id);
+
+        setQueryParams();
       }
 
-      function selectFuture() {
-        document.body.classList.remove("select-current-week");
-        document.body.classList.remove("select-all");
-        document.body.classList.add("select-future");
-      }
+      function filterMatches() {
+        document.body.classList.remove("filter");
 
-      function selectAll() {
-        document.body.classList.remove("select-future");
-        document.body.classList.remove("select-current-week");
-        document.body.classList.add("select-all");
+        var query = document.getElementById('filter').value;
+        if(query != "") {
+          document.body.classList.add("filter");
+
+          var matches = document.querySelectorAll(".match");
+          for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-match");
+
+          var terms = query.toUpperCase().split(/[ ,]/);
+          for(var i = 0; i < terms.length; i++) {
+            var matching = document.querySelectorAll(".match[class*='" + terms[i] + "']");
+            for(var j = 0; j < matching.length; j++) matching[j].classList.add("filter-match");
+          }
+        }
+
+        setQueryParams();
       }
 
       function showGames(videoElement) {
@@ -282,14 +314,47 @@
         modal.style.display = 'block';
       }
 
+      /* from https://css-tricks.com/snippets/javascript/get-url-variables/ */
+      function getQueryParams()
+      {
+        var params = {};
+        var query = window.location.hash.substring(1);
+        var vars = query.split("&");
+        for(var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          params[pair[0]] = pair[1];
+        }
+        return params;
+      }
+
+      function setQueryParams() {
+        var classes = document.body.classList;
+        var select = '';
+        for(var i = 0; i < classes.length; i++) {
+          if(classes[i].match(/^select-/g)) {
+            select = classes[i];
+            break;
+          }
+        }
+
+        var params = {
+          filter: document.getElementById('filter').value,
+          select: select
+        }
+
+        window.location.hash = "#" + Object.keys(params).map(k => k + '=' + params[k]).join('&');
+      }
+
       document.addEventListener("DOMContentLoaded", function(event) {
         parseTimes();
         window.setInterval(parseTimes, 60000);
 
-        document.getElementById('select-current-week').addEventListener("click", selectCurrentWeek);
-        document.getElementById('select-future').addEventListener("click", selectFuture);
-        document.getElementById('select-all').addEventListener("click", selectAll);
-        selectCurrentWeek();
+        var params = getQueryParams();
+
+        document.getElementById('select-current-week').addEventListener("click", selectButton);
+        document.getElementById('select-future').addEventListener("click", selectButton);
+        document.getElementById('select-all').addEventListener("click", selectButton);
+        document.getElementById('filter').addEventListener("keyup", filterMatches);
 
         document.body.addEventListener('click', function(event) {
           if(event.target.matches('.match.games, .match.games *')) {
@@ -303,24 +368,35 @@
         document.getElementById('modal-close').addEventListener('click', function() {
           document.getElementById('modal').style.display = 'none';
         });
+
+        if(params['filter']) {
+          document.getElementById('filter').value = params['filter'];
+          filterMatches();
+        }
+
+        if(params['select']) document.getElementById(params['select']).click();
+        else document.getElementById('select-current-week').click();
       });
   %body
     #page-wrapper
-      #menu
-        %button#select-current-week
-          Current Week
-        %button#select-future
-          All Future
-        %button#select-all
-          All
+      #menu.clearfix
+        #buttons
+          %button#select-current-week
+            Current Week
+          %button#select-future
+            All Future
+          %button#select-all
+            All
+        #filter-wrapper
+          %input#filter{type: 'text', placeholder: 'Filter matches'}
 
-      #leagues-wrapper
+      #leagues-wrapper.clearfix
         - data.each_pair do |league_name, tournament|
           .leagues
             .header= league_name
             .matches
               - tournament['matches'].each do |match|
-                .match{class: "#{'games' unless match['game_urls'].empty?}", urls: match['game_urls'].to_json}
+                .match{class: "#{'games' unless match['game_urls'].empty?} #{match['vs'].join(' ')}", urls: match['game_urls'].to_json}
                   .time{value: match['time']}
                   .vs<
                     %span.side<
