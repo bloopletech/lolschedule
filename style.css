@@ -1,0 +1,216 @@
+* {
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+body {
+  margin: 0;
+  padding: 8px;
+}
+
+body, button, input {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+html, body, #page-wrapper, #leagues-wrapper, .leagues {
+  height: 100%;
+}
+
+#menu {
+  height: 80px;
+}
+
+#menu button {
+  margin-right: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#menu input {
+  font-size: 18px;
+}
+
+#leagues-wrapper {
+  padding-top: 80px;
+  margin-top: -80px;
+}
+
+.leagues {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  margin-right: 4px;
+  margin-bottom: 8px;
+  border: 1px solid #999;
+}
+
+#leagues-wrapper .leagues:last-child {
+  margin-right: 0;
+}
+
+.matches {
+  flex: 2;
+  overflow: auto;
+  width: 194px;
+}
+
+.header, .match {
+  border-bottom: 2px solid #ddd;
+  padding: 10px;
+}
+
+.header {
+  flex: 0 1 auto;
+  min-height: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 2px solid #888;
+}
+
+.matches {
+  background-color: #111;
+  color: #fff;
+}
+
+.match {
+  padding: 16px 6px;
+  display: none;
+}
+
+.matches .match:last-child {
+  border-bottom: none;
+}
+
+body.select-current-week .match.current-week {
+  display: block;
+}
+
+body.select-current-week #select-current-week {
+  font-weight: bold;
+}
+
+body.select-future .match.future {
+  display: block;
+}
+
+body.select-future #select-future {
+  font-weight: bold;
+}
+
+body.select-all .match {
+  display: block;
+}
+
+body.select-all #select-all {
+  font-weight: bold;
+}
+
+body.filter .match:not(.filter-match) {
+  display: none;
+}
+
+.match.past .time {
+  color: #888;
+}
+
+.match.current {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100 */
+  background: #45484d;
+  background: linear-gradient(135deg,  #45484d 0%,#000000 100%);
+}
+
+.match.current .time {
+  font-weight: bold;
+}
+
+.match.filter-no-match {
+  display: none !important;
+}
+
+.match.games {
+  cursor: pointer;
+}
+
+.match.games .side, .match.games .middle {
+  text-decoration: underline;
+}
+
+.time {
+  font-size: 18px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.vs {
+  font-size: 20px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.vs .side {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.vs .side:first-child {
+  text-align: right;
+}
+
+.vs .middle {
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.logo {
+  display: inline-block;
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+  vertical-align: middle;
+}
+
+#modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 200px;
+  margin-left: -125px;
+  margin-top: -100px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  padding: 16px;
+  display: none;
+}
+
+#modal-close {
+  float: right;
+  margin-bottom: 10px;
+}
+
+#modal-body {
+  text-align: center;
+  font-size: 18px;
+}
+
+#modal-body:before {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+#modal a {
+  display: block;
+}
