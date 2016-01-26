@@ -41,23 +41,11 @@
       #menu button {
         margin-right: 10px;
         font-size: 18px;
-      }
-
-      #menu button:last-child {
-        margin-right: 0;
+        margin-bottom: 10px;
       }
 
       #menu input {
         font-size: 18px;
-      }
-
-      #buttons {
-        float: left;
-        padding-bottom: 10px;
-      }
-
-      #filter-wrapper {
-        float: right;
       }
 
       #leagues-wrapper {
@@ -380,15 +368,13 @@
   %body
     #page-wrapper
       #menu.clearfix
-        #buttons
-          %button#select-current-week
-            Current Week
-          %button#select-future
-            All Future
-          %button#select-all
-            All
-        #filter-wrapper
-          %input#filter{type: 'text', placeholder: 'Filter matches'}
+        %button#select-current-week
+          Current Week
+        %button#select-future
+          All Future
+        %button#select-all
+          All
+        %input#filter{type: 'text', placeholder: 'Filter matches'}
 
       #leagues-wrapper.clearfix
         - data.each_pair do |league_name, tournament|
