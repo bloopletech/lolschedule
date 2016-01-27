@@ -27,24 +27,23 @@
           All
         %input#filter{type: 'text', placeholder: 'Filter matches'}
 
-      #leagues-wrapper.clearfix
-        - data.each_pair do |league_name, tournament|
-          .leagues
-            .header= league_name
-            .matches
-              - tournament['matches'].each do |match|
-                .match{class: "#{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { urls: match['game_urls'].to_json }}
-                  .time{data: { value: match['time'] }}
-                  .vs<
-                    %span.side<
-                      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
-                      = match['vs'].first
-                    %span.middle< v
-                    %span.side<
-                      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
-                      = match['vs'].last
-      #footer
-        Page generated #{Time.now}
+      #leagues-wrapper
+        #leagues-inner.clearfix
+          - data.each_pair do |league_name, tournament|
+            .leagues
+              .header= league_name
+              .matches
+                - tournament['matches'].each do |match|
+                  .match{class: "#{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { urls: match['game_urls'].to_json }}
+                    .time{data: { value: match['time'] }}
+                    .vs<
+                      %span.side<
+                        %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
+                        = match['vs'].first
+                      %span.middle< v
+                      %span.side<
+                        %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
+                        = match['vs'].last
     #modal
       %button#modal-close Close
       #modal-body

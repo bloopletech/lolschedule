@@ -22,6 +22,14 @@ function parseTimes() {
   }
 }
 
+function layoutMatches() {
+  var menuHeight = document.getElementById('menu').offsetHeight;
+  var leaguesWrapper = document.getElementById('leagues-wrapper');
+  leaguesWrapper.style.height = (window.innerHeight - 16 - menuHeight) + 'px';
+
+  document.getElementById('leagues-inner').style.height = leaguesWrapper.clientHeight + 'px';
+}
+
 function selectButton() {
   document.body.classList.remove("select-future");
   document.body.classList.remove("select-all");
@@ -103,6 +111,9 @@ function setQueryParams() {
 document.addEventListener("DOMContentLoaded", function(event) {
   parseTimes();
   window.setInterval(parseTimes, 60000);
+
+  layoutMatches();
+  window.addEventListener('resize', layoutMatches);
 
   var params = getQueryParams();
 

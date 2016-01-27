@@ -18,35 +18,33 @@ body, button, input {
   line-height: 1.4;
 }
 
-html, body, #page-wrapper, #leagues-wrapper, .leagues {
+html, body, #page-wrapper {
   height: 100%;
 }
 
 #menu {
-  height: 80px;
 }
 
-#menu button {
+#menu button, #menu input {
   margin-right: 10px;
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-#menu input {
-  font-size: 18px;
+#leagues-wrapper {
+  overflow-x: auto;
 }
 
-#leagues-wrapper {
-  padding-top: 80px;
-  margin-top: -80px;
+#leagues-inner {
+  width: 1101px;
 }
 
 .leagues {
   display: flex;
   flex-direction: column;
   float: left;
+  height: 100%;
   margin-right: 4px;
-  margin-bottom: 8px;
   border: 1px solid #999;
 }
 
@@ -57,7 +55,7 @@ html, body, #page-wrapper, #leagues-wrapper, .leagues {
 .matches {
   flex: 2;
   overflow: auto;
-  width: 194px;
+  width: 215px;
 }
 
 .header, .match {
@@ -144,13 +142,13 @@ body.filter .match:not(.filter-match) {
 }
 
 .time {
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
   padding-bottom: 10px;
 }
 
 .vs {
-  font-size: 20px;
+  font-size: 24px;
   white-space: nowrap;
   text-align: center;
 }
@@ -167,9 +165,9 @@ body.filter .match:not(.filter-match) {
 
 .vs .middle {
   display: inline-block;
-  width: 18px;
+  width: 20px;
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;
   vertical-align: middle;
 }
 
