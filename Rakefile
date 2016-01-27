@@ -29,7 +29,19 @@ task :deploy do
 
   s3 = Aws::S3::Resource.new(region: 'us-west-1')
   obj = s3.bucket('lol-schedule').object(INDEX_PATH)
-  obj.upload_file(INDEX_PATH, acl: 'public-read', cache_control: 'max-age=3600')
+  obj.upload_file(INDEX_PATH, acl: 'public-read', cache_control: 'max-age=3600', content_type: 'text/html')
+
+  cloudfront = Aws::CloudFront::Client.new(region: 'us-east-1')
+  cloudfront.create_invalidation({
+    distribution_id: 'EZONQIMJRRGWP',
+    invalidation_batch: {
+      paths: {
+        quantity: 1,
+        items: ['/index.html'],
+      },
+      caller_reference: "invalidation-#{Time.now.to_i}"
+    }
+  })
 end
 
 task :console do
