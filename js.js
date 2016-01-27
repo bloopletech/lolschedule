@@ -3,7 +3,7 @@ function parseTimes() {
 
   var times = document.querySelectorAll(".time");
   for(var i = 0; i < times.length; i++) {
-    var time = moment(times[i].getAttribute('value'));
+    var time = moment(times[i].dataset.value);
 
     var parts = [];
     parts.push(time.isSame(now, 'day') ? '[Today] ' : 'ddd D MMM ');
@@ -52,8 +52,8 @@ function filterMatches() {
 }
 
 function showGames(videoElement) {
-  var urls = JSON.parse(videoElement.getAttribute('urls'));
-  console.log('urls: ', urls);
+  var urls = JSON.parse(videoElement.dataset.urls);
+
   var modal = document.getElementById('modal');
   var modalBody = document.getElementById('modal-body');
   modalBody.innerHTML = '';

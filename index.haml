@@ -15,6 +15,7 @@
       #{File.read('moment.min.js')}
       #{File.read('js.js')}
 
+    <!-- Page generated #{generated}, data file generated #{data_generated} -->
   %body
     #page-wrapper
       #menu.clearfix
@@ -32,8 +33,8 @@
             .header= league_name
             .matches
               - tournament['matches'].each do |match|
-                .match{class: "#{'games' unless match['game_urls'].empty?} #{match['vs'].join(' ')}", urls: match['game_urls'].to_json}
-                  .time{value: match['time']}
+                .match{class: "#{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { urls: match['game_urls'].to_json }}
+                  .time{data: { value: match['time'] }}
                   .vs<
                     %span.side<
                       %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
@@ -42,6 +43,9 @@
                     %span.side<
                       %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
                       = match['vs'].last
+      #footer
+        Page generated #{Time.now}
     #modal
       %button#modal-close Close
       #modal-body
+
