@@ -13,51 +13,57 @@ LEAGUES = {
   '9' => 'World Championship'
 }
 
-def parse_league(league_id)
-  body = URI.parse("http://api.lolesports.com/api/v1/scheduleItems?leagueId=#{league_id}").read
-  #body = File.read('scheduleItems.json')
-  si = JSON.parse(body)
+def request_url(url)
+  start = Time.now
+  body = URI.parse(url).read
+  puts "Requested #{url}, took #{((Time.now - start) * 1000).round(1)}ms, body size #{(body.bytes.length / 1024.0).round(1)}KB"
+  body
+end
 
-  teams = Hash[si['teams'].map do |team|
+def parse_league(league_id)
+  league = JSON.parse(request_url("http://api.lolesports.com/api/v1/scheduleItems?leagueId=#{league_id}"))
+
+  teams = Hash[league['teams'].map do |team|
     [team['acronym'], { logo: team['logoUrl'] }]
   end]
 
-  tournament = si['highlanderTournaments'].find { |t| t['published'] }
+  league['scheduleItems'].sort_by! { |s| Time.parse(s['scheduledTime']) }
 
-  videos_body = URI.parse("http://api.lolesports.com/api/v2/videos?tournament=#{CGI::escape(tournament['id'])}").read
-  videos = JSON.parse(videos_body)
+  matches = []
 
-  scheduleItems = si['scheduleItems'].select { |s| s['tournament'] == tournament['id'] }
-  scheduleItems.sort_by! { |s| Time.parse(s['scheduledTime']) }
+  league['highlanderTournaments'].select { |t| t['published'] }.each do |tournament|
+    videos = JSON.parse(request_url("http://api.lolesports.com/api/v2/videos?tournament=#{CGI::escape(tournament['id'])}"))
 
-  matches = scheduleItems.select { |item| item['bracket'] }.map do |item|
-    bracket = tournament['brackets'][item['bracket']]
-    match = bracket['matches'][item['match']]
+    scheduleItems = league['scheduleItems'].select { |s| s['tournament'] == tournament['id'] }
 
-    match_rosters = match['input'].map do |input|
-      tournament['rosters'][input['roster']]
+    matches += scheduleItems.select { |item| item['bracket'] }.map do |item|
+      bracket = tournament['brackets'][item['bracket']]
+      match = bracket['matches'][item['match']]
+
+      match_rosters = match['input'].map do |input|
+        tournament['rosters'][input['roster']]
+      end
+
+      match_teams = match_rosters.map do |roster|
+        league['teams'].find { |team| team['id'] == roster['team'].to_i }
+      end
+
+      vs = match_teams.map { |team| team['acronym'] }
+
+      game_urls = match['games'].keys.map do |game_id|
+        video = videos['videos'].find { |video| video['game'] == game_id }
+        video['source'] if video
+      end.compact
+
+      {
+        time: item['scheduledTime'],
+        vs: vs,
+        game_urls: game_urls
+      }
     end
-
-    match_teams = match_rosters.map do |roster|
-      si['teams'].find { |team| team['id'] == roster['team'].to_i }
-    end
-
-    vs = match_teams.map { |team| team['acronym'] }
-
-    game_urls = match['games'].keys.map do |game_id|
-      video = videos['videos'].find { |video| video['game'] == game_id }
-      video['source'] if video
-    end.compact
-
-    {
-      time: item['scheduledTime'],
-      vs: vs,
-      game_urls: game_urls
-    }
   end
 
   {
-    tournament_name: tournament['description'],
     teams: teams,
     matches: matches
   }
