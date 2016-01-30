@@ -15,6 +15,7 @@ body {
 
 body, button, input {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 18px;
   line-height: 1.4;
 }
 
@@ -27,8 +28,11 @@ html, body, #page-wrapper {
 
 #menu button, #menu input {
   margin-right: 10px;
-  font-size: 18px;
   margin-bottom: 10px;
+}
+
+#menu input {
+  width: 250px;
 }
 
 #leagues-wrapper {
@@ -142,7 +146,6 @@ body.filter .match:not(.filter-match) {
 }
 
 .time {
-  font-size: 18px;
   text-align: center;
   padding-bottom: 10px;
 }
@@ -167,7 +170,6 @@ body.filter .match:not(.filter-match) {
   display: inline-block;
   width: 20px;
   text-align: center;
-  font-size: 18px;
   vertical-align: middle;
 }
 
@@ -199,7 +201,6 @@ body.filter .match:not(.filter-match) {
 
 #modal-body {
   text-align: center;
-  font-size: 18px;
 }
 
 #modal-body:before {
