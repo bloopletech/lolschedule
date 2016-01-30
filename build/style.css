@@ -173,7 +173,6 @@ body.filter .match:not(.filter-match) {
 
 .logo {
   display: inline-block;
-  background-size: cover;
   width: 26px;
   height: 26px;
   vertical-align: middle;

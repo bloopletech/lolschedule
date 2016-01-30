@@ -88,4 +88,4 @@ rosters = match['input'].map do |input|
 end
 =end
 
-File.open('data.json', 'w') { |f| f << data.to_json }
+File.open('build/data.json', 'w') { |f| f << data.to_json }
