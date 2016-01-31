@@ -69,10 +69,10 @@ task :deploy do
   bucket = s3.bucket('lol-schedule')
 
   obj = bucket.object('index.html')
-  obj.upload_file(INDEX_PATH, acl: 'public-read', cache_control: 'max-age=1800', content_type: 'text/html')
+  obj.upload_file(INDEX_PATH, acl: 'public-read', cache_control: 'max-age=300', content_type: 'text/html')
 
   obj = bucket.object('icons.png')
-  obj.upload_file('build/icons.png', acl: 'public-read', cache_control: 'max-age=1800', content_type: 'image/png')
+  obj.upload_file('build/icons.png', acl: 'public-read', cache_control: 'max-age=300', content_type: 'image/png')
 end
 
 task :console do
