@@ -31,7 +31,11 @@
         #leagues-inner.clearfix
           - data.each_pair do |league_name, tournament|
             .leagues
-              .header= league_name
+              .header
+                - if tournament['stream_url']
+                  %a{href: tournament['stream_url'], target: '_blank'}= league_name
+                - else
+                  = league_name
               .matches
                 - tournament['matches'].each do |match|
                   .match{class: "#{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { urls: match['game_urls'].to_json }}

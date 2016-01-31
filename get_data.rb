@@ -69,9 +69,25 @@ def parse_league(league_id)
   }
 end
 
+def parse_streams
+  streamgroups = JSON.parse(request_url('http://api.lolesports.com/api/v2/streamgroups'))
+  Hash[streamgroups['streams'].select { |stream| stream['provider'] == 'youtube' }.map do |stream|
+    group = streamgroups['streamgroups'].find { |group| stream['streamgroups'].first == group['id'] }
+
+    stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
+    url = "#{$1}#{$2}"
+
+    [LEAGUES.key(group['title']), url]
+  end]
+end
+
+stream_urls = parse_streams
 data = {}
 %w(2 3 6 7 8).each do |league_id|
-  data[LEAGUES[league_id]] = parse_league(league_id)
+  parsed = parse_league(league_id)
+  parsed['stream_url'] = stream_urls[league_id] if stream_urls[league_id]
+
+  data[LEAGUES[league_id]] = parsed
 end
 
 =begin
@@ -79,12 +95,6 @@ table = [data.keys]
 rows = data.values.map { |l| l[:matches].length }.max - 1
 0.upto(rows) do |row|
   table << data.keys.map { |league_name| data[league_name][:matches][row] }
-end
-=end
-
-=begin
-rosters = match['input'].map do |input|
-  tournament['rosters'][input['roster']]
 end
 =end
 
