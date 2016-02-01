@@ -91,6 +91,10 @@ html, body, #page-wrapper {
   border-bottom: none;
 }
 
+.match .live-banner {
+  display: none;
+}
+
 body.select-current-week .match.current-week {
   display: block;
 }
@@ -137,12 +141,21 @@ body.filter .match:not(.filter-match) {
   display: none !important;
 }
 
-.match.games {
+.match.games, .match.live {
   cursor: pointer;
 }
 
-.match.games .side, .match.games .middle {
+.match.games .side, .match.games .middle, .match.live .side, .match.live .middle {
   text-decoration: underline;
+}
+
+.match.live .live-banner {
+  display: block;
+  background-color: #800000;
+  margin: -16px -6px 16px -6px;
+  padding: 4px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .time {

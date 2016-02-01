@@ -77,6 +77,20 @@ function showGames(videoElement) {
   modal.style.display = 'block';
 }
 
+function showStream(videoElement) {
+  var modal = document.getElementById('modal');
+  var modalBody = document.getElementById('modal-body');
+  modalBody.innerHTML = '';
+
+  var element = document.createElement('a');
+  element.href = videoElement.dataset.streamUrl;
+  element.innerHTML = 'Live stream';
+  element.target = '_blank';
+  modalBody.appendChild(element);
+
+  modal.style.display = 'block';
+}
+
 /* from https://css-tricks.com/snippets/javascript/get-url-variables/ */
 function getQueryParams()
 {
@@ -128,6 +142,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var target = event.target;
       while(!target.matches('.match.games')) target = target.parentNode;
       showGames(target);
+    }
+
+    if(event.target.matches('.match.live, .match.live *')) {
+      event.stopPropagation();
+      var target = event.target;
+      while(!target.matches('.match.live')) target = target.parentNode;
+      showStream(target);
     }
   });
 

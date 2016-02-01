@@ -8,9 +8,7 @@ LEAGUES = {
   '3' => 'EU LCS',
   '6' => 'LCK',
   '7' => 'LPL',
-  '8' => 'LMS',
-  '1' => 'All-Star',
-  '9' => 'World Championship'
+  '8' => 'LMS'
 }
 
 def request_url(url)
@@ -18,6 +16,28 @@ def request_url(url)
   body = URI.parse(url).read
   puts "Requested #{url}, took #{((Time.now - start) * 1000).round(1)}ms, body size #{(body.bytes.length / 1024.0).round(1)}KB"
   body
+end
+
+def parse_streams
+  json = JSON.parse(request_url('http://api.lolesports.com/api/v2/streamgroups'))
+
+  json['streamgroups'].each do |group|
+    next unless group['live']
+
+    streams = json['streams'].select { |stream| stream['streamgroups'].any? { |id| id == group['id'] } }
+    stream = streams.find { |stream| stream['provider'] == 'youtube' }
+    next unless stream
+
+    stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
+    url = "#{$1}#{$2}"
+
+    league_id = LEAGUES.key(group['title'])
+    $leagues[league_id].merge!(stream_url: url) if league_id
+  end
+
+  json['highlanderTournaments'].each do |tournament|
+    $leagues[tournament['league']].merge!(stream_matches: tournament['liveMatches'])
+  end
 end
 
 def parse_league(league_id)
@@ -55,40 +75,34 @@ def parse_league(league_id)
         video['source'] if video
       end.compact
 
-      {
+      match_hash = {
         time: item['scheduledTime'],
         vs: vs,
         game_urls: game_urls
       }
+
+      stream_matches = $leagues[league_id][:stream_matches]
+      if stream_matches && stream_matches.include?(match['id'])
+        match_hash[:stream_url] = $leagues[league_id][:stream_url]
+      end
+
+      match_hash
     end
   end
 
-  {
+  $leagues[league_id].merge!(
     teams: teams,
     matches: matches
-  }
+  )
 end
 
-def parse_streams
-  streamgroups = JSON.parse(request_url('http://api.lolesports.com/api/v2/streamgroups'))
-  Hash[streamgroups['streams'].select { |stream| stream['provider'] == 'youtube' }.map do |stream|
-    group = streamgroups['streamgroups'].find { |group| stream['streamgroups'].first == group['id'] }
+$leagues = {}
+LEAGUES.each_pair { |league_id, league_name| $leagues[league_id] = { name: league_name } }
 
-    stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
-    url = "#{$1}#{$2}"
+parse_streams
+$leagues.keys.each { |league_id| parse_league(league_id) }
 
-    [LEAGUES.key(group['title']), url]
-  end]
-end
-
-stream_urls = parse_streams
-data = {}
-%w(2 3 6 7 8).each do |league_id|
-  parsed = parse_league(league_id)
-  parsed['stream_url'] = stream_urls[league_id] if stream_urls[league_id]
-
-  data[LEAGUES[league_id]] = parsed
-end
+data = Hash[$leagues.values.map { |league| [league[:name], league] }]
 
 =begin
 table = [data.keys]
