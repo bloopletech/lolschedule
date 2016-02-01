@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       showGames(target);
     }
 
-    if(event.target.matches('.match.live, .match.live *')) {
+    if(event.target.matches('.live, .live *')) {
       event.stopPropagation();
       var target = event.target;
-      while(!target.matches('.match.live')) target = target.parentNode;
+      while(!target.matches('.live')) target = target.parentNode;
       showStream(target);
     }
   });

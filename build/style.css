@@ -62,6 +62,10 @@ html, body, #page-wrapper {
   width: 215px;
 }
 
+.live-banner {
+  display: none;
+}
+
 .header, .match {
   border-bottom: 2px solid #ddd;
   padding: 10px;
@@ -70,11 +74,32 @@ html, body, #page-wrapper {
 .header {
   flex: 0 1 auto;
   min-height: 50px;
-  font-size: 30px;
   font-weight: bold;
-  line-height: 50px;
   text-align: center;
   border-bottom: 2px solid #888;
+}
+
+.header.live {
+  cursor: pointer;
+}
+
+.header h1 {
+  display: inline;
+  font-size: 30px;
+  line-height: 50px;
+  vertical-align: middle;
+  text-decoration: underline;
+}
+
+.header.live .live-banner {
+  display: inline;
+  background-color: #800000;
+  margin-left: 10px;
+  padding: 4px;
+  vertical-align: middle;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #ffffff;
 }
 
 .matches {
@@ -89,10 +114,6 @@ html, body, #page-wrapper {
 
 .matches .match:last-child {
   border-bottom: none;
-}
-
-.match .live-banner {
-  display: none;
 }
 
 body.select-current-week .match.current-week {
