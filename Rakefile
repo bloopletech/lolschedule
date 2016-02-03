@@ -84,4 +84,8 @@ task :console do
   IRB.start
 end
 
+task :develop do
+  exec('find . | entr rake -t build')
+end
+
 task default: [:data, :download_icons, :build_sprite, :build, :deploy]

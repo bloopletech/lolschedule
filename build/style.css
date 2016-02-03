@@ -68,7 +68,11 @@ html, body, #page-wrapper {
 
 .header, .match {
   border-bottom: 2px solid #ddd;
-  padding: 10px;
+}
+
+.header a, .match a {
+  display: block;
+  text-align: center;
 }
 
 .header {
@@ -80,7 +84,11 @@ html, body, #page-wrapper {
 }
 
 .header.live {
-  cursor: pointer;
+
+}
+
+.header .wrapper {
+  padding: 10px;
 }
 
 .header h1 {
@@ -88,11 +96,10 @@ html, body, #page-wrapper {
   font-size: 30px;
   line-height: 50px;
   vertical-align: middle;
-  text-decoration: underline;
 }
 
 .header.live .live-banner {
-  display: inline;
+  display: inline-block;
   background-color: #800000;
   margin-left: 10px;
   padding: 4px;
@@ -100,6 +107,7 @@ html, body, #page-wrapper {
   font-size: 18px;
   line-height: 1.4;
   color: #ffffff;
+  text-decoration: none;
 }
 
 .matches {
@@ -108,7 +116,6 @@ html, body, #page-wrapper {
 }
 
 .match {
-  padding: 16px 6px;
   display: none;
 }
 
@@ -163,7 +170,15 @@ body.filter .match:not(.filter-match) {
 }
 
 .match.games, .match.live {
-  cursor: pointer;
+
+}
+
+.match .wrapper {
+  padding: 16px 6px;
+}
+
+.match a {
+  color: inherit;
 }
 
 .match.games .side, .match.games .middle, .match.live .side, .match.live .middle {
@@ -182,6 +197,11 @@ body.filter .match:not(.filter-match) {
 .time {
   text-align: center;
   padding-bottom: 10px;
+}
+
+.match a .time {
+  display: inline-block;
+  text-decoration: none;
 }
 
 .vs {

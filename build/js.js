@@ -13,7 +13,7 @@ function parseTimes() {
     var earlyStart = time.subtract(3, 'hours');
     var scheduledEnd = time.add(3, 'hours');
 
-    var matchElement = times[i].parentNode;
+    var matchElement = times[i].parentNode.parentNode;
     if(scheduledEnd.isBefore(now)) matchElement.classList.add("past");
     if(now.isSameOrAfter(earlyStart) && now.isSameOrBefore(scheduledEnd)) matchElement.classList.add("current");
     if(time.isSame(now, 'day')) matchElement.classList.add("today");
