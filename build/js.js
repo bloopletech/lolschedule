@@ -1,27 +1,3 @@
-function parseTimes() {
-  var now = moment();
-
-  var times = document.querySelectorAll(".time");
-  for(var i = 0; i < times.length; i++) {
-    var time = moment(times[i].dataset.value);
-
-    var parts = [];
-    parts.push(time.isSame(now, 'day') ? '[Today] ' : 'ddd D MMM ');
-    parts.push((time.minutes() == 0) ? 'hA' : 'h:mmA');
-    times[i].innerHTML = time.format(parts.join(''));
-
-    var earlyStart = time.subtract(3, 'hours');
-    var scheduledEnd = time.add(3, 'hours');
-
-    var matchElement = times[i].parentNode.parentNode;
-    if(scheduledEnd.isBefore(now)) matchElement.classList.add("past");
-    if(now.isSameOrAfter(earlyStart) && now.isSameOrBefore(scheduledEnd)) matchElement.classList.add("current");
-    if(time.isSame(now, 'day')) matchElement.classList.add("today");
-    if(time.isSame(now, 'isoweek')) matchElement.classList.add("current-week");
-    if(earlyStart.isSameOrAfter(now)) matchElement.classList.add("future");
-  }
-}
-
 function layoutMatches() {
   var menuHeight = document.getElementById('menu').offsetHeight;
   var leaguesWrapper = document.getElementById('leagues-wrapper');
@@ -123,9 +99,6 @@ function setQueryParams() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  parseTimes();
-  window.setInterval(parseTimes, 60000);
-
   layoutMatches();
   window.addEventListener('resize', layoutMatches);
 
