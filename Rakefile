@@ -53,7 +53,7 @@ task :deploy do
   obj.upload_file(INDEX_PATH, acl: 'public-read', cache_control: 'max-age=300', content_type: 'text/html')
 
   obj = bucket.object('icons.png')
-  obj.upload_file('build/icons.png', acl: 'public-read', cache_control: 'max-age=300', content_type: 'image/png')
+  obj.upload_file('build/icons.png', acl: 'public-read', cache_control: 'max-age=3600', content_type: 'image/png')
 end
 
 task :console do
