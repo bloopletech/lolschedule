@@ -35,38 +35,6 @@ function filterMatches() {
   setQueryParams();
 }
 
-function showGames(videoElement) {
-  var urls = JSON.parse(videoElement.dataset.urls);
-
-  var modal = document.getElementById('modal');
-  var modalBody = document.getElementById('modal-body');
-  modalBody.innerHTML = '';
-
-  for(var i = 0; i < urls.length; i++) {
-    var element = document.createElement('a');
-    element.href = urls[i];
-    element.innerHTML = 'Game ' + (i + 1);
-    element.target = '_blank';
-    modalBody.appendChild(element);
-  }
-
-  modal.style.display = 'block';
-}
-
-function showStream(videoElement) {
-  var modal = document.getElementById('modal');
-  var modalBody = document.getElementById('modal-body');
-  modalBody.innerHTML = '';
-
-  var element = document.createElement('a');
-  element.href = videoElement.dataset.streamUrl;
-  element.innerHTML = 'Live stream';
-  element.target = '_blank';
-  modalBody.appendChild(element);
-
-  modal.style.display = 'block';
-}
-
 /* from https://css-tricks.com/snippets/javascript/get-url-variables/ */
 function getQueryParams()
 {
@@ -108,26 +76,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.getElementById('select-future').addEventListener("click", selectButton);
   document.getElementById('select-all').addEventListener("click", selectButton);
   document.getElementById('filter').addEventListener("keyup", filterMatches);
-
-  document.body.addEventListener('click', function(event) {
-    if(event.target.matches('.match.games, .match.games *')) {
-      event.stopPropagation();
-      var target = event.target;
-      while(!target.matches('.match.games')) target = target.parentNode;
-      showGames(target);
-    }
-
-    if(event.target.matches('.live, .live *')) {
-      event.stopPropagation();
-      var target = event.target;
-      while(!target.matches('.live')) target = target.parentNode;
-      showStream(target);
-    }
-  });
-
-  document.getElementById('modal-close').addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'none';
-  });
 
   if(params['filter']) {
     document.getElementById('filter').value = params['filter'];

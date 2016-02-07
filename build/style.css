@@ -107,7 +107,6 @@ html, body, #page-wrapper {
   font-size: 18px;
   line-height: 1.4;
   color: #ffffff;
-  text-decoration: none;
 }
 
 .matches {
@@ -117,6 +116,7 @@ html, body, #page-wrapper {
 
 .match {
   display: none;
+  padding-top: 16px;
 }
 
 .matches .match:last-child {
@@ -173,96 +173,90 @@ body.filter .match:not(.filter-match) {
 
 }
 
-.match .wrapper {
-  padding: 16px 6px;
+.match .time, .match .vs {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.match .vs {
+  padding-bottom: 16px;
 }
 
 .match a {
   color: inherit;
+  text-decoration: none;
 }
 
 .match.games .side, .match.games .middle, .match.live .side, .match.live .middle {
-  text-decoration: underline;
+
 }
 
 .match.live .live-banner {
   display: block;
   background-color: #800000;
-  margin: -16px -6px 16px -6px;
+  margin: -16px 0 16px 0;
   padding: 4px;
   text-align: center;
   font-weight: bold;
 }
 
-.time {
+.match .time {
   text-align: center;
   padding-bottom: 10px;
 }
 
-.match a .time {
-  display: inline-block;
-  text-decoration: none;
-}
-
-.vs {
+.match .vs {
   font-size: 24px;
   white-space: nowrap;
   text-align: center;
 }
 
-.vs .side {
+.match .vs .side {
   display: inline-block;
   vertical-align: middle;
   font-weight: bold;
 }
 
-.vs .side:first-child {
+.match .vs .side:first-child {
   text-align: right;
 }
 
-.vs .middle {
+.match .vs .middle {
   display: inline-block;
   width: 20px;
   text-align: center;
   vertical-align: middle;
 }
 
-.logo {
+.match .logo {
   display: inline-block;
   width: 26px;
   height: 26px;
   vertical-align: middle;
 }
 
-#modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 250px;
-  height: 200px;
-  margin-left: -125px;
-  margin-top: -100px;
-  border: 1px solid #000000;
-  background-color: #ffffff;
-  padding: 16px;
-  display: none;
+.match .logo {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  vertical-align: middle;
 }
 
-#modal-close {
-  float: right;
-  margin-bottom: 10px;
+.match .vods {
+  display: flex;
+  flex-direction: row;
 }
 
-#modal-body {
-  text-align: center;
-}
-
-#modal-body:before {
-  content: " ";
-  display: table;
-  clear: both;
-}
-
-#modal a {
+.match .vods a {
   display: block;
+  flex: 1 1;
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  background-color: #333;
+}
+
+.match .vods a:nth-child(odd) {
+  background-color: #222;
 }

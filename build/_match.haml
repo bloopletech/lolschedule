@@ -1,17 +1,26 @@
-.match{class: "#{'live' if match['stream_url']} #{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { urls: match['game_urls'].to_json, stream_url: match['stream_url'] }}
-  - content = capture_haml do
-    - if match['stream_url']
-      .live-banner LIVE
-    .time{data: { value: match['time'] }}
-    .vs<
-      %span.side<
-        %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
-        = match['vs'].first
-      %span.middle< v
-      %span.side<
-        %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
-        = match['vs'].last
-  - if match['stream_url'] || match['game_urls'].any?
-    %a.wrapper{href: 'javascript:;'}!= content
-  - else
-    .wrapper!= content
+.match{class: "#{'live' if match['stream_url']} #{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { stream_url: match['stream_url'] }}
+  - if match['stream_url']
+    %a.live-banner{href: match['stream_url'], target: '_blank'} WATCH LIVE
+  .time{data: { value: match['time'] }}
+  .vs<
+    %span.side<
+      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
+      = match['vs'].first
+    %span.middle< v
+    %span.side<
+      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
+      = match['vs'].last
+  - if match['game_urls'].any?
+    .vods
+      - if match['game_urls'].length == 1
+        %a{href: match['game_urls'].first, target: '_blank'}
+          Game
+      - elsif match['game_urls'].length <= 4
+        - match['game_urls'].each_with_index do |url, i|
+          %a{href: url, target: '_blank'}
+            G#{i + 1}
+      - else
+        - match['game_urls'].each_with_index do |url, i|
+          %a{href: url, target: '_blank'}
+            #{i + 1}
+
