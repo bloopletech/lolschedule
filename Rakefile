@@ -40,26 +40,7 @@ task :build_sprite do
 end
 
 task :build do
-  require 'haml'
-  require 'json'
-
-  TIME_FORMAT = '%a, %d %b %Y %-l:%M %p %z'
-
-  template = File.read('index.haml')
-  data = JSON.parse(File.read(DATA_PATH))
-
-  context = {
-    data: data,
-    generated: Time.now.strftime(TIME_FORMAT),
-    data_generated: File.mtime(DATA_PATH).strftime(TIME_FORMAT)
-  }
-
-  output = Dir.chdir('build') do
-    haml_engine = Haml::Engine.new(template, { remove_whitespace: true, escape_html: true, ugly: true })
-    haml_engine.render(Object.new, context)
-  end
-
-  File.open(INDEX_PATH, 'w') { |f| f << output }
+  load 'build.rb'
 end
 
 task :deploy do
