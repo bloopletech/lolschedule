@@ -7,16 +7,19 @@ function layoutMatches() {
 }
 
 function revealGame(event) {
-  var games = this.parentNode.querySelectorAll("a.game:not(.revealed)");
-  var nextGame = games[0];
+  event.preventDefault();
+
+  var games = this.parentNode.querySelectorAll(".games")[0];
+  var nextGames = games.querySelectorAll("a:not(.revealed)");
+  var nextGame = nextGames[0];
+
   if(nextGame) nextGame.classList.add("revealed");
+  else this.parentNode.removeChild(this);
 }
 
 function setupReveals() {
   var revealTriggers = document.querySelectorAll(".reveal");
-  for(var i = 0; i < revealTriggers.length; i++) {
-    revealTriggers[i].addEventListener("click", revealGame);
-  }
+  for(var i = 0; i < revealTriggers.length; i++) revealTriggers[i].addEventListener("click", revealGame);
 }
 
 function selectButton() {

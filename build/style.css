@@ -247,9 +247,14 @@ body.filter .match:not(.filter-match) {
   flex-direction: row;
 }
 
+.match .vods .games {
+  flex: 1 1;
+  display: flex;
+  flex-direction: row;
+}
+
 .match .vods a {
   display: block;
-  flex: 1 1;
   font-size: 20px;
   font-weight: bold;
   height: 40px;
@@ -257,14 +262,20 @@ body.filter .match:not(.filter-match) {
   background-color: #333;
 }
 
-.match .vods a:nth-child(odd) {
-  background-color: #222;
-}
-
-.match .vods a.game {
+.match .vods .games a {
+  flex: 1 1;
   display: none;
 }
 
-.match .vods a.game.revealed {
+.match .vods .games a:nth-child(odd) {
+  background-color: #222;
+}
+
+.match .vods .games a.revealed {
   display: block;
+}
+
+.match .vods a.reveal {
+  flex: 0 1 40px;
+  background-color: #555;
 }

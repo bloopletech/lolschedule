@@ -1,0 +1,16 @@
+.vods
+  - if game_urls.length == 1
+    .games
+      %a.revealed{href: game_urls.first, target: '_blank'} Game
+  - elsif game_urls.length <= 4
+    .games
+      - game_urls.each_with_index do |url, i|
+        %a{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
+          %span G#{i + 1}
+    %a.reveal{href: '#'} ⋯
+  - else
+    .games
+      - game_urls.each_with_index do |url, i|
+        %a{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
+          %span #{i + 1}
+    %a.reveal{href: '#'} ⋯
