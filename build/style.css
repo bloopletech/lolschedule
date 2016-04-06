@@ -260,3 +260,11 @@ body.filter .match:not(.filter-match) {
 .match .vods a:nth-child(odd) {
   background-color: #222;
 }
+
+.match .vods a.game {
+  display: none;
+}
+
+.match .vods a.game.revealed {
+  display: block;
+}

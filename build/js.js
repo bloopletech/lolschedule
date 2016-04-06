@@ -6,6 +6,19 @@ function layoutMatches() {
   document.getElementById('leagues-inner').style.height = leaguesWrapper.clientHeight + 'px';
 }
 
+function revealGame(event) {
+  var games = this.parentNode.querySelectorAll("a.game:not(.revealed)");
+  var nextGame = games[0];
+  if(nextGame) nextGame.classList.add("revealed");
+}
+
+function setupReveals() {
+  var revealTriggers = document.querySelectorAll(".reveal");
+  for(var i = 0; i < revealTriggers.length; i++) {
+    revealTriggers[i].addEventListener("click", revealGame);
+  }
+}
+
 function selectButton() {
   document.body.classList.remove("select-future");
   document.body.classList.remove("select-all");
@@ -69,6 +82,8 @@ function setQueryParams() {
 document.addEventListener("DOMContentLoaded", function(event) {
   layoutMatches();
   window.addEventListener('resize', layoutMatches);
+
+  setupReveals();
 
   var params = getQueryParams();
 

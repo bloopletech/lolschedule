@@ -13,14 +13,16 @@
   - if match['game_urls'].any?
     .vods
       - if match['game_urls'].length == 1
-        %a{href: match['game_urls'].first, target: '_blank'}
+        %a.game{href: match['game_urls'].first, target: '_blank'}
           Game
       - elsif match['game_urls'].length <= 4
         - match['game_urls'].each_with_index do |url, i|
-          %a{href: url, target: '_blank'}
+          %a.game{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
             G#{i + 1}
+        %a.reveal &gt;
       - else
         - match['game_urls'].each_with_index do |url, i|
-          %a{href: url, target: '_blank'}
+          %a.game{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
             #{i + 1}
+        %a.reveal &gt;
 
