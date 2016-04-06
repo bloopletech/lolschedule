@@ -14,7 +14,6 @@ function revealGame(event) {
   var nextGame = nextGames[0];
 
   if(nextGame) nextGame.classList.add("revealed");
-  else this.parentNode.removeChild(this);
 }
 
 function setupReveals() {
