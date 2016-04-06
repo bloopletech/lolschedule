@@ -64,6 +64,8 @@ def parse_league(league_id)
         tournament['rosters'][input['roster']]
       end
 
+      next if match_rosters.any? { |roster| roster.nil? }
+
       match_teams = match_rosters.map do |roster|
         league['teams'].find { |team| team['id'] == roster['team'].to_i }
       end
@@ -92,7 +94,7 @@ def parse_league(league_id)
 
   $leagues[league_id].merge!(
     teams: teams,
-    matches: matches
+    matches: matches.compact
   )
 end
 
