@@ -8,7 +8,10 @@ LEAGUES = {
   '3' => 'EU LCS',
   '6' => 'LCK',
   '7' => 'LPL',
-  '8' => 'LMS'
+  '8' => 'LMS',
+  '13' => 'OPL',
+  '4' => 'NA CS',
+  '5' => 'EU CS'
 }
 
 def request_url(url)
@@ -31,7 +34,7 @@ def parse_streams
     stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
     url = "#{$1}#{$2}"
 
-    league_id = LEAGUES.key(group['title'])
+    league_id = LEAGUES.key(group['title'].gsub(' English', ''))
     $leagues[league_id].merge!(stream_url: url) if league_id
   end
 
