@@ -66,10 +66,6 @@ html, body, #page-wrapper {
   display: none;
 }
 
-.header, .match {
-  border-bottom: 2px solid #ddd;
-}
-
 .header a, .match a {
   display: block;
   text-align: center;
@@ -118,10 +114,7 @@ html, body, #page-wrapper {
   display: none;
   padding-top: 16px;
   padding-bottom: 16px;
-}
-
-.matches .match:last-child {
-  border-bottom: none;
+  border-bottom: 2px solid #ddd;
 }
 
 body.select-current-week .match.current-week {
@@ -255,9 +248,9 @@ body.filter .match:not(.filter-match) {
 
 .match .vods .games a {
   display: none;
-  font-size: 22px;
-  height: 32px;
-  line-height: 32px;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
   color: #F44336;
   text-decoration: underline;
 }
