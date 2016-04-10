@@ -39,6 +39,7 @@ def parse_streams
   end
 
   json['highlanderTournaments'].each do |tournament|
+    next unless $leagues[tournament['league']]
     $leagues[tournament['league']].merge!(stream_matches: tournament['liveMatches'])
   end
 end
