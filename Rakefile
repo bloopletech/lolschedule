@@ -56,6 +56,20 @@ task :deploy do
   obj.upload_file('build/icons.png', acl: 'public-read', cache_control: 'max-age=3600', content_type: 'image/png')
 end
 
+task :invalidate do
+  cloudfront = Aws::CloudFront::Client.new(region: 'us-west-1')
+  cloudfront.create_invalidation({
+    distribution_id: 'EZONQIMJRRGWP',
+    invalidation_batch: {
+      paths: {
+        quantity: 1,
+        items: ['/index.html', '/icons.png'],
+      },
+      caller_reference: "invalidation-#{Time.now.to_i}"
+    }
+  })
+end
+
 task :console do
   require 'json'
   require 'awesome_print'
