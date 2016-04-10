@@ -64,7 +64,7 @@ task :invalidate do
     distribution_id: 'EZONQIMJRRGWP',
     invalidation_batch: {
       paths: {
-        quantity: 1,
+        quantity: 2,
         items: ['/index.html', '/icons.png'],
       },
       caller_reference: "invalidation-#{Time.now.to_i}"
