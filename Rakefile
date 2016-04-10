@@ -57,6 +57,8 @@ task :deploy do
 end
 
 task :invalidate do
+  require 'aws-sdk'
+
   cloudfront = Aws::CloudFront::Client.new(region: 'us-west-1')
   cloudfront.create_invalidation({
     distribution_id: 'EZONQIMJRRGWP',
