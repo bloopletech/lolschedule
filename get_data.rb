@@ -76,8 +76,8 @@ def parse_league(league_id)
 
       vs = match_teams.map { |team| team['acronym'] }
 
-      game_urls = match['games'].keys.map do |game_id|
-        video = videos['videos'].find { |video| video['game'] == game_id }
+      game_urls = match['games'].values.sort_by { |game| game['name'] }.map do |game|
+        video = videos['videos'].find { |video| video['game'] == game['id'] }
         video['source'] if video
       end.compact
 
