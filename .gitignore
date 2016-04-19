@@ -1,5 +1,7 @@
+/data
 /build/icons/
 /build/icons.css
 /build/icons.png
 /build/data.json
 /build/index.html
+.DS_Store

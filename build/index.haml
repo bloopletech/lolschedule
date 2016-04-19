@@ -8,7 +8,6 @@
     %meta{name: 'viewport', content: 'width=device-width, height=device-height, user-scalable=no'}
 
     :css
-      #{include('icons.css')}
       #{include('style.css')}
 
     :javascript
@@ -28,18 +27,5 @@
         %input#filter{type: 'text', placeholder: 'Filter matches'}
 
       #leagues-wrapper
-        #leagues-inner.clearfix
-          - data.each_pair do |league_name, tournament|
-            .leagues
-              .header{class: "#{'live' if tournament['stream_url']}"}
-                - if tournament['stream_url']
-                  %a.wrapper{href: tournament['stream_url'], target: '_blank'}
-                    %h1= league_name
-                    %span.live-banner LIVE
-                - else
-                  .wrapper
-                    %h1= league_name
-              .matches
-                - tournament['matches'].each do |match|
-                  != partial('match', { match: match, league_name: league_name})
-
+        - source.matches.sort_by { |match| Time.parse(match.time) }.each do |match|
+          != partial('match', { match: match })

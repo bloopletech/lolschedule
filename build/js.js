@@ -9,7 +9,7 @@ function layoutMatches() {
 function revealGame(event) {
   event.preventDefault();
 
-  var games = this.parentNode.querySelectorAll(".games")[0];
+  var games = this.parentNode;
   var nextGames = games.querySelectorAll("a:not(.revealed)");
   var nextGame = nextGames[0];
 
@@ -82,7 +82,7 @@ function setQueryParams() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  layoutMatches();
+  //layoutMatches();
   window.addEventListener('resize', layoutMatches);
 
   setupReveals();

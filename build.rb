@@ -20,10 +20,10 @@ class HamlContext
   end
 end
 
-data = JSON.parse(File.read(DATA_PATH))
+source = Models::SourceLoader.new.load(SOURCE_PATH)
 
 context = {
-  data: data,
+  source: source,
   generated: Time.now.strftime(TIME_FORMAT),
   data_generated: File.mtime(DATA_PATH).strftime(TIME_FORMAT)
 }

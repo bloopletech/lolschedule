@@ -1,8 +1,24 @@
-DATA_PATH = 'build/data.json'
-INDEX_PATH = 'build/index.html'
+require_relative './lib/lolschedule.rb'
+
+ROOT_PATH = Pathname.new(__FILE__).dirname
+DATA_PATH = ROOT_PATH + 'data'
+SOURCE_PATH = DATA_PATH + 'source.json'
+INDEX_PATH = ROOT_PATH + 'build' + 'index.html'
 
 task :data do
-  load 'get_data.rb'
+  source = Models::Source.new
+  Seeders::Seeder.new(source).seed
+  Models::SourceSaver.new(source).save(SOURCE_PATH)
+end
+
+task :process do
+  $source = Models::SourceLoader.new.load(SOURCE_PATH)
+
+  require 'awesome_print'
+
+  require 'irb'
+  ARGV.clear
+  IRB.start
 end
 
 task :download_icons do
@@ -15,7 +31,7 @@ task :download_icons do
 
   data = JSON.parse(File.read(DATA_PATH))
   data.each_pair do |league_name, league|
-    league['teams'].each_pair do |name, team|
+    data['teams'].each_pair do |name, team|
       filename = "build/icons/#{league_name.gsub(' ', '-')}-#{name}.png"
 
       unless File.exist?(filename)

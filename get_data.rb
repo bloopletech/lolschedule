@@ -14,9 +14,11 @@ LEAGUES = {
   '5' => 'EU CS'
 }
 
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
+
 def request_url(url)
   start = Time.now
-  body = URI.parse(url).read
+  body = URI.parse(url).read("User-Agent" => USER_AGENT)
   puts "Requested #{url}, took #{((Time.now - start) * 1000).round(1)}ms, body size #{(body.bytes.length / 1024.0).round(1)}KB"
   body
 end
@@ -26,6 +28,7 @@ def parse_streams
 
   json['streamgroups'].each do |group|
     next unless group['live']
+    next
 
     streams = json['streams'].select { |stream| stream['streamgroups'].any? { |id| id == group['id'] } }
     stream = streams.find { |stream| stream['provider'] == 'youtube' }
@@ -44,23 +47,20 @@ def parse_streams
   end
 end
 
-def parse_league(league_id)
-  league = JSON.parse(request_url("http://api.lolesports.com/api/v1/scheduleItems?leagueId=#{league_id}"))
+def parse_league(league_hash, league_name)
+  league = JSON.parse(request_url("http://api.lolesports.com/api/v1/scheduleItems?leagueId=#{league_hash[:id]}"))
 
-  teams = Hash[league['teams'].map do |team|
-    [team['acronym'], { logo: team['logoUrl'] }]
-  end]
-
-  league['scheduleItems'].sort_by! { |s| Time.parse(s['scheduledTime']) }
-
-  matches = []
+  league_hash[:teams] = {}
+  league['teams'].each do |team|
+    league_hash[:teams][team['acronym']] = { logo: team['logoUrl'] }
+  end
 
   league['highlanderTournaments'].select { |t| t['published'] }.each do |tournament|
     videos = JSON.parse(request_url("http://api.lolesports.com/api/v2/videos?tournament=#{CGI::escape(tournament['id'])}"))
 
     scheduleItems = league['scheduleItems'].select { |s| s['tournament'] == tournament['id'] }
 
-    matches += scheduleItems.select { |item| item['bracket'] }.map do |item|
+    scheduleItems.select { |item| item['bracket'] }.each do |item|
       bracket = tournament['brackets'][item['bracket']]
       match = bracket['matches'][item['match']]
 
@@ -81,41 +81,31 @@ def parse_league(league_id)
         video['source'] if video
       end.compact
 
-      match_hash = {
+      stream_matches = league_hash[:stream_matches]
+      stream_url = nil
+      if stream_matches && stream_matches.include?(match['id'])
+        stream_url = league_hash[:stream_url]
+      end
+      
+      Data::Match.create(
+        league_name: league_name,
         time: item['scheduledTime'],
         vs: vs,
-        game_urls: game_urls
-      }
-
-      stream_matches = $leagues[league_id][:stream_matches]
-      if stream_matches && stream_matches.include?(match['id'])
-        match_hash[:stream_url] = $leagues[league_id][:stream_url]
-      end
-
-      match_hash
+        game_urls: game_urls,
+        stream_url: stream_url
+      )
     end
   end
-
-  $leagues[league_id].merge!(
-    teams: teams,
-    matches: matches.compact
-  )
 end
 
-$leagues = {}
-LEAGUES.each_pair { |league_id, league_name| $leagues[league_id] = { name: league_name } }
+$data = { leagues: {}, matches: [] }
 
-parse_streams
-$leagues.keys.each { |league_id| parse_league(league_id) }
-
-data = Hash[$leagues.values.map { |league| [league[:name], league] }]
-
-=begin
-table = [data.keys]
-rows = data.values.map { |l| l[:matches].length }.max - 1
-0.upto(rows) do |row|
-  table << data.keys.map { |league_name| data[league_name][:matches][row] }
+LEAGUES.each_pair do |league_id, league_name|
+  league_hash = { id: league_id }
+  $data[:matches] += parse_league(league_hash, league_name)
+  $data[:leagues][league_name] = league_hash
 end
-=end
 
-File.open('build/data.json', 'w') { |f| f << data.to_json }
+$data[:matches].sort_by! { |s| Time.parse(s[:time]) } }
+
+File.open('build/data.json', 'w') { |f| f << $data.to_json }

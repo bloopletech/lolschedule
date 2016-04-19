@@ -36,30 +36,11 @@ html, body, #page-wrapper {
 }
 
 #leagues-wrapper {
-  overflow-x: auto;
+
 }
 
 #leagues-inner {
-  width: 1764px;
-}
 
-.leagues {
-  display: flex;
-  flex-direction: column;
-  float: left;
-  height: 100%;
-  margin-right: 4px;
-  border: 1px solid #999;
-}
-
-#leagues-wrapper .leagues:last-child {
-  margin-right: 0;
-}
-
-.matches {
-  flex: 2;
-  overflow: auto;
-  width: 215px;
 }
 
 .live-banner {
@@ -105,15 +86,12 @@ html, body, #page-wrapper {
   color: #ffffff;
 }
 
-.matches {
-  background-color: #000000;
-  color: #fff;
-}
-
 .match {
   display: none;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #000000;
+  color: #fff;
   border-bottom: 2px solid #ddd;
 }
 
@@ -164,16 +142,12 @@ body.filter .match:not(.filter-match) {
 }
 
 .match.games, .match.live {
-
 }
 
 .match .time, .match .vs {
-  padding-left: 6px;
-  padding-right: 6px;
 }
 
 .match .vs {
-  padding-bottom: 6px;
 }
 
 .match a {
@@ -194,12 +168,26 @@ body.filter .match:not(.filter-match) {
   font-weight: bold;
 }
 
+.match .col {
+  display: block;
+  float: left;
+  padding: 20px 10px;
+  vertical-align: middle;
+  height: 76px;
+}
+
+.match .league {
+  width: 120px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .match .time {
-  text-align: center;
-  padding-bottom: 10px;
+  width: 203px;
 }
 
 .match .vs {
+  width: 203px;
   font-size: 24px;
   white-space: nowrap;
   text-align: center;
@@ -237,17 +225,14 @@ body.filter .match:not(.filter-match) {
 }
 
 .match .vods {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
+  width: 415px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.match .vods .games {
-  flex: 1 1 auto;
-}
-
-.match .vods .games a {
+.match .vods a {
   display: none;
+  padding: 0 10px;
   font-size: 20px;
   height: 30px;
   line-height: 30px;
@@ -255,18 +240,14 @@ body.filter .match:not(.filter-match) {
   text-decoration: underline;
 }
 
-.match .vods .games a.revealed {
-  display: block;
-}
-
-.match .vods .games.with-reveal a {
-  text-indent: 50px;
+.match .vods a.revealed {
+  display: inline;
 }
 
 .match .vods a.reveal {
-  display: block;
-  flex: 0 1 50px;
+  display: inline;
   color: #ffffff;
   font-size: 22px;
   font-weight: bold;
+  text-decoration: none;
 }
