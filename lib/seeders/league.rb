@@ -1,5 +1,6 @@
 class Seeders::League
   LEAGUES = {
+    '10' => 'MSI',
     '2' => 'NA LCS',
     '3' => 'EU LCS',
     '6' => 'LCK',
