@@ -9,11 +9,11 @@ class Seeders::RiotTournament
     @tournament = tournament
     @riot_tournament = Riot::Tournament.new(tournament)
   end
-  
+
   def seed
     schedule_items(@tournament['id']).select { |item| item['bracket'] }.each { |item| seed_item(item) }
   end
-  
+
   def seed_item(item)
     match = match(item)
     team_ids = match_teams(match)

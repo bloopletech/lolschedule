@@ -11,7 +11,7 @@ class Seeders::RiotStreams
     seed_streams
     seed_active_matches
   end
-  
+
   def seed_streams
     active_streamgroups.each do |streamgroup|
       stream = youtube_stream(streams(streamgroup['id']))
@@ -25,7 +25,7 @@ class Seeders::RiotStreams
     url = "#{$1}#{$2}"
 
     riot_league_id = Seeders::LEAGUES.key(group['title'].gsub(' English', ''))
-    
+
     if riot_league_id
       league = @source.leagues.find { |league| league.riot_id == riot_league_id }
       league.stream_url = url

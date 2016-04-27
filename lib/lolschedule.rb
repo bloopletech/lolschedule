@@ -1,5 +1,10 @@
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
 $:.unshift(File.dirname(__FILE__))
 
+require 'fileutils'
 require 'forwardable'
 require 'pathname'
 require 'open-uri'
@@ -7,6 +12,9 @@ require 'json'
 require 'time'
 require 'set'
 require 'cgi'
+
+module Build
+end
 
 module Models
 end
@@ -17,13 +25,15 @@ end
 module Riot
 end
 
+require 'build/haml_context'
+require 'build/icons'
+require 'build/build'
 require 'riot/api_client'
 require 'riot/league'
 require 'riot/streams'
 require 'riot/tournament'
 require 'models/source'
-require 'models/source_loader'
-require 'models/source_saver'
+require 'models/persistence'
 require 'models/list'
 require 'models/model'
 require 'models/match'

@@ -1,6 +1,6 @@
 class Models::Source
   attr_accessor :matches, :leagues, :teams
-  
+
   def self.from_h(hash)
     source = new
     hash['matches'].each { |hash| source.matches << Models::Match.new(hash) }
@@ -18,7 +18,7 @@ class Models::Source
   def list_for(record)
     send("#{record.class.name.split('::').last.downcase}s")
   end
-  
+
   def to_h
     {
       matches: @matches.map(&:to_h),

@@ -3,81 +3,42 @@ require_relative './lib/lolschedule.rb'
 ROOT_PATH = Pathname.new(__FILE__).dirname
 DATA_PATH = ROOT_PATH + 'data'
 SOURCE_PATH = DATA_PATH + 'source.json'
-INDEX_PATH = ROOT_PATH + 'build' + 'index.html'
+BUILD_PATH = ROOT_PATH + 'build'
+ICONS_PATH = BUILD_PATH + 'icons'
+INDEX_PATH = BUILD_PATH + 'index.html'
 
 task :data do
   source = Models::Source.new
   Seeders::Seeder.new(source).seed
-  Models::SourceSaver.new(source).save(SOURCE_PATH)
+  Models::Persistence.save(source, SOURCE_PATH)
 end
 
 task :download_icons do
-  require 'fileutils'
-  require 'rmagick'
-
-  FileUtils.mkdir_p('build/icons')
-
-  source = Models::SourceLoader.new.load(SOURCE_PATH)
-  source.teams.each do |team|
-    filename = "build/icons/#{team.slug}.png"
-
-    unless File.exist?(filename)
-      body = URI.parse("http://am-a.akamaihd.net/image/?f=#{team.logo}&resize=50:50").read
-      img = Magick::Image.from_blob(body)[0]
-      small = img.resize_to_fit(26, 26)
-      small.write(filename)
-    end
-  end
+  source = Models::Persistence.load(SOURCE_PATH)
+  Build::Icons.new(ICONS_PATH).download(source)
 end
 
 task :clean_icons do
-  require 'fileutils'
-  FileUtils.rm_r(Dir.glob('build/icons/*'))
+  Build::Icons.new(ICONS_PATH).clean
 end
 
 task :build_sprite do
-  require 'sprite_factory'
-
-  SpriteFactory.run!('build/icons', margin: 1, selector: '.')
+  Build::Icons.new(ICONS_PATH).build_sprites
 end
 
 task :build do
-  load 'build.rb'
+  Build::Build.new(BUILD_PATH, SOURCE_PATH).build
 end
 
 task :deploy do
-  require 'aws-sdk'
-
-  s3 = Aws::S3::Resource.new(region: 'us-west-1')
-  bucket = s3.bucket('lol-schedule')
-
-  obj = bucket.object('index.html')
-  obj.upload_file(INDEX_PATH, acl: 'public-read', cache_control: 'max-age=300', content_type: 'text/html')
-
-  obj = bucket.object('icons.png')
-  obj.upload_file('build/icons.png', acl: 'public-read', cache_control: 'max-age=3600', content_type: 'image/png')
+  Build::Aws.new.deploy(INDEX_PATH, ICONS_PATH)
 end
 
 task :invalidate do
-  require 'aws-sdk'
-
-  cloudfront = Aws::CloudFront::Client.new(region: 'us-west-1')
-  cloudfront.create_invalidation({
-    distribution_id: 'EZONQIMJRRGWP',
-    invalidation_batch: {
-      paths: {
-        quantity: 2,
-        items: ['/index.html', '/icons.png'],
-      },
-      caller_reference: "invalidation-#{Time.now.to_i}"
-    }
-  })
+  Build::Aws.new.invalidate
 end
 
 task :console do
-  require 'json'
-  require 'awesome_print'
-
   require 'irb'
   ARGV.clear
   IRB.start
