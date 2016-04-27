@@ -10,7 +10,7 @@ function revealGame(event) {
   event.preventDefault();
 
   var games = this.parentNode;
-  var nextGames = games.querySelectorAll("a:not(.revealed)");
+  var nextGames = games.querySelectorAll("a.vod:not(.revealed)");
   var nextGame = nextGames[0];
 
   if(nextGame) nextGame.classList.add("revealed");

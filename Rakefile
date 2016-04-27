@@ -12,24 +12,20 @@ task :data do
 end
 
 task :download_icons do
-  require 'json'
-  require 'open-uri'
   require 'fileutils'
   require 'rmagick'
 
   FileUtils.mkdir_p('build/icons')
 
-  data = JSON.parse(File.read(DATA_PATH))
-  data.each_pair do |league_name, league|
-    data['teams'].each_pair do |name, team|
-      filename = "build/icons/#{league_name.gsub(' ', '-')}-#{name}.png"
+  source = Models::SourceLoader.new.load(SOURCE_PATH)
+  source.teams.each do |team|
+    filename = "build/icons/#{team.slug}.png"
 
-      unless File.exist?(filename)
-        body = URI.parse("http://am-a.akamaihd.net/image/?f=#{team['logo']}&resize=50:50").read
-        img = Magick::Image.from_blob(body)[0]
-        small = img.resize_to_fit(26, 26)
-        small.write(filename)
-      end
+    unless File.exist?(filename)
+      body = URI.parse("http://am-a.akamaihd.net/image/?f=#{team.logo}&resize=50:50").read
+      img = Magick::Image.from_blob(body)[0]
+      small = img.resize_to_fit(26, 26)
+      small.write(filename)
     end
   end
 end

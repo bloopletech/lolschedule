@@ -1,8 +1,7 @@
-.col.vods.clearfix
-  - if vod_urls.length == 1
-    %a.revealed{href: vod_urls.first, target: '_blank'} vod
-  - else
-    - vod_urls.each_with_index do |url, i|
-      %a{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
-        %span vod #{i + 1}
-    %a.reveal{href: '#'} …
+- if vod_urls.length == 1
+  %a.vod.revealed{href: vod_urls.first, target: '_blank'} vod
+- else
+  - vod_urls.each_with_index do |url, i|
+    %a.vod{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
+      %span vod #{i + 1}
+  %a.reveal{href: '#'} …

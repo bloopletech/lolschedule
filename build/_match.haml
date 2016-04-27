@@ -1,9 +1,9 @@
 .match.clearfix{class: "#{'live' if match.stream_url} #{'games' if match.vod_urls.any?} #{match.team_1.acronym} #{match.team_2.acronym}", data: { stream_url: match.stream_url }}
   - if match.stream_url
     %a.live-banner{href: match.stream_url, target: '_blank'} WATCH LIVE NOW
-  .col.time{data: { value: match.time }}
-  .col.league= match.league.name
-  .col.vs<
+  .time{data: { value: match.time }}
+  .league= match.league.name
+  .vs<
     %span.side<
       %span.logo{class: match.team_1.slug}
       = match.team_1.acronym
