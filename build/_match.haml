@@ -1,4 +1,4 @@
-.match.clearfix{class: "#{'live' if match.stream_url} #{'games' if match.game_urls.any?} #{match.team_1.acronym} #{match.team_2.acronym}", data: { stream_url: match.stream_url }}
+.match.clearfix{class: "#{'live' if match.stream_url} #{'games' if match.vod_urls.any?} #{match.team_1.acronym} #{match.team_2.acronym}", data: { stream_url: match.stream_url }}
   - if match.stream_url
     %a.live-banner{href: match.stream_url, target: '_blank'} WATCH LIVE NOW
   .col.time{data: { value: match.time }}
@@ -11,5 +11,5 @@
     %span.side<
       %span.logo{class: match.team_2.slug}
       = match.team_2.acronym
-  - if match.game_urls.any?
-    != partial('vods', { game_urls: match.game_urls })
+  - if match.vod_urls.any?
+    != partial('vods', { vod_urls: match.vod_urls })

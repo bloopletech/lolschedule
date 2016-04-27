@@ -11,16 +11,6 @@ task :data do
   Models::SourceSaver.new(source).save(SOURCE_PATH)
 end
 
-task :process do
-  $source = Models::SourceLoader.new.load(SOURCE_PATH)
-
-  require 'awesome_print'
-
-  require 'irb'
-  ARGV.clear
-  IRB.start
-end
-
 task :download_icons do
   require 'json'
   require 'open-uri'

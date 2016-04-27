@@ -1,8 +1,8 @@
 .col.vods.clearfix
-  - if game_urls.length == 1
-    %a.revealed{href: game_urls.first, target: '_blank'} vod
+  - if vod_urls.length == 1
+    %a.revealed{href: vod_urls.first, target: '_blank'} vod
   - else
-    - game_urls.each_with_index do |url, i|
+    - vod_urls.each_with_index do |url, i|
       %a{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
         %span vod #{i + 1}
     %a.reveal{href: '#'} …

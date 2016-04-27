@@ -17,23 +17,15 @@ class Seeders::RiotTournament
   def seed_item(item)
     match = match(item)
     team_ids = match_teams(match)
-    game_urls = match_videos(match).map { |video| video['source'] }
+    vod_urls = match_videos(match).map { |video| video['source'] }
 
-=begin
-    stream_matches = league_hash[:stream_matches]
-    stream_url = nil
-    if stream_matches && stream_matches.include?(match['id'])
-      stream_url = league_hash[:stream_url]
-    end
-=end
     @source.matches << Models::Match.new(
       riot_id: match['id'],
       riot_league_id: @tournament['league'],
       riot_team_1_id: team_ids.first,
       riot_team_2_id: team_ids.last,
       time: item['scheduledTime'],
-      game_urls: game_urls
-      #stream_url: stream_url
+      vod_urls: vod_urls
     )
   end
 end
