@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.clearfix:after {
+.clearfix:after, .match:after {
   content: " ";
   display: table;
   clear: both;
@@ -24,7 +24,7 @@ html, body, #page-wrapper {
 }
 
 #page-wrapper {
-  max-width: 908px;
+  max-width: 962px;
   margin: 0 auto;
 }
 
@@ -104,8 +104,9 @@ body.filter .match:not(.filter-match) {
   display: none;
 }
 
-.match.past .time {
-  color: #888;
+.match.past {
+
+
 }
 
 .match.current {
@@ -149,48 +150,30 @@ body.filter .match:not(.filter-match) {
   width: 95px;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 .match .time {
   width: 203px;
+  text-align: center;
 }
 
 .match .vs {
-  width: 203px;
+  width: 250px;
   font-size: 24px;
-  white-space: nowrap;
   text-align: center;
-}
-
-.match .vs .side {
-  display: inline-block;
-  vertical-align: middle;
   font-weight: bold;
 }
 
-.match .vs .side:first-child {
-  text-align: right;
-}
-
 .match .vs .middle {
-  display: inline-block;
-  width: 20px;
-  text-align: center;
-  vertical-align: middle;
+  font-weight: normal;
+  margin: 0 7px;
 }
 
 .match .logo {
   display: inline-block;
-  width: 26px;
-  height: 26px;
-  vertical-align: middle;
-}
-
-.match .logo {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  vertical-align: middle;
+  vertical-align: top;
+  margin: 0 5px;
 }
 
 .match a.vod {
@@ -209,4 +192,25 @@ body.filter .match:not(.filter-match) {
   font-size: 22px;
   font-weight: bold;
   text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .match .vs {
+    width: auto;
+
+  }
+
+  .match .league, .match .time {
+
+  }
+
+  /*.match .vs:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }*/
+
+  .match .time {
+    font-size: 16px;
+  }
 }

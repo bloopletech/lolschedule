@@ -1,11 +1,3 @@
-function layoutMatches() {
-  var menuHeight = document.getElementById('menu').offsetHeight;
-  var leaguesWrapper = document.getElementById('leagues-wrapper');
-  leaguesWrapper.style.height = (window.innerHeight - 16 - menuHeight) + 'px';
-
-  document.getElementById('leagues-inner').style.height = leaguesWrapper.clientHeight + 'px';
-}
-
 function revealGame(event) {
   event.preventDefault();
 
@@ -82,9 +74,6 @@ function setQueryParams() {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  //layoutMatches();
-  window.addEventListener('resize', layoutMatches);
-
   setupReveals();
 
   var params = getQueryParams();

@@ -1,9 +1,3 @@
-require 'rubygems'
-require 'bundler/setup'
-Bundler.require(:default)
-
-$:.unshift(File.dirname(__FILE__))
-
 require 'cgi'
 require 'fileutils'
 require 'forwardable'
@@ -13,8 +7,11 @@ require 'pathname'
 require 'set'
 require 'time'
 
-module Build
-end
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
+$:.unshift(File.dirname(__FILE__))
 
 module Models
 end
@@ -25,6 +22,7 @@ end
 module Riot
 end
 
+require 'build'
 require 'build/haml_context'
 require 'build/icons'
 require 'build/html'
