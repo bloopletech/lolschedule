@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  padding: 8px;
+  padding: 2px;
 }
 
 body, button, input {
@@ -21,6 +21,11 @@ body, button, input {
 
 html, body, #page-wrapper {
   height: 100%;
+}
+
+#page-wrapper {
+  max-width: 908px;
+  margin: 0 auto;
 }
 
 #menu {
