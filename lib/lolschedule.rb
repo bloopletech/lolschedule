@@ -4,14 +4,14 @@ Bundler.require(:default)
 
 $:.unshift(File.dirname(__FILE__))
 
+require 'cgi'
 require 'fileutils'
 require 'forwardable'
-require 'pathname'
-require 'open-uri'
 require 'json'
-require 'time'
+require 'open-uri'
+require 'pathname'
 require 'set'
-require 'cgi'
+require 'time'
 
 module Build
 end
