@@ -13,22 +13,28 @@ task :data do
   Models::Persistence.save(source, SOURCE_PATH)
 end
 
-task :download_icons do
-  source = Models::Persistence.load(SOURCE_PATH)
-  Build::Icons.new(ICONS_PATH).download(source)
+namespace :build do
+  namespace :icons do
+    task :download do
+      source = Models::Persistence.load(SOURCE_PATH)
+      Build::Icons.new(ICONS_PATH).download(source)
+    end
+
+    task :clean do
+      Build::Icons.new(ICONS_PATH).clean
+    end
+
+    task :sprite do
+      Build::Icons.new(ICONS_PATH).build_sprites
+    end
+  end
+
+  task :html do
+    Build::Html.new(BUILD_PATH, SOURCE_PATH).build
+  end
 end
 
-task :clean_icons do
-  Build::Icons.new(ICONS_PATH).clean
-end
-
-task :build_sprite do
-  Build::Icons.new(ICONS_PATH).build_sprites
-end
-
-task :build do
-  Build::Build.new(BUILD_PATH, SOURCE_PATH).build
-end
+task build: ['build:icons:download', 'build:icons:sprite', 'build:html']
 
 task :deploy do
   Build::Aws.new.deploy(INDEX_PATH, ICONS_PATH)
@@ -48,4 +54,4 @@ task :develop do
   exec('find . | entr rake -t build')
 end
 
-task default: [:data, :download_icons, :build_sprite, :build, :deploy]
+task default: [:data, :build, :deploy]

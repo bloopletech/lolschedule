@@ -1,4 +1,4 @@
-class Build::Build
+class Build::Html
   TIME_FORMAT = '%a, %d %b %Y %-l:%M %p %z'
 
   def initialize(build_path, source_path)

@@ -27,7 +27,7 @@ end
 
 require 'build/haml_context'
 require 'build/icons'
-require 'build/build'
+require 'build/html'
 require 'riot/api_client'
 require 'riot/league'
 require 'riot/streams'

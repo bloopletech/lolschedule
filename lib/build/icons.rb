@@ -4,7 +4,7 @@ class Build::Icons
   end
 
   def download(source)
-    @icons_path.mkdir_p
+    @icons_path.mkpath
 
     source.teams.each do |team|
       file = @icons_path + "#{team.slug}.png"
