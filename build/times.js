@@ -42,7 +42,7 @@ function parseTimes() {
   for(var i = 0; i < times.length; i++) {
     var time = new Date(times[i].dataset.value);
 
-    times[i].innerHTML = time.formatDate(now);
+    times[i].textContent = time.formatDate(now);
 
     var earlyStart = new Date(time.getTime());
     earlyStart.setHours(time.getHours() - 3);
