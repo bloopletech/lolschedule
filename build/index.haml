@@ -28,5 +28,5 @@
         %input#filter{type: 'text', placeholder: 'Filter matches'}
 
       #leagues-wrapper
-        - source.matches.sort_by { |match| Time.parse(match.time) }.each do |match|
+        - source.matches.sort_by { |match| Time.parse(match.time) }.reverse_each do |match|
           != partial('match', { match: match })

@@ -17,6 +17,8 @@ class Seeders::RiotTournament
   def seed_item(item)
     match = match(item)
     team_ids = match_teams(match)
+    return if team_ids.any? { |team_id| team_id.nil? }
+
     vod_urls = match_videos(match).map { |video| video['source'] }
 
     @source.matches << Models::Match.new(

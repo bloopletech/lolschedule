@@ -16,7 +16,9 @@ class Models::Model
       return nil unless source
 
       self_value = send(key)
-      source.send(relation).find { |record| record.send(foreign_key) == self_value }
+      result = source.send(relation).find { |record| record.send(foreign_key) == self_value }
+      raise "Could not find record in relation #{relation} with #{foreign_key} of #{self_value}" unless result
+      result
     end
   end
 

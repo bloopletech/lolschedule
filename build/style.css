@@ -195,8 +195,13 @@ body.filter .match:not(.filter-match) {
 }
 
 @media (max-width: 767px) {
+  .match .league {
+    transform: rotate(-90deg);
+  }
+
   .match .vs {
     width: auto;
+    float: none;
 
   }
 
