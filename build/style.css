@@ -195,27 +195,31 @@ body.filter .match:not(.filter-match) {
 }
 
 @media (max-width: 767px) {
-  .match .league {
-    transform: rotate(-90deg);
+  .match {
+    position: relative;
+    padding: 10px 10px 10px 36px;
+    min-height: 120px;
   }
 
-  .match .vs {
+  .match > * {
+    padding: 0;
+  }
+
+  .match .league {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    transform: rotate(-90deg) translate(-95px, 0);
+    transform-origin: left top 0;
+    font-size: 24px;
+  }
+
+  .match .vs, .match .time {
     width: auto;
     float: none;
-
   }
 
-  .match .league, .match .time {
-
-  }
-
-  /*.match .vs:after {
-    content: " ";
-    display: table;
-    clear: both;
-  }*/
-
-  .match .time {
-    font-size: 16px;
+  .match a.vod, .match a.reveal {
+    padding: 0 10px;
   }
 }
