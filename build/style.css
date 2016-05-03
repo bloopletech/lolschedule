@@ -43,6 +43,7 @@ div.filter a.trigger {
 div.filter > .opened {
   display: none;
   position: absolute;
+  z-index: 100;
   top: 45px;
   left: 0;
   min-width: 150px;
