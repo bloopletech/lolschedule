@@ -22,26 +22,6 @@ function selectButton() {
   setQueryParams();
 }
 
-function filterMatches() {
-  document.body.classList.remove("filter");
-
-  var query = document.getElementById('filter').value;
-  if(query != "") {
-    document.body.classList.add("filter");
-
-    var matches = document.querySelectorAll(".match");
-    for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-match");
-
-    var terms = query.toUpperCase().split(/[ ,]/);
-    for(var i = 0; i < terms.length; i++) {
-      var matching = document.querySelectorAll(".match[class*='" + terms[i] + "']");
-      for(var j = 0; j < matching.length; j++) matching[j].classList.add("filter-match");
-    }
-  }
-
-  setQueryParams();
-}
-
 /* from https://css-tricks.com/snippets/javascript/get-url-variables/ */
 function getQueryParams()
 {
@@ -76,7 +56,7 @@ function setQueryParams() {
 document.addEventListener("DOMContentLoaded", function(event) {
   setupReveals();
 
-  var params = getQueryParams();
+  /*var params = getQueryParams();
 
   document.getElementById('select-current-week').addEventListener("click", selectButton);
   document.getElementById('select-future').addEventListener("click", selectButton);
@@ -89,5 +69,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   if(params['select']) document.getElementById(params['select']).click();
-  else document.getElementById('select-current-week').click();
+  else document.getElementById('select-current-week').click();*/
 });

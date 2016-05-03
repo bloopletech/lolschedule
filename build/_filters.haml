@@ -1,0 +1,31 @@
+.filter
+  %a.trigger
+  .opened
+    %a.close &times;
+    %h3 When
+    %ul.filter-list
+      %li{data: { value: 'today'}} Today
+      %li.selected{data: { value: 'current-week'}} This Week
+      %li{data: { value: 'future'}} All Future
+      %li{data: { value: 'all'}} All
+
+.filter.multi
+  %a.trigger
+  .opened
+    %a.close &times;
+    %h3 League
+    %ul.filter-list
+      - source.leagues.each do |league|
+        %li{data: { value: league.slug }}= league.name
+
+.filter.multi
+  %a.trigger
+  .opened.clearfix
+    %a.close &times;
+    %h3 Team
+    - source.leagues.each do |league|
+      .group
+        %h3= league.name
+        %ul.filter-list
+          - league.teams.each do |team|
+            %li{data: { value: team.acronym }}= team.acronym

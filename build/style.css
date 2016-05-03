@@ -28,24 +28,75 @@ html, body, #page-wrapper {
   margin: 0 auto;
 }
 
-#menu {
+div.filter {
+  position: relative;
+  float: left;
+  width: 150px;
 }
 
-#menu button, #menu input {
-  margin-right: 10px;
-  margin-bottom: 10px;
+div.filter a.trigger {
+  display: block;
+  padding: 10px;
+  margin: 0;
 }
 
-#menu input {
-  width: 250px;
+div.filter > .opened {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  min-width: 150px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
 }
 
-#leagues-wrapper {
-
+div.filter.open > .opened {
+  display: block;
 }
 
-#leagues-inner {
+div.filter h3 {
+  padding: 10px;
+  margin: 0;
+  font-weight: bold;
+}
 
+div.filter ul.filter-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.filter ul.filter-list li {
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+div.filter ul.filter-list li.selected, div.filter ul.filter-list li:hover {
+  background-color: #F44336;
+  color: #ffffff;
+}
+
+div.filter ul.filter-list li.heading {
+  font-weight: bold;
+}
+
+div.filter a.close {
+  float: right;
+  padding: 0 5px 5px 5px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+div.filter .opened .group {
+  float: left;
+}
+
+div.filter .opened .group ul.filter-list {
+  float: left;
+  padding-left: 10px;
 }
 
 .live-banner {
@@ -69,38 +120,14 @@ html, body, #page-wrapper {
 }
 
 .match {
-  display: none;
-  padding: 20px 10px;
+  display: block;
+  padding: 15px 0px;
   background-color: #000000;
   color: #fff;
   border-bottom: 2px solid #ddd;
 }
 
-body.select-current-week .match.current-week {
-  display: block;
-}
-
-body.select-current-week #select-current-week {
-  font-weight: bold;
-}
-
-body.select-future .match.future {
-  display: block;
-}
-
-body.select-future #select-future {
-  font-weight: bold;
-}
-
-body.select-all .match {
-  display: block;
-}
-
-body.select-all #select-all {
-  font-weight: bold;
-}
-
-body.filter .match:not(.filter-match) {
+.match.filter-no-match {
   display: none;
 }
 
@@ -117,10 +144,6 @@ body.filter .match:not(.filter-match) {
 
 .match.current .time {
   font-weight: bold;
-}
-
-.match.filter-no-match {
-  display: none !important;
 }
 
 .match a {
@@ -198,7 +221,7 @@ body.filter .match:not(.filter-match) {
   .match {
     position: relative;
     padding: 10px 10px 10px 36px;
-    min-height: 120px;
+    min-height: 110px;
   }
 
   .match > * {
@@ -207,7 +230,7 @@ body.filter .match:not(.filter-match) {
 
   .match .league {
     position: absolute;
-    top: 10px;
+    top: 5px;
     left: 0;
     transform: rotate(-90deg) translate(-95px, 0);
     transform-origin: left top 0;

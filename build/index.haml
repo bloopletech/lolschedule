@@ -13,20 +13,16 @@
 
     :javascript
       #{include('times.js')}
+      #{include('filters.js')}
       #{include('js.js')}
 
     <!-- Page generated #{generated}, data file generated #{data_generated} -->
   %body
     #page-wrapper
-      #menu.clearfix
-        %button#select-current-week
-          Current Week
-        %button#select-future
-          All Future
-        %button#select-all
-          All
-        %input#filter{type: 'text', placeholder: 'Filter matches'}
+      .clearfix
+        != partial('filters', { source: source })
 
-      #leagues-wrapper
-        - source.matches.sort_by { |match| Time.parse(match.time) }.reverse_each do |match|
-          != partial('match', { match: match })
+      - source.matches.sort_by { |match| Time.parse(match.time) }.reverse_each do |match|
+        != partial('match', { match: match })
+      #no-results.match
+        %div There are no matches that fit all the filters you have applied.

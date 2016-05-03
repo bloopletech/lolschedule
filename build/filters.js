@@ -1,0 +1,103 @@
+function filterMatches(terms) {
+  var selectors = [];
+  for(var j = 0; j < terms.length; j++) selectors.push(":not([class*='" + terms[j] + "'])");
+
+  if(selectors.length == 0) return;
+
+  var matching = document.querySelectorAll(".match:not(.filter-no-match)" + selectors.join(""));
+  for(var j = 0; j < matching.length; j++) matching[j].classList.add("filter-no-match");
+}
+
+function applyFilters() {
+  var matches = document.querySelectorAll(".match");
+  for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-no-match");
+
+  var filters = document.querySelectorAll("div.filter");
+  for(var i = 0; i < filters.length; i++) {
+    var selected = filters[i].querySelectorAll("li.selected");
+
+    var terms = [];
+
+    for(var j = 0; j < selected.length; j++) {
+      var term = selected[j].dataset.value;
+      if(term != 'all') terms.push(term);
+    }
+
+    filterMatches(terms);
+  }
+
+  if(document.querySelectorAll(".match:not(#no-results):not(.filter-no-match)").length == 0) {
+    document.getElementById("no-results").classList.remove("filter-no-match");
+  }
+  else {
+    document.getElementById("no-results").classList.add("filter-no-match");
+  }
+}
+
+function selectFilter() {
+  var parent = this.parentNode;
+  while(!parent.classList.contains('filter')) parent = parent.parentNode;
+
+  if(parent.classList.contains("multi")) {
+    this.classList.toggle("selected");
+  }
+  else {
+    parent.classList.remove("open");
+
+    var filters = parent.querySelectorAll("li");
+    for(var i = 0; i < filters.length; i++) {
+      filters[i].classList.remove("selected");
+    }
+
+    this.classList.add("selected");
+  }
+
+  updateFilterNames();
+  applyFilters();
+}
+
+function triggerFilterList(event) {
+  event.preventDefault();
+
+  var selected = this.parentNode.classList.contains("open");
+
+  var openFilterLists = document.querySelectorAll(".filter.open");
+  for(var i = 0; i < openFilterLists.length; i++) openFilterLists[i].classList.remove("open");
+
+  if(!selected) this.parentNode.classList.add("open");
+}
+
+function updateFilterNames() {
+  var filterListTriggers = document.querySelectorAll("a.trigger");
+  for(var i = 0; i < filterListTriggers.length; i++) {
+    var selected = filterListTriggers[i].parentNode.querySelectorAll("li.selected");
+
+    if(selected.length > 0) {
+      var names = [];
+      for(var j = 0; j < selected.length; j++) names.push(selected[j].textContent);
+      console.log("names: ", names);
+
+      filterListTriggers[i].textContent = names.join(", ");
+    }
+    else {
+      filterListTriggers[i].textContent = "All";
+    }
+  }
+}
+
+function closeFilter(event) {
+  event.preventDefault();
+
+  this.parentNode.parentNode.classList.remove("open");
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.body.addEventListener("click", function(e) {
+    if(e.target && e.target.matches("div.filter a.trigger")) triggerFilterList.call(e.target, e);
+    if(e.target && e.target.matches("div.filter ul.filter-list li")) selectFilter.call(e.target, e);
+    if(e.target && e.target.matches("div.filter a.close")) closeFilter.call(e.target, e);
+  });
+
+  updateFilterNames();
+  applyFilters();
+});
