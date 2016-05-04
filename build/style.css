@@ -125,6 +125,7 @@ div.filter .opened .group ul.filter-list {
   padding: 15px 0px;
   background-color: #000000;
   color: #fff;
+  font-size: 20px;
   border-bottom: 2px solid #ddd;
 }
 
@@ -172,7 +173,6 @@ div.filter .opened .group ul.filter-list {
 
 .match .league {
   width: 95px;
-  font-size: 20px;
   font-weight: bold;
   text-align: center;
 }
@@ -184,7 +184,6 @@ div.filter .opened .group ul.filter-list {
 
 .match .vs {
   width: 250px;
-  font-size: 24px;
   text-align: center;
   font-weight: bold;
 }
@@ -202,7 +201,6 @@ div.filter .opened .group ul.filter-list {
 
 .match a.vod {
   display: none;
-  font-size: 20px;
   color: #F44336;
   text-decoration: underline;
 }
@@ -213,7 +211,6 @@ div.filter .opened .group ul.filter-list {
 
 .match a.reveal {
   color: #ffffff;
-  font-size: 22px;
   font-weight: bold;
   text-decoration: none;
 }
