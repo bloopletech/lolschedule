@@ -75,7 +75,6 @@ function updateFilterNames() {
     if(selected.length > 0) {
       var names = [];
       for(var j = 0; j < selected.length; j++) names.push(selected[j].textContent);
-      console.log("names: ", names);
 
       filterListTriggers[i].textContent = names.join(", ");
     }
