@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.clearfix:after, .match:after {
+.clearfix:after, .match:after, .league:after {
   content: " ";
   display: table;
   clear: both;
@@ -100,27 +100,15 @@ div.filter .opened .group ul.filter-list {
   padding-left: 10px;
 }
 
-.live-banner {
-  display: none;
-}
 
-.match a {
+
+
+.live-banner {
   display: block;
-  text-align: center;
+  float: left;
 }
 
-.live-banner {
-  display: inline-block;
-  background-color: #800000;
-  margin-left: 10px;
-  padding: 4px;
-  vertical-align: middle;
-  font-size: 18px;
-  line-height: 1.4;
-  color: #ffffff;
-}
-
-.match {
+.match, .league {
   display: block;
   padding: 15px 0px;
   background-color: #000000;
@@ -139,30 +127,32 @@ div.filter .opened .group ul.filter-list {
 }
 
 .match.current {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100 */
-  background: #45484d;
-  background: linear-gradient(135deg,  #45484d 0%,#000000 100%);
+  box-shadow: inset 0 0 100px #fff;
 }
 
 .match.current .time {
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
-.match a {
+.match a, .league a {
   color: inherit;
-  text-decoration: none;
 }
 
-.match.live .live-banner {
+.match.live, .league.live {
+  background: #d32322;
+  box-shadow: inset 0 0 100px #af171b;
+}
+
+
+.live .live-banner {
   display: block;
-  background-color: #800000;
-  margin: -16px 0 16px 0;
-  padding: 4px;
-  text-align: center;
+  font-size: 24px;
+  font-style: italic;
   font-weight: bold;
+
 }
 
-.match > * {
+.match > *, .league > * {
   display: block;
   float: left;
   padding: 0 10px;
@@ -171,10 +161,14 @@ div.filter .opened .group ul.filter-list {
   line-height: 36px;
 }
 
-.match .league {
+.match .league-name, .league .league-name {
   width: 95px;
   font-weight: bold;
   text-align: center;
+}
+
+.league .league-name {
+  font-size: 30px;
 }
 
 .match .time {
