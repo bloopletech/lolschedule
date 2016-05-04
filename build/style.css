@@ -28,21 +28,6 @@ html, body, #page-wrapper {
   margin: 0 auto;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .live-banner {
   display: block;
   float: left;
@@ -50,7 +35,7 @@ html, body, #page-wrapper {
 
 .match, .league {
   display: block;
-  padding: 15px 0px;
+  padding: 13px 0px;
   background-color: #000000;
   color: #fff;
   font-size: 20px;
@@ -61,17 +46,12 @@ html, body, #page-wrapper {
   display: none;
 }
 
-.match.past {
-
-
-}
-
 .match.current {
   box-shadow: inset 0 0 100px #fff;
 }
 
-.match.current .time {
-  /*font-weight: bold;*/
+.match.current .time, .match.future .time, .match.live .time {
+  font-weight: bold;
 }
 
 .match a, .league a {
@@ -160,13 +140,12 @@ html, body, #page-wrapper {
     padding: 0;
   }
 
-  .match .league {
+  .match .league-name {
     position: absolute;
     top: 5px;
     left: 0;
     transform: rotate(-90deg) translate(-95px, 0);
     transform-origin: left top 0;
-    font-size: 24px;
   }
 
   .match .vs, .match .time {
