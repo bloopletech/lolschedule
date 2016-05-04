@@ -30,6 +30,8 @@ Date.prototype.formatDate = function(today) {
 
   if(this.isSameDate(today))
     var parts = ['Today', hours + minutes + ampm];
+  else if(this.isSameWeekFuzzy(today) && this.getTime() > today.getTime())
+    var parts = [days[this.getDay()], hours + minutes + ampm];
   else
     var parts = [days[this.getDay()], this.getDate(), months[this.getMonth()], hours + minutes + ampm];
   return parts.join(" ");
