@@ -28,77 +28,17 @@ html, body, #page-wrapper {
   margin: 0 auto;
 }
 
-div.filter {
-  position: relative;
-  float: left;
-  width: 150px;
-}
 
-div.filter a.trigger {
-  display: block;
-  padding: 10px;
-  margin: 0;
-}
 
-div.filter > .opened {
-  display: none;
-  position: absolute;
-  z-index: 100;
-  top: 45px;
-  left: 0;
-  min-width: 150px;
-  background-color: #ffffff;
-  border: 1px solid #000000;
-}
 
-div.filter.open > .opened {
-  display: block;
-}
 
-div.filter h3 {
-  padding: 10px;
-  margin: 0;
-  font-weight: bold;
-}
 
-div.filter ul.filter-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
 
-div.filter ul.filter-list li {
-  padding: 10px;
-  margin: 0;
-  cursor: pointer;
-}
 
-div.filter ul.filter-list li.selected, div.filter ul.filter-list li:hover {
-  background-color: #F44336;
-  color: #ffffff;
-}
 
-div.filter ul.filter-list li.heading {
-  font-weight: bold;
-}
 
-div.filter a.close {
-  float: right;
-  padding: 0 5px 5px 5px;
-  cursor: pointer;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1;
-}
 
-div.filter .opened .group {
-  float: left;
-}
 
-div.filter .opened .group ul.filter-list {
-  float: left;
-  padding-left: 10px;
-}
 
 
 
