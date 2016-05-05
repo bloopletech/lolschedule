@@ -24,7 +24,7 @@ html, body, #page-wrapper {
 }
 
 #page-wrapper {
-  max-width: 962px;
+  max-width: 853px;
   margin: 0 auto;
 }
 
@@ -35,7 +35,7 @@ html, body, #page-wrapper {
 
 .match, .league {
   display: block;
-  padding: 13px 0px;
+  padding: 13px 5px;
   background-color: #000000;
   color: #fff;
   font-size: 20px;
@@ -75,7 +75,7 @@ html, body, #page-wrapper {
 .match > *, .league > * {
   display: block;
   float: left;
-  padding: 0 10px;
+  padding: 0 5px;
   vertical-align: middle;
   height: 36px;
   line-height: 36px;
@@ -127,6 +127,10 @@ html, body, #page-wrapper {
   color: #ffffff;
   font-weight: bold;
   text-decoration: none;
+}
+
+.vod.revealed + .vod.revealed + .vod.revealed + .vod.revealed + .vod.revealed + a {
+  display: none;
 }
 
 @media (max-width: 767px) {
