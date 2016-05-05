@@ -24,8 +24,12 @@ html, body, #page-wrapper {
 }
 
 #page-wrapper {
-  max-width: 853px;
+  max-width: 953px;
   margin: 0 auto;
+}
+
+#page-wrapper > * {
+  margin-left: 100px;
 }
 
 .live-banner {
@@ -35,6 +39,9 @@ html, body, #page-wrapper {
 
 .match, .league {
   display: block;
+  position: relative;
+  width: 853px;
+  height: 64px;
   padding: 13px 5px;
   background-color: #000000;
   color: #fff;
@@ -46,16 +53,8 @@ html, body, #page-wrapper {
   display: none;
 }
 
-.match.current {
-  box-shadow: inset 0 0 100px #fff;
-}
-
 .match.current .time, .match.future .time, .match.live .time {
   font-weight: bold;
-}
-
-.match a, .league a {
-  color: inherit;
 }
 
 .match.live, .league.live {
@@ -63,13 +62,11 @@ html, body, #page-wrapper {
   box-shadow: inset 0 0 100px #af171b;
 }
 
-
 .live .live-banner {
   display: block;
   font-size: 24px;
   font-style: italic;
   font-weight: bold;
-
 }
 
 .match > *, .league > * {
@@ -79,6 +76,33 @@ html, body, #page-wrapper {
   vertical-align: middle;
   height: 36px;
   line-height: 36px;
+}
+
+.match a, .league a {
+  color: inherit;
+}
+
+.match .flag {
+  position: absolute;
+  top: 10px;
+  left: -100px;
+  width: 100px;
+  height: 24px;
+  margin: 0;
+  padding: 0 5px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.match.current .flag {
+  background-color: #FFFF00;
+  color: #000000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.match.current .flag::before {
+  content: "Coming Up";
 }
 
 .match .league-name, .league .league-name {
@@ -134,14 +158,29 @@ html, body, #page-wrapper {
 }
 
 @media (max-width: 767px) {
+  #page-wrapper > * {
+    margin-left: 0;
+  }
+
   .match {
-    position: relative;
-    padding: 10px 10px 10px 36px;
     min-height: 110px;
+    width: auto;
+    padding: 10px 10px 10px 36px;
   }
 
   .match > * {
     padding: 0;
+  }
+
+  .match .flag {
+    margin: 0;
+    position: absolute;
+    top: -24px;
+    left: 0;
+  }
+
+  .match.current {
+    margin: 36px 0 0 0;
   }
 
   .match .league-name {

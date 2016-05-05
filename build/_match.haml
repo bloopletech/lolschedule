@@ -1,4 +1,5 @@
 .match{class: "#{'live' if match.stream_url} #{'games' if match.vod_urls.any?} #{match.league.slug} #{match.team_1.acronym} #{match.team_2.acronym}", data: { stream_url: match.stream_url }}
+  .flag
   .league-name= match.league.name
   .vs<
     = match.team_1.acronym
