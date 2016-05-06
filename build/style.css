@@ -123,14 +123,14 @@ html, body, #page-wrapper {
 }
 
 .match .vs {
-  width: 250px;
+  width: 240px;
   text-align: center;
   font-weight: bold;
 }
 
 .match .vs .middle {
   font-weight: normal;
-  margin: 0 7px;
+  margin: 0 4px;
 }
 
 .match .logo {
