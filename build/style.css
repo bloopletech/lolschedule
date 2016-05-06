@@ -165,9 +165,10 @@ html, body, #page-wrapper {
   }
 
   .match {
+    height: auto;
     min-height: 110px;
     width: auto;
-    padding: 10px 10px 10px 36px;
+    padding-left: 36px;
   }
 
   .match > * {
