@@ -83,6 +83,7 @@ html, body, #page-wrapper {
 }
 
 .match .flag {
+  display: none;
   position: absolute;
   top: 10px;
   left: -100px;
@@ -95,6 +96,7 @@ html, body, #page-wrapper {
 }
 
 .match.current .flag {
+  display: block;
   background-color: #FFFF00;
   color: #000000;
   font-style: italic;
