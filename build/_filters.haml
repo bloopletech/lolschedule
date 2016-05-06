@@ -27,5 +27,5 @@
       .group
         %h3= league.name
         %ul.filter-list
-          - league.teams.each do |team|
+          - league.teams.sort_by { |team| team.acronym }.each do |team|
             %li{data: { value: team.acronym }}= team.acronym

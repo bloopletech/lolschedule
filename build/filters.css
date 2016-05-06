@@ -25,6 +25,10 @@ div.filter.open > .opened {
   display: block;
 }
 
+div.filter a.trigger:hover, div.filter.open a.trigger {
+  cursor: pointer;
+}
+
 div.filter h3 {
   padding: 10px;
   margin: 0;
@@ -43,9 +47,10 @@ div.filter ul.filter-list li {
   cursor: pointer;
 }
 
-div.filter ul.filter-list li.selected, div.filter ul.filter-list li:hover {
+div.filter a.trigger:hover, div.filter.open a.trigger, div.filter ul.filter-list li.selected, div.filter ul.filter-list li:hover {
   background-color: #F44336;
   color: #ffffff;
+  font-weight: bold;
 }
 
 div.filter ul.filter-list li.heading {

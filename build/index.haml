@@ -20,7 +20,7 @@
     <!-- Page generated #{generated}, data file generated #{data_generated} -->
   %body
     #page-wrapper
-      .clearfix
+      #filters.clearfix
         != partial('filters', { source: source })
 
       - source.leagues.select { |league| league.stream_url }.each do |league|
