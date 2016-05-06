@@ -159,6 +159,42 @@ html, body, #page-wrapper {
   display: none;
 }
 
+@media (min-width: 768px) and (max-width: 950px) {
+  #page-wrapper > * {
+    margin-left: 0;
+  }
+
+  .match {
+    height: auto;
+    min-height: 108px;
+    width: auto;
+    padding-left: 36px;
+  }
+
+  .match .flag {
+    margin: 0;
+    position: absolute;
+    top: -24px;
+    left: 0;
+  }
+
+  .match.current {
+    margin: 36px 0 0 0;
+  }
+
+  .match .league-name {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    transform: rotate(-90deg) translate(-95px, 0);
+    transform-origin: left top 0;
+  }
+
+  .match .time + a.vod {
+    clear: left;
+  }
+}
+
 @media (max-width: 767px) {
   #page-wrapper > * {
     margin-left: 0;
