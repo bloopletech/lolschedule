@@ -61,10 +61,14 @@ function triggerFilterList(event) {
 
   var selected = this.parentNode.classList.contains("open");
 
-  var openFilterLists = document.querySelectorAll(".filter.open");
-  for(var i = 0; i < openFilterLists.length; i++) openFilterLists[i].classList.remove("open");
+  closeAllFilters();
 
-  if(!selected) this.parentNode.classList.add("open");
+  if(!selected) {
+    this.parentNode.classList.add("open");
+
+    var backdrop = document.getElementById("backdrop");
+    backdrop.classList.add("visible");
+  }
 }
 
 function updateFilterNames() {
@@ -90,11 +94,26 @@ function closeFilter(event) {
   this.parentNode.parentNode.classList.remove("open");
 }
 
+function closeAllFilters() {
+  var openFilterLists = document.querySelectorAll(".filter.open");
+  for(var i = 0; i < openFilterLists.length; i++) openFilterLists[i].classList.remove("open");
+
+  var backdrop = document.getElementById("backdrop");
+  backdrop.classList.remove("visible");
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   document.body.addEventListener("click", function(e) {
     if(e.target && e.target.matches("div.filter a.trigger")) triggerFilterList.call(e.target, e);
     if(e.target && e.target.matches("div.filter ul.filter-list li")) selectFilter.call(e.target, e);
     if(e.target && e.target.matches("div.filter a.close")) closeFilter.call(e.target, e);
+    //if(e.target && !e.target.matches("div.filter, div.filter *")) closeAllFilters.call(e.target, e);
+  });
+
+  var backdrop = document.getElementById("backdrop");
+  backdrop.addEventListener("click", function(event) {
+    event.stopPropagation();
+    closeAllFilters();
   });
 
   updateFilterNames();

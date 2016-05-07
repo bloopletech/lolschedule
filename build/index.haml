@@ -15,6 +15,7 @@
     :javascript
       #{include('times.js')}
       #{include('filters.js')}
+      #{include('links.js')}
       #{include('reveals.js')}
 
     <!-- Page generated #{generated}, data file generated #{data_generated} -->
@@ -29,3 +30,4 @@
         != partial('match', { match: match })
       #no-results.match
         %div There are no matches that fit all the filters you have applied.
+    #backdrop
