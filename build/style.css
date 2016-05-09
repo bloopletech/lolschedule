@@ -239,13 +239,16 @@ body, button, input {
 
   .match {
     height: auto;
-    min-height: 110px;
+    min-height: 96px;
     width: auto;
-    padding-left: 36px;
+    padding: 8px 5px 8px 28px;
   }
 
   .match > * {
     padding: 0;
+    height: 26px;
+    font-size: 18px;
+    line-height: 26px;
   }
 
   .match .flag {
@@ -265,10 +268,16 @@ body, button, input {
 
   .match .league-name {
     position: absolute;
-    top: 5px;
+    top: 8px;
     left: 0;
-    transform: rotate(-90deg) translate(-95px, 0);
+    width: 75px;
+    transform: rotate(-90deg) translate(-75px, 0);
     transform-origin: left top 0;
+  }
+
+  .match .vs {
+    height: 36px;
+    line-height: 36px;
   }
 
   .match .vs, .match .time {
@@ -277,6 +286,6 @@ body, button, input {
   }
 
   .match a.vod, .match a.reveal {
-    padding: 0 10px;
+    padding: 0 5px;
   }
 }
