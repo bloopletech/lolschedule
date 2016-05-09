@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  padding: 2px;
+  padding: 0;
 }
 
 body, button, input {
@@ -45,7 +45,7 @@ body, button, input {
 #filters {
   position: fixed;
   top: 0px;
-  padding-top: 2px;
+  padding-top: 0;
   width: 100%;
   background-color: #ffffff;
   z-index: 10;
