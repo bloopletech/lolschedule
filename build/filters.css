@@ -1,67 +1,71 @@
-#links {
-  float: right;
-}
-
-div.filter {
-  position: relative;
-  float: left;
-  width: 150px;
-}
-
-div.filter a.trigger {
+#filters {
   display: block;
-  padding: 10px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#filters > li {
+  position: relative;
+  display: block;
+  float: left;
+  min-width: 160px;
   margin: 0;
 }
 
-div.filter > .opened {
+#filters > li a {
+  display: block;
+  padding: 10px;
+}
+
+#filters > li > .opened {
   display: none;
   position: absolute;
   z-index: 100;
   top: 45px;
   left: 0;
-  min-width: 150px;
+  min-width: 160px;
   background-color: #ffffff;
   border: 1px solid #000000;
 }
 
-div.filter.open > .opened {
+#filters > li.open > .opened {
   display: block;
 }
 
-div.filter a.trigger:hover, div.filter.open a.trigger {
+#filters > li a, #filters > li a:hover {
   cursor: pointer;
 }
 
-div.filter h3 {
+#filters > li h3 {
   padding: 10px;
   margin: 0;
   font-weight: bold;
 }
 
-div.filter ul.filter-list {
+#filters > li ul.filter-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-div.filter ul.filter-list li {
+#filters > li ul.filter-list li {
   padding: 10px;
   margin: 0;
   cursor: pointer;
 }
 
-div.filter a.trigger:hover, div.filter.open a.trigger, div.filter ul.filter-list li.selected, div.filter ul.filter-list li:hover {
+#filters > li a:hover, #filters > li.open a.trigger, #filters > li ul.filter-list li.selected, #filters > li ul.filter-list li:hover {
   background-color: #F44336;
   color: #ffffff;
   font-weight: bold;
 }
 
-div.filter ul.filter-list li.heading {
+#filters > li ul.filter-list li.heading {
   font-weight: bold;
 }
 
-div.filter a.close {
+#filters > li a.close {
   float: right;
   padding: 0 5px 5px 5px;
   cursor: pointer;
@@ -70,11 +74,11 @@ div.filter a.close {
   line-height: 1;
 }
 
-div.filter .opened .group {
+#filters > li .opened .group {
   float: left;
 }
 
-div.filter .opened .group ul.filter-list {
+#filters > li .opened .group ul.filter-list {
   float: left;
   padding-left: 10px;
 }

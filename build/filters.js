@@ -12,7 +12,7 @@ function applyFilters() {
   var matches = document.querySelectorAll(".match");
   for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-no-match");
 
-  var filters = document.querySelectorAll("div.filter");
+  var filters = document.querySelectorAll("#filters > li");
   for(var i = 0; i < filters.length; i++) {
     var selected = filters[i].querySelectorAll("li.selected");
 
@@ -36,7 +36,7 @@ function applyFilters() {
 
 function selectFilter() {
   var parent = this.parentNode;
-  while(!parent.classList.contains('filter')) parent = parent.parentNode;
+  while(parent.nodeName != 'LI') parent = parent.parentNode;
 
   if(parent.classList.contains("multi")) {
     this.classList.toggle("selected");
@@ -95,7 +95,7 @@ function closeFilter(event) {
 }
 
 function closeAllFilters() {
-  var openFilterLists = document.querySelectorAll(".filter.open");
+  var openFilterLists = document.querySelectorAll("#filters > li.open");
   for(var i = 0; i < openFilterLists.length; i++) openFilterLists[i].classList.remove("open");
 
   var backdrop = document.getElementById("backdrop");
@@ -104,9 +104,9 @@ function closeAllFilters() {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   document.body.addEventListener("click", function(e) {
-    if(e.target && e.target.matches("div.filter a.trigger")) triggerFilterList.call(e.target, e);
-    if(e.target && e.target.matches("div.filter ul.filter-list li")) selectFilter.call(e.target, e);
-    if(e.target && e.target.matches("div.filter a.close")) closeFilter.call(e.target, e);
+    if(e.target && e.target.matches("#filters > li a.trigger")) triggerFilterList.call(e.target, e);
+    if(e.target && e.target.matches("#filters > li ul.filter-list li")) selectFilter.call(e.target, e);
+    if(e.target && e.target.matches("#filters > li a.close")) closeFilter.call(e.target, e);
     //if(e.target && !e.target.matches("div.filter, div.filter *")) closeAllFilters.call(e.target, e);
   });
 

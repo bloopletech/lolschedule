@@ -36,25 +36,22 @@ body, button, input {
 #page-wrapper {
   max-width: 953px;
   margin: 0 auto;
+  padding-top: 45px;
 }
 
 #page-wrapper > * {
   margin-left: 100px;
 }
 
-#filters {
+#filters-wrapper {
   position: fixed;
   top: 0px;
   padding-top: 0;
   width: 100%;
   background-color: #ffffff;
-  z-index: 10;
+  z-index: 100;
   margin-left: 0;
   padding-left: 100px;
-}
-
-#filters + .match {
-  margin-top: 45px;
 }
 
 .live-banner {
@@ -189,7 +186,7 @@ body, button, input {
     margin-left: 0;
   }
 
-  #filters {
+  #filters-wrapper {
     padding-left: 0;
   }
 
@@ -214,7 +211,7 @@ body, button, input {
     margin: 36px 0 0 0;
   }
 
-  #filters + .match.current {
+  #filters-wrapper + .match.current {
     margin-top: 81px;
   }
 
@@ -236,7 +233,7 @@ body, button, input {
     margin-left: 0;
   }
 
-  #filters {
+  #filters-wrapper {
     padding-left: 0;
   }
 
