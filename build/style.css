@@ -86,7 +86,6 @@ body, button, input {
 
 .live .live-banner {
   display: block;
-  font-size: 24px;
   font-style: italic;
   font-weight: bold;
 }
@@ -133,10 +132,6 @@ body, button, input {
   width: 95px;
   font-weight: bold;
   text-align: center;
-}
-
-.league .league-name {
-  font-size: 30px;
 }
 
 .match .time {
@@ -190,12 +185,12 @@ body, button, input {
     padding-left: 0;
   }
 
-  .match {
+  .match, .league {
     width: auto;
     padding: 13px 4px;
   }
 
-  .match > * {
+  .match > *, .league > * {
     padding: 0 4px;
     font-size: 18px;
   }
@@ -237,18 +232,27 @@ body, button, input {
     padding-left: 0;
   }
 
-  .match {
+  .match, .league {
     height: auto;
     min-height: 96px;
     width: auto;
     padding: 8px 5px 8px 28px;
   }
 
-  .match > * {
+  .league {
+    min-height: auto;
+    padding-left: 5px;
+  }
+
+  .match > *, .league > * {
     padding: 0;
     height: 26px;
     font-size: 18px;
     line-height: 26px;
+  }
+
+  .league > * {
+    padding: 0 5px;
   }
 
   .match .flag {
@@ -262,7 +266,7 @@ body, button, input {
     margin: 36px 0 0 0;
   }
 
-  #filters + .match.current {
+  #filters-wrapper + .match.current {
     margin-top: 81px;
   }
 
