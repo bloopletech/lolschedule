@@ -60,7 +60,7 @@ function parseTimes() {
     if(time.isSameDate(now)) matchElement.classList.add("today");
     if(time.isSameWeekFuzzy(now)) matchElement.classList.add("current-week");
     if(earlyStart.getTime() >= now.getTime()) matchElement.classList.add("future");
-    if(time.getTime() >= midnight.getTime()) matchElement.classList.add("near");
+    if(time.getTime() >= midnight.getTime()) matchElement.classList.add("today-ish");
   }
 }
 

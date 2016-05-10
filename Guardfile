@@ -35,7 +35,9 @@ end
 
 build_proc = proc do |builder, _, files|
   puts "Building site"
+  start = Time.now
   builder.build
+  puts "Took #{Time.now - start}"
 end
 build_options = {
   object: Build::Html.new,
