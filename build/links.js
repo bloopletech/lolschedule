@@ -1,7 +1,7 @@
 function applyLink(event) {
   event.preventDefault();
 
-  var firstToday = document.querySelectorAll(".match.today")[0];
+  var firstToday = document.querySelectorAll(".match.near")[0];
   if(firstToday) {
     firstToday.scrollIntoView();
     window.scrollBy(0, -10);
