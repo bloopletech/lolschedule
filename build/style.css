@@ -19,20 +19,6 @@ body, button, input {
   line-height: 1.4;
 }
 
-#backdrop {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 99;
-  display: none;
-}
-
-#backdrop.visible {
-  display: block;
-}
-
 #page-wrapper {
   max-width: 953px;
   margin: 0 auto;

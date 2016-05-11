@@ -1,24 +1,24 @@
-%ul#filters
-  %li
-    %a.today Jump To Today
+#filters-wrapper
+  %ul#filters
+    %li
+      %a.today Jump To Today
 
-  %li.multi
-    %a.trigger
-    .opened
-      %a.close &times;
-      %h3 League
-      %ul.filter-list
-        - source.leagues.each do |league|
-          %li{data: { value: league.slug }}= league.name
+    %li#filter
+      %a.trigger
 
-  %li.multi
-    %a.trigger
-    .opened.clearfix
-      %a.close &times;
-      %h3 Team
+#filters-content
+  %a.close &times;
+
+  %h2 Filter Leagues
+  .filter-group
+    %ul.filter-list.clearfix
       - source.leagues.each do |league|
-        .group
-          %h3= league.name
-          %ul.filter-list
-            - league.teams.sort_by { |team| team.acronym }.each do |team|
-              %li{data: { value: team.acronym }}= team.acronym
+        %li{data: { value: league.slug }}= league.name
+
+  %h2 Filter Teams
+  .filter-group
+    - source.leagues.each do |league|
+      %h3= league.name
+      %ul.filter-list.clearfix
+        - league.teams.sort_by { |team| team.acronym }.each do |team|
+          %li{data: { value: team.acronym }}= team.acronym

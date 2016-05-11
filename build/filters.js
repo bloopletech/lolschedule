@@ -12,7 +12,7 @@ function applyFilters() {
   var matches = document.querySelectorAll(".match");
   for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-no-match");
 
-  var filters = document.querySelectorAll("#filters > li");
+  var filters = document.querySelectorAll(".filter-group");
   for(var i = 0; i < filters.length; i++) {
     var selected = filters[i].querySelectorAll("li.selected");
 
@@ -35,22 +35,7 @@ function applyFilters() {
 }
 
 function selectFilter() {
-  var parent = this.parentNode;
-  while(parent.nodeName != 'LI') parent = parent.parentNode;
-
-  if(parent.classList.contains("multi")) {
-    this.classList.toggle("selected");
-  }
-  else {
-    parent.classList.remove("open");
-
-    var filters = parent.querySelectorAll("li");
-    for(var i = 0; i < filters.length; i++) {
-      filters[i].classList.remove("selected");
-    }
-
-    this.classList.add("selected");
-  }
+  this.classList.toggle("selected");
 
   updateFilterNames();
   applyFilters();
@@ -59,61 +44,43 @@ function selectFilter() {
 function triggerFilterList(event) {
   event.preventDefault();
 
-  var selected = this.parentNode.classList.contains("open");
+  var selected = document.body.classList.add("open");
 
   closeAllFilters();
 
   if(!selected) {
-    this.parentNode.classList.add("open");
-
-    var backdrop = document.getElementById("backdrop");
-    backdrop.classList.add("visible");
+    document.body.classList.add("filters-opened");
   }
 }
 
 function updateFilterNames() {
-  var filterListTriggers = document.querySelectorAll("a.trigger");
-  for(var i = 0; i < filterListTriggers.length; i++) {
-    var selected = filterListTriggers[i].parentNode.querySelectorAll("li.selected");
-
-    if(selected.length > 0) {
-      var names = [];
-      for(var j = 0; j < selected.length; j++) names.push(selected[j].textContent);
-
-      filterListTriggers[i].textContent = names.join(", ");
-    }
-    else {
-      filterListTriggers[i].textContent = "All";
-    }
+  var content = [];
+  var filterGroups = document.querySelectorAll(".filter-group");
+  for(var i = 0; i < filterGroups.length; i++) {
+    var selected = filterGroups[i].querySelectorAll("li.selected");
+    for(var j = 0; j < selected.length; j++) content.push(selected[j].textContent);
   }
+
+  var filter = document.querySelector("#filter a.trigger");
+  if(content.length > 0) filter.textContent = content.join(", ");
+  else filter.textContent = "All";
 }
 
 function closeFilter(event) {
   event.preventDefault();
 
-  this.parentNode.parentNode.classList.remove("open");
+  closeAllFilters();
 }
 
 function closeAllFilters() {
-  var openFilterLists = document.querySelectorAll("#filters > li.open");
-  for(var i = 0; i < openFilterLists.length; i++) openFilterLists[i].classList.remove("open");
-
-  var backdrop = document.getElementById("backdrop");
-  backdrop.classList.remove("visible");
+  document.body.classList.remove("filters-opened");
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
   document.body.addEventListener("click", function(e) {
     if(e.target && e.target.matches("#filters > li a.trigger")) triggerFilterList.call(e.target, e);
-    if(e.target && e.target.matches("#filters > li ul.filter-list li")) selectFilter.call(e.target, e);
-    if(e.target && e.target.matches("#filters > li a.close")) closeFilter.call(e.target, e);
-    //if(e.target && !e.target.matches("div.filter, div.filter *")) closeAllFilters.call(e.target, e);
-  });
-
-  var backdrop = document.getElementById("backdrop");
-  backdrop.addEventListener("click", function(event) {
-    event.stopPropagation();
-    closeAllFilters();
+    if(e.target && e.target.matches("#filters-content ul.filter-list li")) selectFilter.call(e.target, e);
+    if(e.target && e.target.matches("#filters-content a.close")) closeFilter.call(e.target, e);
   });
 
   updateFilterNames();

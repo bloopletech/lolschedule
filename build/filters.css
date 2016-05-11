@@ -5,80 +5,95 @@
   list-style-type: none;
 }
 
-#filters > li {
-  position: relative;
+#filters li {
   display: block;
   float: left;
   min-width: 160px;
   margin: 0;
 }
 
-#filters > li a {
+#filters a {
   display: block;
   padding: 10px;
 }
 
-#filters > li > .opened {
-  display: none;
-  position: absolute;
-  z-index: 100;
-  top: 45px;
-  left: 0;
-  min-width: 160px;
-  background-color: #ffffff;
-  border: 1px solid #000000;
-}
-
-#filters > li.open > .opened {
-  display: block;
-}
-
-#filters > li a, #filters > li a:hover {
-  cursor: pointer;
-}
-
-#filters > li h3 {
-  padding: 10px;
-  margin: 0;
-  font-weight: bold;
-}
-
-#filters > li ul.filter-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-#filters > li ul.filter-list li {
-  padding: 10px;
-  margin: 0;
-  cursor: pointer;
-}
-
-#filters > li a:hover, #filters > li.open a.trigger, #filters > li ul.filter-list li.selected, #filters > li ul.filter-list li:hover {
+#filters a:hover, body.filters-opened #filter a {
   background-color: #F44336;
   color: #ffffff;
   font-weight: bold;
 }
 
-#filters > li ul.filter-list li.heading {
+#filters li a, #filters a:hover {
+  cursor: pointer;
+}
+
+#page-wrapper #filters-content {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  margin-left: 0;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+body.filters-opened #page-wrapper #filters-content {
+  display: block;
+}
+
+#filters-content a {
+  cursor: pointer;
+}
+
+#filters-content h2 {
+  padding: 10px;
+  margin: 10px 0 0 0;
+  font-size: 24px;
   font-weight: bold;
 }
 
-#filters > li a.close {
-  float: right;
+#filters-content h3 {
+  padding: 10px;
+  margin: 10px 0 0 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#filters-content ul.filter-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 0 10px;
+}
+
+#filters-content ul.filter-list li {
+  display: block;
+  float: left;
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+#filters-conten a:hover, #filters-content ul.filter-list li.selected, #filters-content ul.filter-list li:hover {
+  background-color: #F44336;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#filters-content ul.filter-list li.heading {
+  font-weight: bold;
+}
+
+#filters-content a.close {
+  position: fixed;
+  top: 50px;
+  right: 15px;
   padding: 0 5px 5px 5px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 1;
-}
-
-#filters > li .opened .group {
-  float: left;
-}
-
-#filters > li .opened .group ul.filter-list {
-  float: left;
-  padding-left: 10px;
 }
