@@ -6,14 +6,14 @@ class Build::Aws
     bucket = s3.bucket('lol-schedule')
 
     obj = bucket.object('index.html')
-    obj.upload_file((Build.build_path + 'index.html').to_s,
+    obj.upload_file((Build.output_path + 'index.html').to_s,
       acl: 'public-read',
       cache_control: 'max-age=300',
       content_type: 'text/html'
     )
 
     obj = bucket.object('icons.png')
-    obj.upload_file((Build.build_path + 'icons.png').to_s,
+    obj.upload_file((Build.output_path + 'icons.png').to_s,
       acl: 'public-read',
       cache_control: 'max-age=3600',
       content_type: 'image/png'
