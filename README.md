@@ -1,10 +1,6 @@
-You will need to install these gems first:
+First, install the dependencies:
 
-* haml
-* rmagick
-* sprite-factory
-
-To run the debug IRB console, you will also need the `awesome_print` gem.
+`bundle install`
 
 Then, to generate LoL schedule:
 
@@ -12,5 +8,3 @@ Then, to generate LoL schedule:
 2. run `rake build`
 
 This will generate `index.html` and `icons.png`.
-
-To deploy the schedule to S3 you will need the `aws-sdk` gem installed.
