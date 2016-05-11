@@ -8,7 +8,7 @@ class Riot::Tournament
   end
 
   def video(game_id)
-    videos['videos'].find { |video| video['game'] == game_id }
+    videos['videos'].find { |video| video['game'] == game_id && video['locale'] == 'en' }
   end
 
   def bracket(bracket_id)
