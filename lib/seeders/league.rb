@@ -6,7 +6,6 @@ class Seeders::League
     '6' => 'LCK',
     '7' => 'LPL',
     '8' => 'LMS',
-    '13' => 'OPL',
     '4' => 'NA CS',
     '5' => 'EU CS'
   }
