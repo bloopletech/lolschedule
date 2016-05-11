@@ -1,14 +1,14 @@
-.match{class: "#{'live' if match['stream_url']} #{'games' if match['game_urls'].any?} #{match['vs'].join(' ')}", data: { stream_url: match['stream_url'] }}
-  - if match['stream_url']
-    %a.live-banner{href: match['stream_url'], target: '_blank'} WATCH LIVE NOW
-  .time{data: { value: match['time'] }}
+.match{class: "#{'live' if match.stream_url} #{'games' if match.vod_urls.any?} #{match.league.slug} #{match.team_1.acronym} #{match.team_2.acronym}", data: { stream_url: match.stream_url }}
+  .flag
+  .league-name= match.league.name
   .vs<
-    %span.side<
-      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].first}"}
-      = match['vs'].first
+    = match.team_1.acronym
+    %span.logo{class: match.team_1.slug}
     %span.middle< v
-    %span.side<
-      %span.logo{class: "#{league_name.gsub(' ', '-')}-#{match['vs'].last}"}
-      = match['vs'].last
-  - if match['game_urls'].any?
-    != partial('vods', { game_urls: match['game_urls'] })
+    %span.logo{class: match.team_2.slug}
+    = match.team_2.acronym
+  .time{data: { value: match.time }}
+  - if match.stream_url
+    %a.live-banner{href: match.stream_url, target: '_blank'} STREAMING NOW ⏵
+  - if match.vod_urls.any?
+    != partial('vods', { vod_urls: match.vod_urls })

@@ -30,6 +30,8 @@ Date.prototype.formatDate = function(today) {
 
   if(this.isSameDate(today))
     var parts = ['Today', hours + minutes + ampm];
+  else if(this.isSameWeekFuzzy(today) && this.getTime() > today.getTime())
+    var parts = [days[this.getDay()], hours + minutes + ampm];
   else
     var parts = [days[this.getDay()], this.getDate(), months[this.getMonth()], hours + minutes + ampm];
   return parts.join(" ");
@@ -37,6 +39,9 @@ Date.prototype.formatDate = function(today) {
 
 function parseTimes() {
   var now = new Date();
+
+  var midnight = new Date(now.getTime());
+  midnight.setHours(0, 0, 0, 0);
 
   var times = document.querySelectorAll(".time");
   for(var i = 0; i < times.length; i++) {
@@ -55,6 +60,7 @@ function parseTimes() {
     if(time.isSameDate(now)) matchElement.classList.add("today");
     if(time.isSameWeekFuzzy(now)) matchElement.classList.add("current-week");
     if(earlyStart.getTime() >= now.getTime()) matchElement.classList.add("future");
+    if(time.getTime() >= midnight.getTime()) matchElement.classList.add("today-ish");
   }
 }
 

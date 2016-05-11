@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.clearfix:after {
+.clearfix:after, .match:after, .league:after {
   content: " ";
   display: table;
   clear: both;
@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  padding: 8px;
+  padding: 0;
 }
 
 body, button, input {
@@ -19,254 +19,263 @@ body, button, input {
   line-height: 1.4;
 }
 
-html, body, #page-wrapper {
-  height: 100%;
+#page-wrapper {
+  max-width: 953px;
+  margin: 0 auto;
+  padding-top: 45px;
 }
 
-#menu {
+#page-wrapper > * {
+  margin-left: 100px;
 }
 
-#menu button, #menu input {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-#menu input {
-  width: 250px;
-}
-
-#leagues-wrapper {
-  overflow-x: auto;
-}
-
-#leagues-inner {
-  width: 1985px;
-}
-
-.leagues {
-  display: flex;
-  flex-direction: column;
-  float: left;
-  height: 100%;
-  margin-right: 4px;
-  border: 1px solid #999;
-}
-
-#leagues-wrapper .leagues:last-child {
-  margin-right: 0;
-}
-
-.matches {
-  flex: 2;
-  overflow: auto;
-  width: 215px;
+#filters-wrapper {
+  position: fixed;
+  top: 0px;
+  padding-top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 100;
+  margin-left: 0;
+  padding-left: 100px;
 }
 
 .live-banner {
-  display: none;
-}
-
-.header a, .match a {
   display: block;
-  text-align: center;
+  float: left;
 }
 
-.header {
-  flex: 0 1 auto;
-  min-height: 50px;
-  font-weight: bold;
-  text-align: center;
-  border-bottom: 2px solid #888;
-}
-
-.header.live {
-
-}
-
-.header .wrapper {
-  padding: 10px;
-}
-
-.header h1 {
-  display: inline;
-  font-size: 30px;
-  line-height: 50px;
-  vertical-align: middle;
-}
-
-.header.live .live-banner {
-  display: inline-block;
-  background-color: #800000;
-  margin-left: 10px;
-  padding: 4px;
-  vertical-align: middle;
-  font-size: 18px;
-  line-height: 1.4;
-  color: #ffffff;
-}
-
-.matches {
+.match, .league {
+  display: block;
+  position: relative;
+  width: 853px;
+  height: 64px;
+  padding: 13px 5px;
   background-color: #000000;
   color: #fff;
-}
-
-.match {
-  display: none;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  font-size: 20px;
   border-bottom: 2px solid #ddd;
 }
 
-body.select-current-week .match.current-week {
-  display: block;
-}
-
-body.select-current-week #select-current-week {
-  font-weight: bold;
-}
-
-body.select-future .match.future {
-  display: block;
-}
-
-body.select-future #select-future {
-  font-weight: bold;
-}
-
-body.select-all .match {
-  display: block;
-}
-
-body.select-all #select-all {
-  font-weight: bold;
-}
-
-body.filter .match:not(.filter-match) {
+.match.filter-no-match {
   display: none;
 }
 
-.match.past .time {
-  color: #888;
-}
-
-.match.current {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100 */
-  background: #45484d;
-  background: linear-gradient(135deg,  #45484d 0%,#000000 100%);
-}
-
-.match.current .time {
+.match.current .time, .match.future .time, .match.live .time {
   font-weight: bold;
 }
 
-.match.filter-no-match {
-  display: none !important;
+.match.live, .league.live {
+  background: #d32322;
+  box-shadow: inset 0 0 100px #af171b;
 }
 
-.match.games, .match.live {
-
-}
-
-.match .time, .match .vs {
-  padding-left: 6px;
-  padding-right: 6px;
-}
-
-.match .vs {
-  padding-bottom: 6px;
-}
-
-.match a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.match.games .side, .match.games .middle, .match.live .side, .match.live .middle {
-
-}
-
-.match.live .live-banner {
+.live .live-banner {
   display: block;
-  background-color: #800000;
-  margin: -16px 0 16px 0;
-  padding: 4px;
-  text-align: center;
+  font-style: italic;
   font-weight: bold;
+}
+
+.match > *, .league > * {
+  display: block;
+  float: left;
+  padding: 0 5px;
+  vertical-align: middle;
+  height: 36px;
+  line-height: 36px;
+}
+
+.match a, .league a {
+  color: inherit;
+}
+
+.match .flag {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: -100px;
+  width: 100px;
+  height: 24px;
+  margin: 0;
+  padding: 0 5px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.match.current .flag {
+  display: block;
+  background-color: #FFFF00;
+  color: #000000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.match.current .flag::before {
+  content: "Coming Up";
+}
+
+.match .league-name, .league .league-name {
+  width: 95px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .match .time {
+  width: 203px;
   text-align: center;
-  padding-bottom: 10px;
 }
 
 .match .vs {
-  font-size: 24px;
-  white-space: nowrap;
+  width: 240px;
   text-align: center;
-}
-
-.match .vs .side {
-  display: inline-block;
-  vertical-align: middle;
   font-weight: bold;
 }
 
-.match .vs .side:first-child {
-  text-align: right;
-}
-
 .match .vs .middle {
-  display: inline-block;
-  width: 20px;
-  text-align: center;
-  vertical-align: middle;
+  font-weight: normal;
+  margin: 0 4px;
 }
 
 .match .logo {
   display: inline-block;
-  width: 26px;
-  height: 26px;
-  vertical-align: middle;
+  vertical-align: top;
+  margin: 0 5px;
 }
 
-.match .logo {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  vertical-align: middle;
-}
-
-.match .vods {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-}
-
-.match .vods .games {
-  flex: 1 1 auto;
-}
-
-.match .vods .games a {
+.match a.vod {
   display: none;
-  font-size: 20px;
-  height: 30px;
-  line-height: 30px;
   color: #F44336;
   text-decoration: underline;
 }
 
-.match .vods .games a.revealed {
+.match a.vod.revealed {
   display: block;
 }
 
-.match .vods .games.with-reveal a {
-  text-indent: 50px;
-}
-
-.match .vods a.reveal {
-  display: block;
-  flex: 0 1 50px;
+.match a.reveal {
   color: #ffffff;
-  font-size: 22px;
   font-weight: bold;
+  text-decoration: none;
+}
+
+.vod.revealed + .vod.revealed + .vod.revealed + .vod.revealed + .vod.revealed + a {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 950px) {
+  #page-wrapper > * {
+    margin-left: 0;
+  }
+
+  #filters-wrapper {
+    padding-left: 0;
+  }
+
+  .match, .league {
+    width: auto;
+    padding: 13px 4px;
+  }
+
+  .match > *, .league > * {
+    padding: 0 4px;
+    font-size: 18px;
+  }
+
+  .match .flag {
+    margin: 0;
+    position: absolute;
+    top: -24px;
+    left: 0;
+  }
+
+  .match.current {
+    margin: 36px 0 0 0;
+  }
+
+  #filters-wrapper + .match.current {
+    margin-top: 81px;
+  }
+
+  .match .vs {
+    width: 216px;
+  }
+
+  .match .vs .middle {
+    margin: 0;
+  }
+
+  .match .time {
+    width: 185px;
+  }
+}
+
+@media (max-width: 767px) {
+  #page-wrapper > * {
+    margin-left: 0;
+  }
+
+  #filters-wrapper {
+    padding-left: 0;
+  }
+
+  .match, .league {
+    height: auto;
+    min-height: 96px;
+    width: auto;
+    padding: 8px 5px 8px 28px;
+  }
+
+  .league {
+    min-height: auto;
+    padding-left: 5px;
+  }
+
+  .match > *, .league > * {
+    padding: 0;
+    height: 26px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .league > * {
+    padding: 0 5px;
+  }
+
+  .match .flag {
+    margin: 0;
+    position: absolute;
+    top: -24px;
+    left: 0;
+  }
+
+  .match.current {
+    margin: 36px 0 0 0;
+  }
+
+  #filters-wrapper + .match.current {
+    margin-top: 81px;
+  }
+
+  .match .league-name {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 75px;
+    transform: rotate(-90deg) translate(-75px, 0);
+    transform-origin: left top 0;
+  }
+
+  .match .vs {
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .match .vs, .match .time {
+    width: auto;
+    float: none;
+  }
+
+  .match a.vod, .match a.reveal {
+    padding: 0 5px;
+  }
 }

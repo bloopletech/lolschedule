@@ -9,37 +9,24 @@
 
     :css
       #{include('icons.css')}
+      #{include('filters.css')}
       #{include('style.css')}
 
     :javascript
       #{include('times.js')}
-      #{include('js.js')}
+      #{include('filters.js')}
+      #{include('links.js')}
+      #{include('reveals.js')}
 
     <!-- Page generated #{generated}, data file generated #{data_generated} -->
   %body
     #page-wrapper
-      #menu.clearfix
-        %button#select-current-week
-          Current Week
-        %button#select-future
-          All Future
-        %button#select-all
-          All
-        %input#filter{type: 'text', placeholder: 'Filter matches'}
+      != partial('filters', { source: source })
 
-      #leagues-wrapper
-        #leagues-inner.clearfix
-          - data.each_pair do |league_name, tournament|
-            .leagues
-              .header{class: "#{'live' if tournament['stream_url']}"}
-                - if tournament['stream_url']
-                  %a.wrapper{href: tournament['stream_url'], target: '_blank'}
-                    %h1= league_name
-                    %span.live-banner LIVE
-                - else
-                  .wrapper
-                    %h1= league_name
-              .matches
-                - tournament['matches'].each do |match|
-                  != partial('match', { match: match, league_name: league_name})
-
+      - source.leagues.select { |league| league.stream_url }.each do |league|
+        != partial('league_stream', { league: league })
+      - source.matches.sort_by { |match| Time.parse(match.time) }.reverse_each do |match|
+        != partial('match', { match: match })
+      #no-results.match
+        %div There are no matches that fit all the filters you have applied.
+    #backdrop
