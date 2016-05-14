@@ -3,7 +3,6 @@ class Build::Html
 
   def build
     (Build.output_path + 'index.html').write(render)
-    FileUtils.cp((Build.build_path + 'icons.png'), (Build.output_path + 'icons.png'))
   end
 
   def render
