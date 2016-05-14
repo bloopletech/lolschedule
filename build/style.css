@@ -20,13 +20,10 @@ body, button, input {
 }
 
 #page-wrapper {
-  max-width: 953px;
+  max-width: 853px;
   margin: 0 auto;
   padding-top: 45px;
-}
-
-#page-wrapper > * {
-  margin-left: 100px;
+  transform: translateZ(0);
 }
 
 #filters-wrapper {
@@ -36,8 +33,6 @@ body, button, input {
   width: 100%;
   background-color: #ffffff;
   z-index: 100;
-  margin-left: 0;
-  padding-left: 100px;
 }
 
 .live-banner {
@@ -92,14 +87,18 @@ body, button, input {
 .match .flag {
   display: none;
   position: absolute;
-  top: 10px;
-  left: -100px;
+  top: -24px;
+  left: 0;
   width: 100px;
   height: 24px;
   margin: 0;
   padding: 0 5px;
   font-size: 14px;
   line-height: 24px;
+}
+
+.match.current {
+  margin: 36px 0 0 0;
 }
 
 .match.current .flag {
@@ -163,10 +162,6 @@ body, button, input {
 }
 
 @media (min-width: 768px) and (max-width: 950px) {
-  #page-wrapper > * {
-    margin-left: 0;
-  }
-
   #filters-wrapper {
     padding-left: 0;
   }
@@ -179,21 +174,6 @@ body, button, input {
   .match > *, .league > * {
     padding: 0 4px;
     font-size: 18px;
-  }
-
-  .match .flag {
-    margin: 0;
-    position: absolute;
-    top: -24px;
-    left: 0;
-  }
-
-  .match.current {
-    margin: 36px 0 0 0;
-  }
-
-  #filters-wrapper + .match.current {
-    margin-top: 81px;
   }
 
   .match .vs {
@@ -210,10 +190,6 @@ body, button, input {
 }
 
 @media (max-width: 767px) {
-  #page-wrapper > * {
-    margin-left: 0;
-  }
-
   #filters-wrapper {
     padding-left: 0;
   }
@@ -239,21 +215,6 @@ body, button, input {
 
   .league > * {
     padding: 0 5px;
-  }
-
-  .match .flag {
-    margin: 0;
-    position: absolute;
-    top: -24px;
-    left: 0;
-  }
-
-  .match.current {
-    margin: 36px 0 0 0;
-  }
-
-  #filters-wrapper + .match.current {
-    margin-top: 81px;
   }
 
   .match .league-name {
