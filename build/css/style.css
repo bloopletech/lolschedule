@@ -19,18 +19,20 @@ body, button, input {
   line-height: 1.4;
 }
 
-#page-wrapper {
+#page-wrapper, #filters-wrapper, #filters-content {
   max-width: 853px;
   margin: 0 auto;
+}
+
+#page-wrapper {
   padding-top: 45px;
-  transform: translateZ(0);
 }
 
 #filters-wrapper {
   position: fixed;
-  top: 0px;
-  padding-top: 0;
-  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
   background-color: #ffffff;
   z-index: 100;
 }

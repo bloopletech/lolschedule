@@ -22,6 +22,11 @@ class Build::Icons
   end
 
   def build_sprites
-    SpriteFactory.run!(Build.icons_path.to_s, margin: 1, selector: '.')
+    SpriteFactory.run!(
+      Build.icons_path.to_s,
+      output_style: Build.build_path + 'css' + 'icons.css',
+      margin: 1,
+      selector: '.'
+    )
   end
 end

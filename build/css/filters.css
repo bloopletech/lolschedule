@@ -17,7 +17,7 @@
   padding: 10px;
 }
 
-#filters a:hover, body.filters-opened #filter a {
+body.no-touch #filters a:hover, body.filters-opened #filter a {
   background-color: #F44336;
   color: #ffffff;
   font-weight: bold;
@@ -30,14 +30,18 @@
 #page-wrapper #filters-content {
   display: none;
   position: fixed;
-  z-index: 100;
   top: 45px;
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: auto;
+  z-index: 100;
   background-color: #ffffff;
   border: 1px solid #000000;
+}
+
+#filters-inner {
+  overflow: auto;
+  height: 100%;
 }
 
 body.filters-opened #page-wrapper #filters-content {
@@ -76,7 +80,7 @@ body.filters-opened #page-wrapper #filters-content {
   cursor: pointer;
 }
 
-#filters-conten a:hover, #filters-content ul.filter-list li.selected, #filters-content ul.filter-list li:hover {
+body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selected, body.no-touch #filters-content ul.filter-list li:hover {
   background-color: #F44336;
   color: #ffffff;
   font-weight: bold;
@@ -87,9 +91,8 @@ body.filters-opened #page-wrapper #filters-content {
 }
 
 #filters-content a.close {
-  position: fixed;
-  top: 50px;
-  right: 15px;
+  position: absolute;
+  right: 10px;
   padding: 0 5px 5px 5px;
   cursor: pointer;
   font-size: 36px;
