@@ -1,10 +1,12 @@
 function applyLink(event) {
   event.preventDefault();
 
-  var firstToday = document.querySelectorAll(".match.today-ish")[0];
-  if(firstToday) {
-    firstToday.scrollIntoView();
-    window.scrollBy(0, -10);
+  var todayMatches = document.querySelectorAll(".match.today-ish");
+  var lastToday = todayMatches[todayMatches.length - 1];
+
+  if(lastToday) {
+    lastToday.scrollIntoView();
+    window.scrollBy(0, -50);
   }
   else {
     window.scrollTo(0, 0);
