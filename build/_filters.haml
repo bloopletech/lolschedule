@@ -4,7 +4,7 @@
       %a.today Jump To Today
 
     %li#filter
-      %a.trigger
+      %a.trigger All
 
 #filters-content
   %a.close &times;
@@ -19,7 +19,8 @@
     %h2 Filter Teams
     .filter-group
       - source.leagues.reject { |league| league.slug == 'MSI' }.each do |league|
-        %h3= league.name
-        %ul.filter-list.clearfix
-          - league.teams.sort_by { |team| team.acronym }.each do |team|
-            %li{data: { value: team.acronym }}= team.acronym
+        .subgroup.clearfix
+          %h3= league.name
+          %ul.filter-list.clearfix
+            - league.teams.sort_by { |team| team.acronym }.each do |team|
+              %li{data: { value: team.acronym }}= team.acronym

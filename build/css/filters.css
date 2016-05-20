@@ -59,9 +59,19 @@ body.filters-opened #page-wrapper #filters-content {
   font-weight: bold;
 }
 
+#filters-content .subgroup {
+  margin: 10px 0;
+}
+
+#filters-content .subgroup ul {
+  margin-left: 100px;
+}
+
 #filters-content h3 {
+  float: left;
+  width: 100px;
   padding: 10px;
-  margin: 10px 0 0 0;
+  margin: 0;
   font-size: 20px;
   font-weight: bold;
 }
@@ -69,7 +79,7 @@ body.filters-opened #page-wrapper #filters-content {
 #filters-content ul.filter-list {
   list-style-type: none;
   margin: 0;
-  padding: 0 0 0 10px;
+  padding: 0;
 }
 
 #filters-content ul.filter-list li {
