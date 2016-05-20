@@ -18,7 +18,7 @@
 
     %h2 Filter Teams
     .filter-group
-      - source.leagues.each do |league|
+      - source.leagues.reject { |league| league.slug == 'MSI' }.each do |league|
         %h3= league.name
         %ul.filter-list.clearfix
           - league.teams.sort_by { |team| team.acronym }.each do |team|

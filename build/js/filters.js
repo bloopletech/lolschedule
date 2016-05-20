@@ -1,16 +1,5 @@
-function filterMatches(terms) {
-  var selectors = [];
-  for(var j = 0; j < terms.length; j++) selectors.push(":not([class*='" + terms[j] + "'])");
-
-  if(selectors.length == 0) return;
-
-  var matching = document.querySelectorAll(".match:not(.filter-no-match)" + selectors.join(""));
-  for(var j = 0; j < matching.length; j++) matching[j].classList.add("filter-no-match");
-}
-
-function applyFilters() {
-  var matches = document.querySelectorAll(".match");
-  for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-no-match");
+function selectedFilters() {
+  var groups = [];
 
   var filters = document.querySelectorAll(".filter-group");
   for(var i = 0; i < filters.length; i++) {
@@ -23,8 +12,29 @@ function applyFilters() {
       if(term != 'all') terms.push(term);
     }
 
-    filterMatches(terms);
+    groups.push(terms);
   }
+
+  return groups;
+}
+
+function filterMatches(terms) {
+  var selectors = [];
+  for(var j = 0; j < terms.length; j++) selectors.push(":not([class*='" + terms[j] + "'])");
+
+  if(selectors.length == 0) return;
+
+  var matching = document.querySelectorAll(".match:not(.filter-no-match)" + selectors.join(""));
+  for(var j = 0; j < matching.length; j++) matching[j].classList.add("filter-no-match");
+}
+
+function applyFilters(groups) {
+  updateFilterNames(groups);
+
+  var matches = document.querySelectorAll(".match");
+  for(var i = 0; i < matches.length; i++) matches[i].classList.remove("filter-no-match");
+
+  for(var i = 0; i < groups.length; i++) filterMatches(groups[i]);
 
   if(document.querySelectorAll(".match:not(#no-results):not(.filter-no-match)").length == 0) {
     document.getElementById("no-results").classList.remove("filter-no-match");
@@ -32,13 +42,24 @@ function applyFilters() {
   else {
     document.getElementById("no-results").classList.add("filter-no-match");
   }
+
+  window.location.hash = "#" + JSON.stringify(groups);
+}
+
+function updateSelected(groups) {
+  var terms = [].concat.apply([], groups);
+
+  for(var i = 0; i < terms.length; i++) {
+    var select = document.querySelectorAll(".filter-group li[data-value=\"" + terms[i] + "\"]");
+
+    for(var j = 0; j < select.length; j++) select[j].classList.add("selected");
+  }
 }
 
 function selectFilter() {
   this.classList.toggle("selected");
 
-  updateFilterNames();
-  applyFilters();
+  applyFilters(selectedFilters());
 }
 
 function triggerFilterList(event) {
@@ -53,13 +74,11 @@ function triggerFilterList(event) {
   }
 }
 
-function updateFilterNames() {
+function updateFilterNames(groups) {
   var content = [];
-  var filterGroups = document.querySelectorAll(".filter-group");
-  for(var i = 0; i < filterGroups.length; i++) {
-    var selected = filterGroups[i].querySelectorAll("li.selected");
-    for(var j = 0; j < selected.length; j++) content.push(selected[j].textContent);
-  }
+
+  var terms = [].concat.apply([], groups);
+  for(var i = 0; i < terms.length; i++) content.push(terms[i].replace(/-/g, " "));
 
   var filter = document.querySelector("#filter a.trigger");
   if(content.length > 0) filter.textContent = content.join(", ");
@@ -83,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(e.target && e.target.matches("#filters-content a.close")) closeFilter.call(e.target, e);
   });
 
-  updateFilterNames();
-  applyFilters();
+  if(window.location.hash.length > 1) {
+    var groups = JSON.parse(window.location.hash.substr(1));
+    applyFilters(groups);
+    updateSelected(groups);
+  }
 });
