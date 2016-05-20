@@ -42,6 +42,7 @@ body.no-touch #filters a:hover, body.filters-opened #filter a {
 #filters-inner {
   overflow: auto;
   height: 100%;
+  padding: 0 10px;
 }
 
 body.filters-opened #page-wrapper #filters-content {
@@ -53,18 +54,9 @@ body.filters-opened #page-wrapper #filters-content {
 }
 
 #filters-content h2 {
-  padding: 10px;
-  margin: 10px 0 0 0;
+  margin: 10px 0;
   font-size: 24px;
   font-weight: bold;
-}
-
-#filters-content .subgroup {
-  margin: 20px 0;
-}
-
-#filters-content .subgroup ul.filter-list {
-  margin-left: 100px;
 }
 
 #filters-content h3 {
@@ -88,8 +80,19 @@ body.filters-opened #page-wrapper #filters-content {
   padding: 10px;
   margin: 0;
   cursor: pointer;
-  width: 65px;
   text-align: center;
+}
+
+#filters-content .subgroup {
+  margin: 0 0 20px 0;
+}
+
+#filters-content .subgroup ul.filter-list {
+  margin-left: 100px;
+}
+
+#filters-content .subgroup ul.filter-list li {
+  width: 65px;
 }
 
 body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selected, body.no-touch #filters-content ul.filter-list li:hover {
@@ -104,7 +107,7 @@ body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selec
 
 #filters-content a.close {
   position: absolute;
-  right: 10px;
+  right: 15px;
   padding: 0 5px 5px 5px;
   cursor: pointer;
   font-size: 36px;
