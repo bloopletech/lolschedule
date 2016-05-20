@@ -60,10 +60,10 @@ body.filters-opened #page-wrapper #filters-content {
 }
 
 #filters-content .subgroup {
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
-#filters-content .subgroup ul {
+#filters-content .subgroup ul.filter-list {
   margin-left: 100px;
 }
 
@@ -88,6 +88,8 @@ body.filters-opened #page-wrapper #filters-content {
   padding: 10px;
   margin: 0;
   cursor: pointer;
+  width: 65px;
+  text-align: center;
 }
 
 body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selected, body.no-touch #filters-content ul.filter-list li:hover {
