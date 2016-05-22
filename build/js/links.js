@@ -1,7 +1,7 @@
 function applyLink(event) {
   event.preventDefault();
 
-  var todayMatches = document.querySelectorAll(".match.today-ish");
+  var todayMatches = document.querySelectorAll(".match.today-ish:not(.filter-no-match)");
   var lastToday = todayMatches[todayMatches.length - 1];
 
   if(lastToday) {
