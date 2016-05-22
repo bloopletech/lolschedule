@@ -45,7 +45,7 @@ class Seeders::RiotStreams
   def seed_active_matches
     active_matches.each_pair do |riot_league_id, match_ids|
       league = @source.leagues.find { |league| league.riot_id == riot_league_id }
-      league.stream_match_ids = match_ids
+      league.stream_match_ids = match_ids if league
     end
   end
 
