@@ -1,4 +1,4 @@
-function applyLink(event) {
+function jumpToToday(event) {
   event.preventDefault();
 
   var todayMatches = document.querySelectorAll(".match.today-ish:not(.filter-no-match)");
@@ -13,8 +13,12 @@ function applyLink(event) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  var todayLink = document.querySelector("a.today");
+function jumpToEnd(event) {
+  event.preventDefault();
+  document.body.scrollIntoView(false);
+}
 
-  todayLink.addEventListener("click", applyLink);
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.querySelector("a.today").addEventListener("click", jumpToToday);
+  document.querySelector("a.end").addEventListener("click", jumpToEnd);
 });
