@@ -19,6 +19,11 @@ body, button, input {
   line-height: 1.4;
 }
 
+a {
+  color: #F44336;
+  text-decoration: underline;
+}
+
 #page-wrapper, #filters-wrapper, #filters-content {
   max-width: 853px;
   margin: 0 auto;
@@ -82,10 +87,6 @@ body, button, input {
   line-height: 36px;
 }
 
-.match a, .league a {
-  color: inherit;
-}
-
 .match .flag {
   display: none;
   position: absolute;
@@ -145,8 +146,6 @@ body, button, input {
 
 .match a.vod {
   display: none;
-  color: #F44336;
-  text-decoration: underline;
 }
 
 .match a.vod.revealed {

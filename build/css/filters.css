@@ -20,7 +20,6 @@
 body.no-touch #filters a:hover, body.filters-opened #filter a {
   background-color: #F44336;
   color: #ffffff;
-  font-weight: bold;
 }
 
 #filters li a, #filters a:hover {
@@ -81,6 +80,8 @@ body.filters-opened #page-wrapper #filters-content {
   margin: 0;
   cursor: pointer;
   text-align: center;
+  color: #F44336;
+  text-decoration: underline;
 }
 
 #filters-content .subgroup {
@@ -98,7 +99,6 @@ body.filters-opened #page-wrapper #filters-content {
 body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selected, body.no-touch #filters-content ul.filter-list li:hover {
   background-color: #F44336;
   color: #ffffff;
-  font-weight: bold;
 }
 
 #filters-content ul.filter-list li.heading {
