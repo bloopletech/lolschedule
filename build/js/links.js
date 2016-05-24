@@ -13,12 +13,16 @@ function jumpToToday(event) {
   }
 }
 
-function jumpToEnd(event) {
-  event.preventDefault();
-  document.body.scrollIntoView(false);
-}
-
 document.addEventListener("DOMContentLoaded", function(event) {
-  document.querySelector("a.today").addEventListener("click", jumpToToday);
-  document.querySelector("a.end").addEventListener("click", jumpToEnd);
+  document.querySelector("a#today").addEventListener("click", jumpToToday);
+
+  document.querySelector("a#top").addEventListener("click", function(event) {
+    event.preventDefault();
+    window.scrollTo(0, 0);
+  });
+
+  document.querySelector("a#end").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.body.scrollIntoView(false);
+  });
 });

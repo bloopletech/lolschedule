@@ -8,12 +8,20 @@
 #filters li {
   display: block;
   float: left;
-  min-width: 160px;
   margin: 0;
+}
+
+#filters li > h3 {
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 10px 10px 10px 10px;
+  font-size: 18px;
 }
 
 #filters a {
   display: block;
+  float: left;
   padding: 10px;
 }
 
@@ -113,4 +121,6 @@ body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selec
   font-size: 36px;
   font-weight: 700;
   line-height: 1;
+  text-decoration: none;
+  color: #000000;
 }
