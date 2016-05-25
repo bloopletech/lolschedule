@@ -2,8 +2,11 @@ class Seeders::RiotStreams
   STREAMGROUPS_LEAGUES = {
     'msi' => 'MSI',
     'na-lcs' => 'NA LCS',
+    'nalcs2' => 'NA LCS',
     'eu-lcs' => 'EU LCS',
+    'eulcs2' => 'EU LCS',
     'lck-korea' => 'LCK',
+    'lck' => 'LCK',
     'lpl' => 'LPL',
     'lms' => 'LMS',
     'oce-opl' => 'OPL',
