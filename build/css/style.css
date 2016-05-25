@@ -91,35 +91,6 @@ a.live-banner {
   line-height: 36px;
 }
 
-.match .flag {
-  display: none;
-  position: absolute;
-  top: -24px;
-  left: 0;
-  width: 100px;
-  height: 24px;
-  margin: 0;
-  padding: 0 5px;
-  font-size: 14px;
-  line-height: 24px;
-}
-
-.match.current {
-  margin: 36px 0 0 0;
-}
-
-.match.current .flag {
-  display: block;
-  background-color: #FFFF00;
-  color: #000000;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.match.current .flag::before {
-  content: "Coming Up";
-}
-
 .match .league-name, .league .league-name {
   width: 95px;
   font-weight: bold;
