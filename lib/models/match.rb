@@ -6,6 +6,8 @@ class Models::Match < Models::Model
   finder name: :team_2, relation: :teams, key: :riot_team_2_id, foreign_key: :riot_id
 
   def stream_url
-    league.stream_url if league.stream_match_ids && league.stream_match_ids.include?(riot_id)
+    return if league.streams.empty?
+    return unless league.stream_match_ids && league.stream_match_ids.include?(riot_id)
+    league.streams.first[:url]
   end
 end

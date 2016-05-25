@@ -33,16 +33,16 @@ class Seeders::RiotStreams
 
       riot_league_id = stream_league_id(streamgroup['slug'])
 
-      seed_stream(stream, riot_league_id) if stream && riot_league_id
+      seed_stream(stream, streamgroup['title'], riot_league_id) if stream && riot_league_id
     end
   end
 
-  def seed_stream(stream, riot_league_id)
+  def seed_stream(stream, title, riot_league_id)
     stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
     url = "#{$1}#{$2}"
 
     league = @source.leagues.find { |league| league.riot_id == riot_league_id }
-    league.stream_url = url
+    league.streams << { name: title, url: url }
   end
 
   def seed_active_matches

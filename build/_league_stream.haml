@@ -1,3 +1,6 @@
 .league.clearfix.live
-  .league-name= league.name
-  %a.live-banner{href: league.stream_url, target: '_blank'} WATCH LIVE NOW ➔
+  .league-name
+    = league.name
+    \:
+    = stream[:name]
+  %a.live-banner{href: stream[:url], target: '_blank'} STREAMING NOW ⏵

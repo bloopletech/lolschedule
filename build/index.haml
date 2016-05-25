@@ -24,8 +24,9 @@
     #page-wrapper
       != partial('filters', { source: source })
 
-      - source.leagues.select { |league| league.stream_url }.each do |league|
-        != partial('league_stream', { league: league })
+      - source.leagues.reject { |league| league.streams.empty? }.each do |league|
+        - league.streams.each do |stream|
+          != partial('league_stream', { league: league, stream: stream })
       - source.matches.sort_by { |match| Time.parse(match.time) }.each do |match|
         != partial('match', { match: match })
       #no-results.match.filter-no-match
