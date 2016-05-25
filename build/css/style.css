@@ -78,6 +78,10 @@ a {
   font-weight: bold;
 }
 
+a.live-banner {
+  color: #ffffff;
+}
+
 .match > *, .league > * {
   display: block;
   float: left;
