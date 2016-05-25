@@ -57,6 +57,11 @@ task :console do
   IRB.start
 end
 
+task :output do
+  output_path = URI.join('file:///', (Build.output_path + 'index.html').realpath.to_s).to_s
+  `xdg-open #{output_path}`
+end
+
 task :develop do
   exec('find . | entr rake -t build')
 end
