@@ -7,9 +7,9 @@ class Riot::ApiClient
 
   def self.request_url(url)
     start = Time.now
-    puts "Requesting #{url}"
+    print "Requesting #{url}..."
     body = URI.parse(url).read("User-Agent" => USER_AGENT)
-    puts "Requested #{url}, took #{((Time.now - start) * 1000).round(1)}ms, body size #{(body.bytes.length / 1024.0).round(1)}KB"
+    puts " done; took #{((Time.now - start) * 1000).round(1)}ms, body size #{(body.bytes.length / 1024.0).round(1)}KB"
     body
   end
 
