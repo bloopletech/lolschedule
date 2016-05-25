@@ -59,6 +59,10 @@ a {
   border-bottom: 2px solid #ddd;
 }
 
+.league {
+  font-size: 24px;
+}
+
 .match.filter-no-match {
   display: none;
 }
@@ -138,18 +142,18 @@ a.live-banner {
 }
 
 @media (min-width: 768px) and (max-width: 950px) {
-  #filters-wrapper {
-    padding-left: 0;
-  }
-
   .match, .league {
     width: auto;
     padding: 13px 4px;
+    font-size: 18px;
+  }
+
+  .league {
+    font-size: 24px;
   }
 
   .match > *, .league > * {
     padding: 0 4px;
-    font-size: 18px;
   }
 
   .match .vs {
@@ -166,8 +170,8 @@ a.live-banner {
 }
 
 @media (max-width: 767px) {
-  #filters-wrapper {
-    padding-left: 0;
+  #page-wrapper {
+    padding-top: 90px;
   }
 
   .match, .league {
@@ -175,17 +179,18 @@ a.live-banner {
     min-height: 96px;
     width: auto;
     padding: 8px 5px 8px 28px;
+    font-size: 18px;
   }
 
   .league {
     min-height: auto;
     padding-left: 5px;
+    font-size: 20px;
   }
 
   .match > *, .league > * {
     padding: 0;
     height: 26px;
-    font-size: 18px;
     line-height: 26px;
   }
 

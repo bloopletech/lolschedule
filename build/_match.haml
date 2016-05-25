@@ -8,6 +8,6 @@
     = match.team_2.acronym
   .time{data: { value: match.time }}
   - if match.stream_url
-    %a.live-banner{href: match.stream_url, target: '_blank'} STREAMING NOW ⏵
+    %a.live-banner{href: match.stream_url, target: '_blank'} WATCH LIVE NOW ➔
   - if match.vod_urls.any?
     != partial('vods', { vod_urls: match.vod_urls })
