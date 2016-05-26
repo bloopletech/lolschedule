@@ -3,8 +3,8 @@ function jumpToToday() {
   var lastToday = todayMatches[todayMatches.length - 1];
 
   if(lastToday) {
-    lastToday.scrollIntoView();
-    window.scrollBy(0, -50);
+    var filtersHeight = document.getElementById("filters-wrapper").clientHeight;
+    window.scrollTo(0, lastToday.offsetTop - filtersHeight);
   }
   else {
     window.scrollTo(0, 0);
