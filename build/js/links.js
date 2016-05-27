@@ -4,7 +4,7 @@ function jumpToToday() {
 
   if(lastToday) {
     var filtersHeight = document.getElementById("filters-wrapper").offsetHeight;
-    window.scrollTo(0, lastToday.offsetTop - filtersHeight);
+    window.scrollTo(0, lastToday.offsetTop - filtersHeight - 34);
   }
   else {
     window.scrollTo(0, 0);
