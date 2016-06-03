@@ -26,7 +26,7 @@
 
       - source.leagues.select { |league| league.stream_url }.each do |league|
         != partial('league_stream', { league: league })
-      - source.matches.sort_by { |match| Time.parse(match.time) }.reverse_each do |match|
+      - source.matches.sort_by { |match| Time.parse(match.time) }.each do |match|
         != partial('match', { match: match })
       #no-results.match.filter-no-match
         %div There are no matches that fit all the filters you have applied.
