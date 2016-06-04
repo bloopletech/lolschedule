@@ -101,6 +101,10 @@ a.live-banner {
   text-align: center;
 }
 
+.league .league-name {
+  width: 130px;
+}
+
 .match .time {
   width: 203px;
   text-align: center;
@@ -196,6 +200,10 @@ a.live-banner {
 
   .league > * {
     padding: 0 5px;
+  }
+
+  .league .league-name {
+    width: 115px;
   }
 
   .match .league-name {

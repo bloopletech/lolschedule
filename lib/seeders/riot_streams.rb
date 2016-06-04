@@ -1,10 +1,10 @@
 class Seeders::RiotStreams
   STREAMGROUPS_LEAGUES = {
     'msi' => 'MSI',
-    'na-lcs' => 'NA LCS',
-    'nalcs2' => 'NA LCS',
-    'eu-lcs' => 'EU LCS',
-    'eulcs2' => 'EU LCS',
+    'nalcs1' => 'NA LCS',
+    'nalcs-2' => 'NA LCS',
+    'eulcs1' => 'EU LCS',
+    'eulcs-2' => 'EU LCS',
     'lck-korea' => 'LCK',
     'lck' => 'LCK',
     'lpl' => 'LPL',
@@ -42,7 +42,7 @@ class Seeders::RiotStreams
     url = "#{$1}#{$2}"
 
     league = @source.leagues.find { |league| league.riot_id == riot_league_id }
-    league.streams << { name: title, url: url }
+    league.streams << { 'id' => title[/\d+/], 'url' => url }
   end
 
   def seed_active_matches

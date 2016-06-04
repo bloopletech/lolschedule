@@ -54,6 +54,7 @@ end
 task :console do
   require 'irb'
   ARGV.clear
+  $source = Models::Persistence.load(Build.source_path)
   IRB.start
 end
 
