@@ -25,6 +25,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
     event.preventDefault();
     document.body.scrollIntoView(false);
   });
-
-  setTimeout(jumpToToday, 0);
 });
