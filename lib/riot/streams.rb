@@ -22,8 +22,8 @@ class Riot::Streams
     end
   end
 
-  def youtube_stream(streams)
-    streams.find { |stream| stream['provider'] == 'youtube' }
+  def youtube_streams(streams)
+    streams.select { |stream| stream['provider'] == 'youtube' && stream['locale'] == 'en' }
   end
 
   def active_matches

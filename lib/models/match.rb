@@ -8,6 +8,8 @@ class Models::Match < Models::Model
   def stream_url
     return if league.streams.empty?
     return unless league.stream_match_ids && league.stream_match_ids.include?(riot_id)
-    league.streams.first['url'] if league.streams.length == 1 #TODO get the right stream URL
+
+    stream = league.streams.find { |s| s[:priority] } || league.streams.first
+    stream['url']
   end
 end

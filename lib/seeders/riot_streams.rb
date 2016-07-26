@@ -15,7 +15,7 @@ class Seeders::RiotStreams
   }
 
   extend Forwardable
-  def_delegators :@riot_streams, :active_streamgroups, :streams, :youtube_stream, :active_matches
+  def_delegators :@riot_streams, :active_streamgroups, :streams, :youtube_streams, :active_matches
 
   def initialize(source)
     @source = source
@@ -29,11 +29,13 @@ class Seeders::RiotStreams
 
   def seed_streams
     active_streamgroups.each do |streamgroup|
-      stream = youtube_stream(streams(streamgroup['id']))
+      streams = youtube_streams(streams(streamgroup['id']))
 
       riot_league_id = stream_league_id(streamgroup['slug'])
 
-      seed_stream(stream, streamgroup['title'], riot_league_id) if stream && riot_league_id
+      streams.each do |stream|
+        seed_stream(stream, streamgroup['title'], riot_league_id) if stream && riot_league_id
+      end
     end
   end
 
@@ -41,8 +43,16 @@ class Seeders::RiotStreams
     stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
     url = "#{$1}#{$2}"
 
+    stream_title = if title =~ /\d+/
+      title[/\d+/]
+    elsif stream['title'] =~ /-/
+      stream['title'][/- (.*?)$/, 1]
+    else
+      nil
+    end
+
     league = @source.leagues.find { |league| league.riot_id == riot_league_id }
-    league.streams << { 'id' => title[/\d+/], 'url' => url }
+    league.streams << { 'id' => stream_title, 'url' => url, priority: stream_title == 'OGN' }
   end
 
   def seed_active_matches
