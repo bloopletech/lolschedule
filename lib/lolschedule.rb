@@ -6,6 +6,7 @@ require 'open-uri'
 require 'pathname'
 require 'set'
 require 'time'
+require 'singleton'
 
 require 'rubygems'
 require 'bundler/setup'

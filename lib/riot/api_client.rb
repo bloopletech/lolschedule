@@ -1,31 +1,53 @@
 class Riot::ApiClient
-  USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
-  ROOT_ENDPOINT = "http://api.lolesports.com/api"
-  MATCHES_ENDPOINT = "#{ROOT_ENDPOINT}/v1/scheduleItems?leagueId="
-  VIDEOS_ENDPOINT = "#{ROOT_ENDPOINT}/v2/videos?tournament="
-  LIVESTREAM_ENDPOINT = "#{ROOT_ENDPOINT}/v2/streamgroups"
+  include Singleton
 
-  def self.request_url(url)
+  HOST = "http://api.lolesports.com"
+  MATCHES_ENDPOINT = "/api/v1/scheduleItems?leagueId="
+  VIDEOS_ENDPOINT = "/api/v2/videos?tournament="
+  LIVESTREAM_ENDPOINT = "/api/v2/streamgroups"
+  HEADERS = {
+    "Accept" => "application/json, text/javascript, */*; q=0.01",
+    "Accept-Encoding" => "gzip, deflate, sdch",
+    "Accept-Language" => ":en-GB,en;q=0.8,en-US;q=0.6",
+    "Connection" => "keep-alive",
+    "Origin" => "http://www.lolesports.com",
+    "Referer" => "http://www.lolesports.com/en_US/",
+    "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36"
+  }
+
+  def initialize
+    @connection = Excon.new(HOST,
+      persistent: true,
+      middlewares: Excon.defaults[:middlewares] + [Excon::Middleware::Decompress],
+      omit_default_port: true
+    )
+  end
+
+  def request_url(path)
     start = Time.now
-    print "Requesting #{url}..."
-    body = URI.parse(url).read("User-Agent" => USER_AGENT)
-    puts " done; took #{((Time.now - start) * 1000).round(1)}ms, body size #{(body.bytes.length / 1024.0).round(1)}KB"
-    body
+    print "Requesting #{HOST}#{path}..."
+    response = @connection.get(path: path, headers: HEADERS)
+
+    taken = ((Time.now - start) * 1000).round(1)
+    size_kb = (response.body.bytes.length / 1024.0).round(1)
+    puts " done; took #{taken}ms, response status #{response.status}, body size #{size_kb}KB"
+
+    response.body
   end
 
-  def self.retrieve(url)
-    JSON.parse(request_url(url))
+  def retrieve(path)
+    JSON.parse(request_url(path))
   end
 
-  def self.matches(league_id)
+  def matches(league_id)
     retrieve("#{MATCHES_ENDPOINT}#{league_id}")
   end
 
-  def self.videos(tournament_id)
+  def videos(tournament_id)
     retrieve("#{VIDEOS_ENDPOINT}#{CGI::escape(tournament_id)}")
   end
 
-  def self.livestreams
+  def livestreams
     retrieve(LIVESTREAM_ENDPOINT)
   end
 end

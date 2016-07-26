@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem 'excon'
 gem 'haml'
 gem 'rmagick'
 gem 'sprite-factory', require: 'sprite_factory'

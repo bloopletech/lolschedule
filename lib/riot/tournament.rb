@@ -4,7 +4,7 @@ class Riot::Tournament
   end
 
   def videos
-    @videos ||= Riot::ApiClient.videos(@tournament['id'])
+    @videos ||= Riot::ApiClient.instance.videos(@tournament['id'])
   end
 
   def video(game_id)
