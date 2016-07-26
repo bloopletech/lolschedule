@@ -44,9 +44,13 @@ function applyFilters(groups) {
   }
 
   window.location.hash = "#" + JSON.stringify(groups);
+  window.localStorage["current-filter"] = JSON.stringify(groups);
 }
 
 function updateSelected(groups) {
+  var selected = document.querySelectorAll(".filter-group .selected");
+  for(var i = 0; i < selected.length; i++) selected[i].classList.remove("selected");
+
   var terms = [].concat.apply([], groups);
 
   for(var i = 0; i < terms.length; i++) {
@@ -67,7 +71,7 @@ function triggerFilterList(event) {
 
   var selected = document.body.classList.add("open");
 
-  closeAllFilters();
+  closeFilters();
 
   if(!selected) {
     document.body.classList.add("filters-opened");
@@ -88,11 +92,24 @@ function updateFilterNames(groups) {
 function closeFilter(event) {
   event.preventDefault();
 
-  closeAllFilters();
+  closeFilters();
 }
 
-function closeAllFilters() {
+function closeFilters() {
   document.body.classList.remove("filters-opened");
+}
+
+function clearFilters(event) {
+  event.preventDefault();
+
+  applyFilters([]);
+  updateSelected([]);
+}
+
+function unmarshalFilters(string) {
+  var groups = JSON.parse(string);
+  applyFilters(groups);
+  updateSelected(groups);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -100,11 +117,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(e.target && e.target.matches("#filters > li a.trigger")) triggerFilterList.call(e.target, e);
     if(e.target && e.target.matches("#filters-content ul.filter-list li")) selectFilter.call(e.target, e);
     if(e.target && e.target.matches("#filters-content a.close")) closeFilter.call(e.target, e);
+    if(e.target && e.target.matches("#filters-content a.clear")) clearFilters.call(e.target, e);
   });
 
-  if(window.location.hash.length > 1) {
-    var groups = JSON.parse(window.location.hash.substr(1));
-    applyFilters(groups);
-    updateSelected(groups);
-  }
+  if(window.location.hash.length > 1) unmarshalFilters(window.location.hash.substr(1));
+  else if(window.localStorage["current-filter"]) unmarshalFilters(window.localStorage["current-filter"]);
 });
