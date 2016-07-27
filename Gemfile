@@ -9,3 +9,8 @@ gem 'aws-sdk'
 gem 'guard'
 gem 'guard-yield'
 gem 'guard-livereload'
+
+group :test do
+  gem 'rspec'
+  gem 'vcr'
+end

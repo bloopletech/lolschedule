@@ -4,3 +4,4 @@
 /build/icons.png
 /output
 .DS_Store
+/spec/fixtures/vcr_cassettes
