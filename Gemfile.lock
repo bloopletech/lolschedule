@@ -10,6 +10,7 @@ GEM
       aws-sdk-core (= 2.2.37)
     coderay (1.1.1)
     diff-lcs (1.2.5)
+    dotenv (2.1.1)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -58,6 +59,8 @@ GEM
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
     rmagick (2.15.4)
+    rollbar (2.12.0)
+      multi_json
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -84,12 +87,14 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   aws-sdk
+  dotenv
   excon
   guard
   guard-livereload
   guard-yield
   haml
   rmagick
+  rollbar
   rspec
   sprite-factory
   vcr

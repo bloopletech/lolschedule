@@ -14,6 +14,8 @@ Bundler.require(:default)
 
 $:.unshift(File.dirname(__FILE__))
 
+Dotenv.load
+
 module Models
 end
 
@@ -23,6 +25,7 @@ end
 module Riot
 end
 
+require 'error_reporting'
 require 'build'
 require 'build/haml_context'
 require 'build/icons'
