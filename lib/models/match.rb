@@ -1,4 +1,6 @@
 class Models::Match < Models::Model
+  CURRENT_YEAR = Time.parse("2016-01-01")
+
   set_fields :riot_id, :riot_league_id, :riot_team_1_id, :riot_team_2_id, :time, :vod_urls
 
   finder name: :league, relation: :leagues, key: :riot_league_id, foreign_key: :riot_id
@@ -11,5 +13,9 @@ class Models::Match < Models::Model
 
     stream = league.streams.find { |s| s[:priority] } || league.streams.first
     stream['url']
+  end
+
+  def current?
+    Time.parse(time) >= CURRENT_YEAR
   end
 end
