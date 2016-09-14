@@ -19,12 +19,12 @@
     %h2 Filter Leagues
     .filter-group
       %ul.filter-list.clearfix
-        - source.leagues.each do |league|
+        - leagues.each do |league|
           %li{data: { value: league.slug }}= league.name
 
     %h2 Filter Teams
     .filter-group
-      - source.leagues.reject { |league| league.slug == 'MSI' }.each do |league|
+      - leagues.reject { |league| league.slug == 'MSI' }.each do |league|
         .subgroup.clearfix
           %h3= league.name
           %ul.filter-list.clearfix

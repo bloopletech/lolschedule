@@ -1,3 +1,5 @@
+var localStorageKey = location.pathname + "current-filter";
+
 function selectedFilters() {
   var groups = [];
 
@@ -44,7 +46,7 @@ function applyFilters(groups) {
   }
 
   window.location.hash = "#" + JSON.stringify(groups);
-  window.localStorage["current-filter"] = JSON.stringify(groups);
+  window.localStorage[localStorageKey] = JSON.stringify(groups);
 }
 
 function updateSelected(groups) {
@@ -121,5 +123,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   if(window.location.hash.length > 1) unmarshalFilters(window.location.hash.substr(1));
-  else if(window.localStorage["current-filter"]) unmarshalFilters(window.localStorage["current-filter"]);
+  else if(window.localStorage[localStorageKey]) unmarshalFilters(window.localStorage[localStorageKey]);
 });

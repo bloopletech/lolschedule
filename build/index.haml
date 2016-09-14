@@ -22,12 +22,18 @@
     <!-- Page generated #{generated}, data file generated #{data_generated} -->
   %body
     #page-wrapper
-      != partial('filters', { source: source })
+      != partial('filters', { leagues: leagues })
 
-      - source.leagues.reject { |league| league.streams.empty? }.each do |league|
+      %h1= title
+
+      - leagues.reject { |league| league.streams.empty? }.each do |league|
         - league.streams.each do |stream|
           != partial('league_stream', { league: league, stream: stream })
-      - source.matches.select { |match| match.current? }.sort_by { |match| Time.parse(match.time) }.each do |match|
+      - matches.sort_by { |match| Time.parse(match.time) }.each do |match|
         != partial('match', { match: match })
       #no-results.match.filter-no-match
         %div There are no matches that fit all the filters you have applied.
+
+      .links
+        %a{href: '2015.html'} 2015 Matches
+        %a{href: 'index.html'} 2016 Matches
