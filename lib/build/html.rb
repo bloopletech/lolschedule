@@ -2,34 +2,28 @@ class Build::Html
   TIME_FORMAT = '%a, %d %b %Y %-l:%M %p %z'
 
   def build
+    haml_context = Build::HamlContext.new(Build.build_path)
+
     source = Models::Persistence.load(Build.source_path)
 
-    build_2016(source)
-    build_2015(source)
+    (Build.output_path + 'index.html').write(haml_context.render('index.haml', context_2016(source)))
+    (Build.output_path + '2015.html').write(haml_context.render('index.haml', context_2015(source)))
   end
 
-  def build_2016(source)
-    context = build_context.merge(
+  def context_2015(source)
+    build_context.merge(
       leagues: source.leagues,
-      matches: source.matches.select { |match| Time.parse(match.time).year == 2016 },
-      title: '2016 Matches'
-    )
-
-    (Build.output_path + 'index.html').write(render(context))
-  end
-
-  def build_2015(source)
-    context = build_context.merge(
-      leagues: source.leagues,
-      matches: source.matches.select { |match| Time.parse(match.time).year == 2015 },
+      matches: source.matches.select { |match| match.time.year == 2015 },
       title: '2015 Matches'
     )
-
-    (Build.output_path + '2015.html').write(render(context))
   end
 
-  def render(context)
-    Build::HamlContext.new(Build.build_path).render('index.haml', context)
+  def context_2016(source)
+    build_context.merge(
+      leagues: source.leagues,
+      matches: source.matches.select { |match| match.time.year == 2016 },
+      title: '2016 Matches'
+    )
   end
 
   def build_context

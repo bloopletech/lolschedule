@@ -26,7 +26,7 @@ class Seeders::RiotTournament
       riot_league_id: @tournament['league'],
       riot_team_1_id: team_ids.first,
       riot_team_2_id: team_ids.last,
-      time: item['scheduledTime'],
+      time: Time.parse(item['scheduledTime']),
       vod_urls: vod_urls
     )
   end
