@@ -1,4 +1,9 @@
 class Build::Html
+  YEARS_FILES = {
+    2015 => '2015.html',
+    2016 => 'index.html'
+  }
+
   TIME_FORMAT = '%a, %d %b %Y %-l:%M %p %z'
 
   def build
@@ -6,8 +11,9 @@ class Build::Html
 
     source = Models::Persistence.load(Build.source_path)
 
-    (Build.output_path + 'index.html').write(haml_context.render('index.haml', context(source, 2016)))
-    (Build.output_path + '2015.html').write(haml_context.render('index.haml', context(source, 2015)))
+    YEARS_FILES.each_pair do |year, file|
+      (Build.output_path + file).write(haml_context.render('index.haml', context(source, year)))
+    end
   end
 
   def context(source, year)

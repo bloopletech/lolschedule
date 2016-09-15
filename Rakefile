@@ -42,8 +42,10 @@ namespace :clean do
     icons_css_path = (Build.build_path + 'css' + 'icons.css')
     icons_css_path.delete if icons_css_path.exist?
 
-    index_html_path = (Build.output_path + 'index.html')
-    index_html_path.delete if index_html_path.exist?
+    Build::Html::YEARS_FILES.each_pair do |year, file|
+      html_path = (Build.output_path + file)
+      html_path.delete if html_path.exist?
+    end
 
     icons_png_path = (Build.output_path + 'icons.png')
     icons_png_path.delete if icons_png_path.exist?
