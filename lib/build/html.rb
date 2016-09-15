@@ -21,8 +21,8 @@ class Build::Html
       leagues: source.leagues,
       matches: source.matches.select { |match| match.rtime.year == year },
       title: "#{year} League Schedule",
-      generated: Time.now.strftime(TIME_FORMAT),
-      data_generated: Build.source_path.mtime.strftime(TIME_FORMAT)
+      generated: Time.now.iso8601,
+      data_generated: Build.source_path.mtime.iso8601
     }
   end
 end

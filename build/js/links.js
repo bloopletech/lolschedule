@@ -23,6 +23,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   document.querySelector("a#end").addEventListener("click", function(event) {
     event.preventDefault();
-    document.body.scrollIntoView(false);
+    document.documentElement.scrollIntoView(false);
   });
 });

@@ -64,7 +64,20 @@ function parseTimes() {
   }
 }
 
+function parseFooterTimes() {
+  var now = new Date();
+
+  var times = document.querySelectorAll(".footer-time");
+  for(var i = 0; i < times.length; i++) {
+    var time = new Date(times[i].dataset.value);
+    var minutes = Math.floor(((now - time) / 1000) / 60);
+
+    times[i].textContent = (minutes == 0 ? "<1" : minutes) + (minutes == 0 ? " minute" : " minutes") + " ago";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   parseTimes();
   window.setInterval(parseTimes, 60000);
+  parseFooterTimes();
 });

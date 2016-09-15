@@ -18,8 +18,6 @@
       #{include('js/filters.js')}
       #{include('js/links.js')}
       #{include('js/reveals.js')}
-
-    <!-- Page generated #{generated}, data file generated #{data_generated} -->
   %body
     #page-wrapper
       != partial('filters', { leagues: leagues })
@@ -37,3 +35,10 @@
       #links.clearfix
         - Build::Html::SEASONS.each_pair do |year, file|
           %a{href: "/#{file if file != 'index.html'}"} #{year} Schedule
+
+      #footer<
+        Page generated&nbsp;
+        %span.footer-time{data: { value: generated }}
+        , data file generated&nbsp;
+        %span.footer-time{data: { value: data_generated }}
+        \.
