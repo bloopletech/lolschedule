@@ -13,16 +13,16 @@ class Build::Html
   def context_2015(source)
     build_context.merge(
       leagues: source.leagues,
-      matches: source.matches.select { |match| match.time.year == 2015 },
-      title: '2015 Matches'
+      matches: source.matches.select { |match| match.rtime.year == 2015 },
+      title: '2015 League Schedule'
     )
   end
 
   def context_2016(source)
     build_context.merge(
       leagues: source.leagues,
-      matches: source.matches.select { |match| match.time.year == 2016 },
-      title: '2016 Matches'
+      matches: source.matches.select { |match| match.rtime.year == 2016 },
+      title: '2016 League Schedule'
     )
   end
 

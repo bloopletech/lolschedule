@@ -150,18 +150,12 @@ a.live-banner {
   display: none;
 }
 
-.links a {
+#links a {
   display: block;
   float: left;
   padding: 10px 15px;
   font-size: 20px;
   font-weight: bold;
-}
-
-.links::after {
-  content: " ";
-  clear: both;
-  display: table;
 }
 
 @media (min-width: 768px) and (max-width: 950px) {
@@ -190,11 +184,36 @@ a.live-banner {
   .match .time {
     width: 185px;
   }
+
+  h1 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
 @media (max-width: 767px) {
-  #page-wrapper {
-    padding-top: 90px;
+  #today, #top, #end {
+    text-indent: -9999px;
+    line-height: 0;
+    text-decoration: none;
+  }
+
+  #today::after, #top::after, #end::after {
+    text-indent: 0;
+    display: block;
+    line-height: initial;
+  }
+
+  #today::after {
+    content: "🔥";
+  }
+
+  #top::after {
+    content: "⬆️";
+  }
+
+  #end::after {
+    content: "⬇️";
   }
 
   .match, .league {
@@ -246,5 +265,10 @@ a.live-banner {
 
   .match a.vod, .match a.reveal {
     padding: 0 5px;
+  }
+
+  h1 {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }

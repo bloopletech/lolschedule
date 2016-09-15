@@ -2,7 +2,7 @@
 %html
   %head
     %meta{charset: 'utf-8'}
-    %title League Schedule
+    %title= title
 
     %meta{name: 'HandheldFriendly', content: 'true'}
     %meta{name: 'viewport', content: 'width=device-width, height=device-height, user-scalable=no'}
@@ -29,11 +29,11 @@
       - leagues.reject { |league| league.streams.empty? }.each do |league|
         - league.streams.each do |stream|
           != partial('league_stream', { league: league, stream: stream })
-      - matches.sort_by { |match| Time.parse(match.time) }.each do |match|
+      - matches.sort_by { |match| match.rtime }.each do |match|
         != partial('match', { match: match })
       #no-results.match.filter-no-match
         %div There are no matches that fit all the filters you have applied.
 
-      .links
-        %a{href: '2015.html'} 2015 Matches
-        %a{href: 'index.html'} 2016 Matches
+      #links.clearfix
+        %a{href: '2015.html'} 2015 Schedule
+        %a{href: 'index.html'} 2016 Schedule

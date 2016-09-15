@@ -12,4 +12,8 @@ class Models::Match < Models::Model
     stream = league.streams.find { |s| s[:priority] } || league.streams.first
     stream['url']
   end
+
+  def rtime
+    Time.parse(time)
+  end
 end
