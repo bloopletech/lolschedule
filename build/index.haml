@@ -35,5 +35,5 @@
         %div There are no matches that fit all the filters you have applied.
 
       #links.clearfix
-        - Build::Html::YEARS_FILES.each_pair do |year, file|
+        - Build::Html::SEASONS.each_pair do |year, file|
           %a{href: "/#{file if file != 'index.html'}"} #{year} Schedule

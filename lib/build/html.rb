@@ -1,5 +1,5 @@
 class Build::Html
-  YEARS_FILES = {
+  SEASONS = {
     2015 => '2015.html',
     2016 => 'index.html'
   }
@@ -11,7 +11,7 @@ class Build::Html
 
     source = Models::Persistence.load(Build.source_path)
 
-    YEARS_FILES.each_pair do |year, file|
+    SEASONS.each_pair do |year, file|
       (Build.output_path + file).write(haml_context.render('index.haml', context(source, year)))
     end
   end

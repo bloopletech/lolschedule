@@ -5,7 +5,7 @@ class Build::Aws
     s3 = Aws::S3::Resource.new(region: REGION)
     bucket = s3.bucket('lol-schedule')
 
-    Build::Html::YEARS_FILES.each_pair do |year, file|
+    Build::Html::SEASONS.each_pair do |year, file|
       obj = bucket.object(file)
       obj.upload_file((Build.output_path + file).to_s,
         acl: 'public-read',
@@ -29,7 +29,7 @@ class Build::Aws
       invalidation_batch: {
         paths: {
           quantity: 2,
-          items: Build::Html::YEARS_FILES.values.map { |v| "/#{v}" } + ['/icons.png']
+          items: Build::Html::SEASONS.values.map { |v| "/#{v}" } + ['/icons.png']
         },
         caller_reference: "invalidation-#{Time.now.to_i}"
       }

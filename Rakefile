@@ -42,7 +42,7 @@ namespace :clean do
     icons_css_path = (Build.build_path + 'css' + 'icons.css')
     icons_css_path.delete if icons_css_path.exist?
 
-    Build::Html::YEARS_FILES.each_pair do |year, file|
+    Build::Html::SEASONS.each_pair do |year, file|
       html_path = (Build.output_path + file)
       html_path.delete if html_path.exist?
     end
