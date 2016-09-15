@@ -87,8 +87,13 @@ function updateFilterNames(groups) {
   for(var i = 0; i < terms.length; i++) content.push(terms[i].replace(/-/g, " "));
 
   var filter = document.querySelector("#filter a.trigger");
-  if(content.length > 0) filter.textContent = content.join(", ");
-  else filter.textContent = "All";
+  if(content.length > 0) {
+    if(document.body.classList.contains("no-touch")) filter.textContent = content.join(", ");
+    else filter.textContent = "On...";
+  }
+  else {
+    filter.textContent = "Off";
+  }
 }
 
 function closeFilter(event) {
