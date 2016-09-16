@@ -1,7 +1,7 @@
 - if vod_urls.length == 1
-  %a.vod.revealed{href: vod_urls.first, target: '_blank'} vod
+  %a.data.vod.revealed{href: vod_urls.first, target: '_blank'} vod
 - else
   - vod_urls.each_with_index do |url, i|
-    %a.vod{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
+    %a.data.vod{href: url, target: '_blank', class: "#{'revealed' if i == 0}"}
       vod #{i + 1}
-  %a.reveal{href: '#'} …
+  %a.data.reveal{href: '#'} …
