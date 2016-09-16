@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.clearfix:after {
+.clearfix::after {
   content: " ";
   display: table;
   clear: both;
@@ -91,7 +91,7 @@ a.live-banner {
   color: #ffffff;
 }
 
-.match > *, .league > * {
+.match > div, .match > a, .league > div, .league > a {
   display: block;
   float: left;
   padding: 0 5px;
@@ -175,7 +175,7 @@ a.live-banner {
     font-size: 24px;
   }
 
-  .match > *, .league > * {
+  .match > div, .match > a, .league > div, .league > a {
     padding: 0 4px;
   }
 
@@ -199,7 +199,7 @@ a.live-banner {
 
 @media (max-width: 767px) {
   #today, #top, #end {
-    text-indent: -9999px;
+    text-indent: -500px;
     line-height: 0;
     text-decoration: none;
   }
@@ -236,13 +236,13 @@ a.live-banner {
     font-size: 20px;
   }
 
-  .match > *, .league > * {
+  .match > div, .match > a, .league > div, .league > a {
     padding: 0;
     height: 26px;
     line-height: 26px;
   }
 
-  .league > * {
+  .league > div, .league > a {
     padding: 0 5px;
   }
 
