@@ -199,6 +199,14 @@ a.reveal {
 }
 
 @media (max-width: 767px) {
+  #page-wrapper {
+    padding-top: 0;
+  }
+
+  #filters-wrapper {
+    position: static;
+  }
+
   #today, #top, #end {
     text-indent: -500px;
     line-height: 0;
@@ -226,7 +234,7 @@ a.reveal {
   .match, .league {
     width: auto;
     height: 106px;
-    padding: 8px 5px 8px 28px;
+    padding: 8px 5px 8px 5px;
     font-size: 18px;
   }
 
@@ -250,12 +258,9 @@ a.reveal {
   }
 
   .match > .league-name {
-    position: absolute;
-    top: 8px;
-    left: 0;
     width: 75px;
-    transform: rotate(-90deg) translate(-75px, 0);
-    transform-origin: left top 0;
+    height: 88px;
+    text-align: left;
   }
 
   .vs {
