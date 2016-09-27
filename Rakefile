@@ -8,6 +8,11 @@ task :data do
 end
 
 namespace :build do
+  desc 'Build JSON file containing league and match data formatted for HTML page'
+  task :data do
+    Build::Data.new.build
+  end
+
   namespace :icons do
     desc 'Download icons from Akamai'
     task :download do
@@ -32,11 +37,13 @@ namespace :build do
 end
 
 desc 'Build complete HTML page and team icons'
-task build: ['build:icons:download', 'build:icons:sprite', 'build:html']
+task build: ['build:data', 'build:icons:download', 'build:icons:sprite', 'build:html']
 
 namespace :clean do
-  desc 'Delete generated HTML page and icons sprite sheet'
+  desc 'Delete generated JSON data, HTML page and icons sprite sheet'
   task :build do
+    Build.data_json_path.delete if Build.data_json_path.exist?
+
     Build::Icons.new.clean
 
     icons_css_path = (Build.build_path + 'css' + 'icons.css')

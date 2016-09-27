@@ -1,4 +1,7 @@
 module Build
+  module Serializers
+  end
+
   def self.root_path
     Pathname.new(__FILE__).dirname.parent
   end
@@ -15,6 +18,10 @@ module Build
     root_path + 'build'
   end
 
+  def self.data_json_path
+    build_path + 'data.json'
+  end
+
   def self.icons_path
     build_path + 'icons'
   end
@@ -22,4 +29,6 @@ module Build
   def self.output_path
     root_path + 'output'
   end
+
+
 end

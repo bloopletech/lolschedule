@@ -20,6 +20,7 @@ end
 
 icons_options = yield_hash(Build::Icons.new) { |icons| icons.download }
 sprites_options = yield_hash(Build::Icons.new) { |icons| icons.build_sprites }
+build_data_options = yield_hash(Build::Data.new) { |builder| builder.build }
 build_options = yield_hash(Build::Html.new) { |builder| builder.build }
 
 guard :yield, icons_options do
@@ -28,6 +29,10 @@ end
 
 guard :yield, sprites_options do
   watch(%r{^build/icons/.*$})
+end
+
+guard :yield, build_data_options do
+  watch(%r{^data/.*$})
 end
 
 guard :yield, build_options do

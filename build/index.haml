@@ -11,8 +11,12 @@
       #{include('css/icons.css')}
       #{include('css/filters.css')}
       #{include('css/style.css')}
-
+  
     :javascript
+      var data = #{include('data.json')};
+
+      #{include('js/iscroll-infinite.js')}
+      #{include('js/list.js')}
       #{include('js/times.js')}
       #{include('js/js.js')}
       #{include('js/filters.js')}
@@ -24,13 +28,11 @@
 
       %h1= title
 
-      - leagues.reject { |league| league.streams.empty? }.each do |league|
-        - league.streams.each do |stream|
-          != partial('league_stream', { league: league, stream: stream })
-      - matches.sort_by { |match| match.rtime }.each do |match|
-        != partial('match', { match: match })
+      #matches-root
+        #scroller
+          #scroller-inner
       #no-results.match.filter-no-match
-        %div There are no matches that fit all the filters you have applied.
+        .data There are no matches that fit all the filters you have applied.
 
       #links.clearfix
         - Build::Html::SEASONS.each_pair do |year, file|
