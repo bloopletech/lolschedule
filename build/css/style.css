@@ -111,6 +111,10 @@ a.live-banner {
   width: 145px;
 }
 
+.league.Worlds > .league-name {
+  width: 320px;
+}
+
 .time {
   width: 203px;
   text-align: center;
@@ -253,7 +257,7 @@ a.reveal {
     padding: 0 5px;
   }
 
-  .league > .league-name {
+  .league > .league-name, .league.Worlds > .league-name {
     width: 115px;
   }
 

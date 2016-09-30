@@ -11,7 +11,9 @@ class Seeders::RiotStreams
     'lms' => 'LMS',
     'oce-opl' => 'OPL',
     'na-challenger' => 'NA CS',
-    'eu-challenger' => 'EU CS'
+    'eu-challenger' => 'EU CS',
+    'worldchampionship' => 'Worlds',
+    'altstream' => 'Worlds'
   }
 
   extend Forwardable
@@ -34,12 +36,19 @@ class Seeders::RiotStreams
       riot_league_id = stream_league_id(streamgroup['slug'])
 
       streams.each do |stream|
-        seed_stream(stream, streamgroup['title'], riot_league_id) if stream && riot_league_id
+        next unless stream && riot_league_id
+
+        seed_stream(
+          stream: stream,
+          title: streamgroup['title'],
+          slug: streamgroup['slug'],
+          riot_league_id: riot_league_id
+        )
       end
     end
   end
 
-  def seed_stream(stream, title, riot_league_id)
+  def seed_stream(stream:, title:, slug:, riot_league_id:)
     stream['embedHTML'] =~ /(https:\/\/www\.youtube\.com)(.*?)"/
     url = "#{$1}#{$2}"
 
@@ -47,12 +56,16 @@ class Seeders::RiotStreams
       title[/\d+/]
     elsif stream['title'] =~ /-/
       stream['title'][/- (.*?)$/, 1]
+    elsif slug == 'altstream'
+      "- #{title}"
     else
       nil
     end
 
+    priority = stream_title == 'OGN' || stream_title.nil?
+
     league = @source.leagues.find { |league| league.riot_id == riot_league_id }
-    league.streams << { 'id' => stream_title, 'url' => url, priority: stream_title == 'OGN' }
+    league.streams << { 'id' => stream_title, 'url' => url, priority: priority }
   end
 
   def seed_active_matches
