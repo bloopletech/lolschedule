@@ -19,7 +19,7 @@ Date.prototype.formatDate = function(today) {
   var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  var ampm = (this.getHours() > 12) ? 'PM' : 'AM';
+  var ampm = (this.getHours() >= 12) ? 'PM' : 'AM';
   var hours = this.getHours() % 12;
   if(hours == 0) hours = 12;
 
