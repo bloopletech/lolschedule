@@ -6,7 +6,7 @@
     %span.middle< v
     %span.logo{class: match.team_2.slug}
     = match.team_2.acronym
-  .data.time{data: { value: match.time }}
+  .data.time{data: { value: match.rtime.iso8601 }}
   - if match.stream_url
     %a.data.live-banner{href: match.stream_url, target: '_blank'} WATCH LIVE NOW ➔
   - if match.vod_urls.any?
