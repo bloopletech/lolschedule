@@ -27,6 +27,7 @@ end
 
 require 'error_reporting'
 require 'build'
+require 'build/surprise_linker'
 require 'build/haml_context'
 require 'build/icons'
 require 'build/html'

@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem 'excon'
 gem 'haml'
+gem 'addressable'
 gem 'rmagick'
 gem 'sprite-factory', require: 'sprite_factory'
 gem 'awesome_print'

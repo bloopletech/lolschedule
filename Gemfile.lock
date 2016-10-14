@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.4.0)
     awesome_print (1.6.1)
     aws-sdk (2.2.37)
       aws-sdk-resources (= 2.2.37)
@@ -85,6 +86,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   awesome_print
   aws-sdk
   dotenv

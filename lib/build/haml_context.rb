@@ -18,6 +18,10 @@ class Build::HamlContext
     (@build_path + path).read
   end
 
+  def surprise_link(url)
+    Build::SurpriseLinker.new(url).link
+  end
+
   def haml_engine(path)
     @haml_engine_cache[path] = Haml::Engine.new(include(path), ENGINE_OPTIONS) unless @haml_engine_cache.key?(path)
     @haml_engine_cache[path]
