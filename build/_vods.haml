@@ -1,5 +1,5 @@
 - if vod_urls.length == 1
-  %a.data.vod.revealed{href: vod_urls.first, target: '_blank'} vod
+  %a.data.vod.revealed{href: surprise_link(vod_urls.first), target: '_blank'} vod
 - else
   - vod_urls.each_with_index do |url, i|
     %a.data.vod{href: surprise_link(url), target: '_blank', class: "#{'revealed' if i == 0}"}
