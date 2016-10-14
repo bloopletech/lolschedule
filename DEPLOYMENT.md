@@ -20,7 +20,7 @@ Edit `/home/ubuntu/lolschedule.git/hooks/post-receive`:
 #!/bin/bash
 git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git checkout -f
 cd /home/ubuntu/lolschedule
-bundle install --without test
+bundle install --without development test
 ````
 
 ## Environment variables

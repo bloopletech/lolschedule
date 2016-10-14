@@ -10,9 +10,11 @@ gem 'aws-sdk'
 gem 'dotenv'
 gem 'rollbar'
 
-gem 'guard'
-gem 'guard-yield'
-gem 'guard-livereload'
+group :development do
+  gem 'guard'
+  gem 'guard-yield'
+  gem 'guard-livereload'
+end
 
 group :test do
   gem 'rspec'
