@@ -31,4 +31,9 @@ class Models::Model
   def to_h
     Hash[self.class.fields.map { |field| [field.to_s, send(field)] }]
   end
+
+  def inspect
+    values = to_h.map { |k, v| "#{k}=#{v.inspect}" }.join(", ")
+    "#<#{self.class.name}:#{object_id} #{values}>"
+  end
 end
