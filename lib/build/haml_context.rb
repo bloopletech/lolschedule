@@ -23,7 +23,9 @@ class Build::HamlContext
   end
 
   def haml_engine(path)
-    @haml_engine_cache[path] = Haml::Engine.new(include(path), ENGINE_OPTIONS) unless @haml_engine_cache.key?(path)
+    unless @haml_engine_cache.key?(path)
+      @haml_engine_cache[path] = Haml::Engine.new(include(path), ENGINE_OPTIONS.merge(filename: path))
+    end
     @haml_engine_cache[path]
   end
 end
