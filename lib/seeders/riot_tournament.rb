@@ -1,7 +1,7 @@
 class Seeders::RiotTournament
   extend Forwardable
   def_delegators :@riot_league, :teams, :schedule_items
-  def_delegators :@riot_tournament, :match, :match_teams, :match_videos
+  def_delegators :@riot_tournament, :match, :match_type, :match_teams, :match_players, :match_videos
 
   def initialize(source, riot_league, tournament)
     @source = source
@@ -16,6 +16,15 @@ class Seeders::RiotTournament
 
   def seed_item(item)
     match = match(item)
+
+    if match_type(match) == 'team'
+      seed_team_match(item, match)
+    else
+      seed_single_match(item, match)
+    end
+  end
+
+  def seed_team_match(item, match)
     team_ids = match_teams(match)
     return if team_ids.any? { |team_id| team_id.nil? }
 
@@ -24,8 +33,26 @@ class Seeders::RiotTournament
     @source.matches << Models::Match.new(
       riot_id: match['id'],
       riot_league_id: @tournament['league'],
+      type: 'team',
       riot_team_1_id: team_ids.first,
       riot_team_2_id: team_ids.last,
+      time: item['scheduledTime'],
+      vod_urls: vod_urls
+    )
+  end
+
+  def seed_single_match(item, match)
+    player_ids = match_players(match)
+    return if player_ids.any? { |player_id| player_id.nil? }
+
+    vod_urls = match_videos(match).map { |video| video['source'] }
+
+    @source.matches << Models::Match.new(
+      riot_id: match['id'],
+      riot_league_id: @tournament['league'],
+      type: 'single',
+      riot_player_1_id: player_ids.first,
+      riot_player_2_id: player_ids.last,
       time: item['scheduledTime'],
       vod_urls: vod_urls
     )

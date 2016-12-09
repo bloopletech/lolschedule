@@ -1,11 +1,22 @@
-.match.clearfix{class: "#{'live' if match.stream_url} #{'games' if match.vod_urls.any?} #{match.league.slug} #{match.team_1.acronym} #{match.team_2.acronym}", data: { stream_url: match.stream_url }}
+- classes = [match.league.slug]
+- classes << 'live' if match.stream_url
+- classes << 'games' if match.vod_urls.any?
+- classes.push(match.team_1.acronym, match.team_2.acronym) if match.team?
+- classes.push(match.player_1.name, match.player_2.name) if match.single?
+
+.match.clearfix{class: classes.join(' '), data: { stream_url: match.stream_url }, title: match.riot_id}
   .data.league-name= match.league.name
   .data.vs<
-    = match.team_1.acronym
-    %span.logo{class: match.team_1.slug}
-    %span.middle< v
-    %span.logo{class: match.team_2.slug}
-    = match.team_2.acronym
+    - if match.team?
+      = match.team_1.acronym
+      %span.logo{class: match.team_1.slug}
+      %span.middle< v
+      %span.logo{class: match.team_2.slug}
+      = match.team_2.acronym
+    - if match.single?
+      = match.player_1.name
+      %span.middle< v
+      = match.player_2.name
   .data.time{data: { value: match.rtime.iso8601 }}
   - if match.stream_url
     %a.data.live-banner{href: match.stream_url, target: '_blank'} WATCH LIVE NOW ➔

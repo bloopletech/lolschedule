@@ -11,6 +11,10 @@ class Riot::League
     data['teams']
   end
 
+  def players
+    data['players']
+  end
+
   def tournaments
     data['highlanderTournaments']
   end

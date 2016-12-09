@@ -1,6 +1,6 @@
 class Seeders::RiotLeague
   extend Forwardable
-  def_delegators :@riot_league, :teams, :published_tournaments
+  def_delegators :@riot_league, :teams, :players, :published_tournaments
 
   def initialize(source, riot_league_id)
     @source = source
@@ -10,6 +10,7 @@ class Seeders::RiotLeague
 
   def seed
     seed_teams
+    seed_players
 
     published_tournaments.each do |tournament|
       Seeders::RiotTournament.new(@source, @riot_league, tournament).seed
@@ -23,6 +24,16 @@ class Seeders::RiotLeague
         riot_league_id: @riot_league_id,
         acronym: team['acronym'],
         logo: team['logoUrl']
+      )
+    end
+  end
+
+  def seed_players
+    players.each do |player|
+      @source.players << Models::Player.new(
+        riot_id: player['id'],
+        riot_league_id: @riot_league_id,
+        name: player['name']
       )
     end
   end

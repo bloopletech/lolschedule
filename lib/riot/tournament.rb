@@ -28,12 +28,25 @@ class Riot::Tournament
     bracket_match(bracket, schedule_item['match'])
   end
 
+  def match_type(match)
+    return 'team' unless match.key?('gameMode')
+    match['gameMode']['requiredPlayers'].to_i > 1 ? 'team' : 'single'
+  end
+
   def match_teams(match)
+    match_participants(match, 'team')
+  end
+
+  def match_players(match)
+    match_participants(match, 'player')
+  end
+
+  def match_participants(match, participant_type)
     match_rosters = match['input'].map { |input| roster(input['roster']) }
 
     return nil, nil if match_rosters.any? { |roster| roster.nil? }
 
-    match_rosters.map { |roster| roster['team'].to_i }
+    match_rosters.map { |roster| roster[participant_type].to_i }
   end
 
   def match_videos(match)
