@@ -1,7 +1,8 @@
 class Build::Html
   SEASONS = {
     2015 => '2015.html',
-    2016 => 'index.html'
+    2016 => '2016.html',
+    2017 => 'index.html'
   }
 
   TIME_FORMAT = '%a, %d %b %Y %-l:%M %p %z'
