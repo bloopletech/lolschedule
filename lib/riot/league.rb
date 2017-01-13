@@ -16,7 +16,7 @@ class Riot::League
   end
 
   def tournaments
-    data['highlanderTournaments']
+    data['highlanderTournaments'].reverse.uniq { |t| t['title'] }
   end
 
   def published_tournaments
