@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem 'rake'
 gem 'excon'
 gem 'haml'
 gem 'addressable'
