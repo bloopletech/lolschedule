@@ -18,13 +18,26 @@ class Build::Html
   end
 
   def context(source, year)
+    matches = matches_for_year(source, year)
+    leagues = leagues_for_matches(source, matches)
+    team_acronyms = matches.flat_map { |match| match.teams }.uniq.map { |team| team.acronym }
+
     {
       year: year,
-      leagues: source.leagues,
-      matches: source.matches.select { |match| match.rtime.year == year },
+      leagues: leagues,
+      matches: matches,
+      team_acronyms: team_acronyms,
       title: "#{year} League Schedule",
       generated: Time.now.iso8601,
       data_generated: Build.source_path.mtime.iso8601
     }
+  end
+
+  def matches_for_year(source, year)
+    source.matches.select { |match| match.rtime.year == year }
+  end
+
+  def leagues_for_matches(source, matches)
+    source.leagues.select { |league| matches.any? { |match| match.league == league } }
   end
 end

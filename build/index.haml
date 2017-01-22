@@ -20,7 +20,7 @@
       #{include('js/reveals.js')}
   %body
     #page-wrapper
-      != partial('filters', { leagues: leagues })
+      != partial('filters', { leagues: leagues, matches: matches, team_acronyms: team_acronyms })
 
       != partial('links', { year: year })
 

@@ -27,4 +27,12 @@ class Models::Match < Models::Model
   def single?
     type == 'single'
   end
+
+  def teams
+    team? ? [team_1, team_2] : []
+  end
+
+  def players
+    single? ? [player_1, player_2] : []
+  end
 end

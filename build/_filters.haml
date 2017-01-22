@@ -21,9 +21,10 @@
 
     %h2 Filter Teams
     .filter-group
-      - leagues.reject { |league| league.slug == 'MSI' }.each do |league|
+      - leagues.each do |league|
         .subgroup.clearfix
           %h3= league.name
           %ul.filter-list.clearfix
-            - league.teams.sort_by { |team| team.acronym }.each do |team|
+            - teams = league.teams.select { |team| team_acronyms.include?(team.acronym) }
+            - teams.sort_by { |team| team.acronym }.each do |team|
               %li{data: { value: team.acronym }}= team.acronym
