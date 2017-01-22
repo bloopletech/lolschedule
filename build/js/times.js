@@ -71,6 +71,7 @@ function parseFooterTimes() {
   for(var i = 0; i < times.length; i++) {
     var time = new Date(times[i].dataset.value);
     var minutes = Math.floor(((now - time) / 1000) / 60);
+    if(minutes < 0) minutes = 0;
 
     times[i].textContent = (minutes == 0 ? "<1" : minutes) + (minutes == 0 ? " minute" : " minutes") + " ago";
   }
