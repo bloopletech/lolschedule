@@ -259,18 +259,19 @@ a.reveal {
     font-size: 20px;
   }
 
+  .live-banner {
+    text-align: center;
+  }
+
   .data {
     padding: 0;
     height: 26px;
     line-height: 26px;
   }
 
-  .league > .data {
-    padding: 0 5px;
-  }
-
   .league > .league-name, .league.Worlds > .league-name {
     width: 115px;
+    text-align: left;
   }
 
   .match > .league-name {
@@ -284,7 +285,7 @@ a.reveal {
     line-height: 36px;
   }
 
-  .vs, .time {
+  .vs, .time, .live-banner {
     width: auto;
     float: none;
   }
