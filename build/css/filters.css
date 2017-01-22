@@ -1,14 +1,3 @@
-#navbar h3, #navbar a {
-  display: block;
-  float: left;
-  margin: 10px 15px 10px 0;
-  font-size: 18px;
-}
-
-#navbar a:last-child {
-  margin-right: 0;
-}
-
 #navbar a, #navbar a:hover {
   cursor: pointer;
 }
