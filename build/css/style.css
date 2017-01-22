@@ -24,7 +24,7 @@ a {
   text-decoration: underline;
 }
 
-#page-wrapper, #filters-wrapper, #filters-content {
+#page-wrapper, #navbar, #filters-content {
   max-width: 853px;
   margin: 0 auto;
 }
@@ -33,7 +33,7 @@ a {
   padding-top: 45px;
 }
 
-#filters-wrapper {
+#navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -155,12 +155,16 @@ a.reveal {
   display: none;
 }
 
-#links > a {
+.links > h3, .links > a, .links > div {
   display: block;
   float: left;
-  padding: 10px 15px;
+  margin: 10px 15px 10px 0;
   font-size: 20px;
   font-weight: bold;
+}
+
+.links > a:last-child, .links > div:last-child {
+  margin-right: 0;
 }
 
 #footer {
@@ -196,7 +200,12 @@ a.reveal {
     width: 185px;
   }
 
-  h1 {
+  #navbar {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  h1, .links {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -207,7 +216,7 @@ a.reveal {
     padding-top: 0;
   }
 
-  #filters-wrapper {
+  #navbar {
     position: static;
   }
 

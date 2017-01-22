@@ -86,7 +86,7 @@ function updateFilterNames(groups) {
   var terms = [].concat.apply([], groups);
   for(var i = 0; i < terms.length; i++) content.push(terms[i].replace(/-/g, " "));
 
-  var filter = document.querySelector("#filter a.trigger");
+  var filter = document.querySelector("#navbar a.trigger");
   if(content.length > 0) {
     if(document.body.classList.contains("no-touch")) filter.textContent = content.join(", ");
     else filter.textContent = "On...";
@@ -121,7 +121,7 @@ function unmarshalFilters(string) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   document.body.addEventListener("click", function(e) {
-    if(e.target && e.target.matches("#filters > li a.trigger")) triggerFilterList.call(e.target, e);
+    if(e.target && e.target.matches("#navbar a.trigger")) triggerFilterList.call(e.target, e);
     if(e.target && e.target.matches("#filters-content ul.filter-list li")) selectFilter.call(e.target, e);
     if(e.target && e.target.matches("#filters-content a.close")) closeFilter.call(e.target, e);
     if(e.target && e.target.matches("#filters-content a.clear")) clearFilters.call(e.target, e);

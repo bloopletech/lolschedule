@@ -19,6 +19,7 @@ class Build::Html
 
   def context(source, year)
     {
+      year: year,
       leagues: source.leagues,
       matches: source.matches.select { |match| match.rtime.year == year },
       title: "#{year} League Schedule",

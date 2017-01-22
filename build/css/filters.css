@@ -1,37 +1,21 @@
-#filters {
-  display: block;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-#filters li {
+#navbar h3, #navbar a {
   display: block;
   float: left;
-  margin: 0;
-}
-
-#filters li > h3 {
-  display: block;
-  float: left;
-  margin: 0;
-  padding: 10px 10px 10px 10px;
+  margin: 10px 15px 10px 0;
   font-size: 18px;
 }
 
-#filters a {
-  display: block;
-  float: left;
-  padding: 10px;
+#navbar a:last-child {
+  margin-right: 0;
+}
+
+#navbar a, #navbar a:hover {
+  cursor: pointer;
 }
 
 body.no-touch #filters a:hover, body.filters-opened #filter a {
   background-color: #F44336;
   color: #ffffff;
-}
-
-#filters li a, #filters a:hover {
-  cursor: pointer;
 }
 
 #page-wrapper #filters-content {

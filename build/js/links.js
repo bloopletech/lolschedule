@@ -2,7 +2,7 @@ function jumpToToday() {
   var lastToday = document.querySelectorAll(".match.today-ish:not(.filter-no-match)")[0];
 
   if(lastToday) {
-    var filtersHeight = document.getElementById("filters-wrapper").offsetHeight;
+    var filtersHeight = document.getElementById("navbar").offsetHeight;
     window.scrollTo(0, lastToday.offsetTop - filtersHeight - 34);
   }
   else {
