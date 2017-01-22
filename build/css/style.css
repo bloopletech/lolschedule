@@ -212,7 +212,7 @@ a.reveal {
     padding-right: 10px;
   }
 
-  h1, .bar {
+  h1, .bar, #footer {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -297,7 +297,12 @@ a.reveal {
     padding: 0 5px;
   }
 
-  h1, #footer {
+  #navbar {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  h1, .bar, #footer {
     margin-left: 10px;
     margin-right: 10px;
   }
