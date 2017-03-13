@@ -1,7 +1,9 @@
-- if vod_urls.length == 1
-  %a.data.vod.revealed{href: surprise_link(vod_urls.first), target: '_blank'} vod
-- else
-  - vod_urls.each_with_index do |url, i|
-    %a.data.vod{href: surprise_link(url), target: '_blank', class: "#{'revealed' if i == 0}"}
+- multiple = vod_urls.length > 1
+- vod_urls.each_with_index do |video, i|
+  %a.data.vod{href: video['url'], data: { id: video['id'], start: video['start'] }, target: '_blank', class: "#{'revealed' if i == 0}"}
+    - if multiple
       vod #{i + 1}
+    - else
+      vod
+- if multiple
   %a.data.reveal{href: '#'} …
