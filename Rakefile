@@ -52,16 +52,6 @@ namespace :clean do
   end
 end
 
-desc 'Push generated HTML page and icons sprite sheet to CloudFront'
-task :deploy do
-  Build::Aws.new.deploy
-end
-
-desc 'Create an invalidation in CloudFront'
-task :invalidate do
-  Build::Aws.new.invalidate
-end
-
 desc 'Start an IRB console with the project and data loaded'
 task :console do
   require 'irb'
@@ -80,5 +70,5 @@ task :develop do
   exec('find . | entr rake -t build')
 end
 
-desc 'Download data, build HTML page and icons, and deploy output to CloudFront'
-task default: [:data, :build, :deploy]
+desc 'Download data and then build HTML page and icons'
+task default: [:data, :build]

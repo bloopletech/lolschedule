@@ -7,7 +7,6 @@ gem 'addressable'
 gem 'rmagick'
 gem 'sprite-factory', require: 'sprite_factory'
 gem 'awesome_print'
-gem 'aws-sdk'
 gem 'dotenv'
 gem 'rollbar'
 
