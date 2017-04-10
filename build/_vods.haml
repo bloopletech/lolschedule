@@ -1,6 +1,7 @@
+- vod_urls.map! { |vod_url| Build::VodUrl.new(vod_url) }
 - multiple = vod_urls.length > 1
-- vod_urls.each_with_index do |video, i|
-  %a.data.vod{href: video['url'], data: { id: video['id'], start: video['start'] }, target: '_blank', class: "#{'revealed' if i == 0}"}
+- vod_urls.each_with_index do |vod, i|
+  %a.data.vod{href: vod.youtube, data: vod.to_h, target: '_blank', class: ('revealed' if i == 0)}
     - if multiple
       vod #{i + 1}
     - else

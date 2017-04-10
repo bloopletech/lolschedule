@@ -1,0 +1,23 @@
+class Build::VodUrl
+  def initialize(attributes)
+    @id = attributes['id']
+    @start = attributes['start']
+  end
+
+  def to_h
+    {
+      "id": @id,
+      "start": @start
+    }
+  end
+
+  def youtube
+    url = "https://youtu.be/#{@id}"
+    url += "?t=#{@start}" if @start != "0"
+    url
+  end
+  
+  def surprise
+    "http://surprise.ly/v/?#{@id}:#{@start}:0:0:100"
+  end
+end

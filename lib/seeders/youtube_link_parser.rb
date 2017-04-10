@@ -6,15 +6,13 @@ class Seeders::YoutubeLinkParser
   def parse
     return nil if @url.empty?
 
-    params = if @url.path =~ %r{^/embed/}
+    if @url.path =~ %r{^/embed/}
       parse_embed
     elsif @url.path =~ %r{/watch}
       parse_watch
     else
       raise "URL #{@url} is not a valid Youtube link"
     end
-
-    params.merge(url: "https://youtu.be/#{params[:id]}?t=#{params[:start]}")
   end
 
   def parse_embed
