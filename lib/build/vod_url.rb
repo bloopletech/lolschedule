@@ -7,7 +7,9 @@ class Build::VodUrl
   def to_h
     {
       "id": @id,
-      "start": @start
+      "start": @start,
+      "youtube": youtube,
+      "surprise": surprise
     }
   end
 

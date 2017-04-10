@@ -45,8 +45,7 @@ function applyFilters(groups) {
     document.getElementById("no-results").classList.add("filter-no-match");
   }
 
-  window.location.hash = "#" + JSON.stringify(groups);
-  window.localStorage[localStorageKey] = JSON.stringify(groups);
+  marshalFilters(groups);
 }
 
 function updateSelected(groups) {
@@ -115,8 +114,16 @@ function clearFilters(event) {
 
 function unmarshalFilters(string) {
   var groups = JSON.parse(string);
+  if(groups.length == 3) vodLinks(groups.pop());
   applyFilters(groups);
   updateSelected(groups);
+}
+
+function marshalFilters(groups) {
+  groups.push(document.body.classList.contains("surprise") ? "surprise" : "youtube");
+
+  window.location.hash = "#" + JSON.stringify(groups);
+  window.localStorage[localStorageKey] = JSON.stringify(groups);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
