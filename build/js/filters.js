@@ -62,6 +62,11 @@ function updateSelected(groups) {
 }
 
 function selectFilter() {
+  if(this.classList.contains("vods-link")) {
+    vodLinks(this.dataset.type);
+    return;
+  }
+
   this.classList.toggle("selected");
 
   applyFilters(selectedFilters());
@@ -114,7 +119,7 @@ function clearFilters(event) {
 
 function unmarshalFilters(string) {
   var groups = JSON.parse(string);
-  if(groups.length == 3) vodLinks(groups.pop());
+  if(groups.length == 1 || groups.length == 3) vodLinks(groups.pop());
   applyFilters(groups);
   updateSelected(groups);
 }
@@ -124,6 +129,29 @@ function marshalFilters(groups) {
 
   window.location.hash = "#" + JSON.stringify(groups);
   window.localStorage[localStorageKey] = JSON.stringify(groups);
+}
+
+function vodLinks(type) {
+  if(document.body.classList.contains(type)) return;
+
+  var buttons = document.querySelectorAll(".vods-link");
+  for(var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+    if(button.dataset.type == type) button.classList.add("selected");
+    else button.classList.remove("selected");
+  }
+
+  document.body.classList.remove("youtube");
+  document.body.classList.remove("surprise");
+  document.body.classList.add(type);
+
+  var vods = document.querySelectorAll("a.vod");
+  for(var i = 0; i < vods.length; i++) {
+    var vod = vods[i];
+    vod.href = vod.dataset[type];
+  }
+
+  marshalFilters(selectedFilters());
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {

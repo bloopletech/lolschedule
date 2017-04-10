@@ -10,24 +10,6 @@ function jumpToToday() {
   }
 }
 
-function vodLinks(type) {
-  if(document.body.classList.contains(type)) return;
-
-  document.body.classList.remove("youtube");
-  document.body.classList.remove("surprise");
-  document.body.classList.add(type);
-  document.querySelector("a#surprise-links").textContent = type == "surprise" ? "Surprise" : "YouTube";
-
-  var vods = document.querySelectorAll("a.vod");
-
-  for(var i = 0; i < vods.length; i++) {
-    var vod = vods[i];
-    vod.href = vod.dataset[type];
-  }
-
-  marshalFilters(selectedFilters());
-}
-
 document.addEventListener("DOMContentLoaded", function(event) {
   document.querySelector("a#today").addEventListener("click", function(event) {
     event.preventDefault();
@@ -42,10 +24,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.querySelector("a#end").addEventListener("click", function(event) {
     event.preventDefault();
     document.documentElement.scrollIntoView(false);
-  });
-
-  document.querySelector("a#surprise-links").addEventListener("click", function(event) {
-    event.preventDefault();
-    vodLinks(document.body.classList.contains("surprise") ? "youtube" : "surprise");
   });
 });

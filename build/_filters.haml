@@ -7,14 +7,16 @@
   %h3 Filters:
   %a.trigger All
 
-  %h3 VOD links:
-  %a#surprise-links YouTube
-
 #filters-content
   %a.close &times;
 
   #filters-inner
     %a.clear Clear all filters
+
+    %h2 VOD links
+    %ul.filter-list.clearfix
+      %li#vods-youtube.vods-link{data: { type: 'youtube' }} YouTube
+      %li#vods-surprise.vods-link{data: { type: 'surprise' }} Surprise
 
     %h2 Filter Leagues
     .filter-group
