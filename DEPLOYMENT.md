@@ -9,16 +9,10 @@ apt-get install build-essential git ruby2.2 ruby2.2-dev imagemagick libmagickwan
 gem install bundler
 ````
 
-## User setup
+## User setup & Nginx configuration
 
 ````bash
-useradd ubuntu
-````
-
-## Nginx configuration
-
-````bash
-usermod -a -G www-data ubuntu
+useradd -G www-data ubuntu
 chown -R ubuntu:www-data /var/www/html
 chmod -R g+rwx /var/www/html
 chmod g+s /var/www/html
@@ -34,24 +28,22 @@ su ubuntu
 
 ````bash
 git clone --bare https://github.com/bloopletech/lolschedule.git /home/ubuntu/lolschedule.git
-````
-
-Edit `/home/ubuntu/lolschedule.git/hooks/post-receive`:
-
-````bash
+cat <<EOF > /home/ubuntu/lolschedule.git/hooks/post-receive
 #!/bin/bash
 git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git checkout -f
 cd /home/ubuntu/lolschedule
 bundle install --without development test --deployment
+EOF
 ````
 
 ## Environment variables
 
-Create `/home/ubuntu/environment` and edit:
-
 ````bash
+cat <<EOF > /home/ubuntu/environment
 export LOLSCHEDULE_OUTPUT_DIR="/var/www/html"
 export ROLLBAR_TOKEN="<rollbar token>"
+EOF
+
 ````
 
 ## Create lolschedule directory
