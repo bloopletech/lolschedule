@@ -19,9 +19,9 @@ useradd ubuntu
 
 ````bash
 usermod -a -G www-data ubuntu
-chown ubuntu:www-data html
-chmod g+s /var/www/html
+chown -R ubuntu:www-data /var/www/html
 chmod -R g+rwx /var/www/html
+chmod g+s /var/www/html
 ````
 
 ## Switch to ubuntu
