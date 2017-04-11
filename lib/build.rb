@@ -4,7 +4,11 @@ module Build
   end
 
   def self.data_path
-    root_path + 'data'
+    if ENV.key?('LOLSCHEDULE_DATA_DIR')
+      Pathname.new(ENV['LOLSCHEDULE_DATA_DIR'])
+    else
+      root_path + 'data'
+    end
   end
 
   def self.source_path
@@ -20,6 +24,10 @@ module Build
   end
 
   def self.output_path
-    root_path + 'output'
+    if ENV.key?('LOLSCHEDULE_OUTPUT_DIR')
+      Pathname.new(ENV['LOLSCHEDULE_OUTPUT_DIR'])
+    else
+      root_path + 'output'
+    end
   end
 end

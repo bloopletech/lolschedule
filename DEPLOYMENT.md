@@ -43,8 +43,6 @@ Edit `/home/ubuntu/lolschedule.git/hooks/post-receive`:
 git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git checkout -f
 cd /home/ubuntu/lolschedule
 bundle install --without development test --deployment
-rm -rf output
-ln -nfs /var/www/html output
 ````
 
 ## Environment variables
@@ -52,6 +50,7 @@ ln -nfs /var/www/html output
 Create `/home/ubuntu/environment` and edit:
 
 ````bash
+export LOLSCHEDULE_OUTPUT_DIR="/var/www/html"
 export ROLLBAR_TOKEN="<rollbar token>"
 ````
 
