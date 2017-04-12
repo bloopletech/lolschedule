@@ -9,4 +9,4 @@ Then, to generate LoL schedule:
 
 This will generate `index.html` and `icons.png`.
 
-For deployment instructions, see [DEPLOYMENT.md].
+For deployment instructions, see [DEPLOYMENT](DEPLOYMENT.md).
