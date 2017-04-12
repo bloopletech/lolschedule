@@ -25,9 +25,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
     event.preventDefault();
     document.documentElement.scrollIntoView(false);
   });
-
-  document.querySelector("a#show-future").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.body.classList.add("show-future");
-  });
 });

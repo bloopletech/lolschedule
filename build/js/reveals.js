@@ -17,4 +17,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var vs = e.target.closest(".vs");
     if(vs) vs.classList.add("reveal");
   });
+
+  document.querySelector("a#show-future").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.body.classList.add("show-future");
+  });
 });
