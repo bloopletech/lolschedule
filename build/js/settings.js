@@ -80,7 +80,7 @@ function triggerFilterList(event) {
   closeFilters();
 
   if(!selected) {
-    document.body.classList.add("filters-opened");
+    document.body.classList.add("settings-opened");
   }
 }
 
@@ -106,7 +106,7 @@ function closeFilter(event) {
 }
 
 function closeFilters() {
-  document.body.classList.remove("filters-opened");
+  document.body.classList.remove("settings-opened");
 }
 
 function clearFilters(event) {
@@ -156,9 +156,9 @@ function vodLinks(type) {
 document.addEventListener("DOMContentLoaded", function(event) {
   document.body.addEventListener("click", function(e) {
     if(e.target && e.target.matches("a#trigger")) triggerFilterList.call(e.target, e);
-    if(e.target && e.target.matches("#filters-content ul.filter-list li")) selectFilter.call(e.target, e);
-    if(e.target && e.target.matches("#filters-content a.close")) closeFilter.call(e.target, e);
-    if(e.target && e.target.matches("#filters-content a.clear")) clearFilters.call(e.target, e);
+    if(e.target && e.target.matches("#settings-content ul.filter-list li")) selectFilter.call(e.target, e);
+    if(e.target && e.target.matches("#settings-content a.close")) closeFilter.call(e.target, e);
+    if(e.target && e.target.matches("#settings-content a.clear")) clearFilters.call(e.target, e);
   });
 
   if(window.location.hash.length > 1) unmarshalFilters(window.location.hash.substr(1));

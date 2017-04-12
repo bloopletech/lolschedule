@@ -2,12 +2,12 @@
   cursor: pointer;
 }
 
-body.no-touch #filters a:hover, body.filters-opened #filter a {
+body.no-touch #filters a:hover, body.settings-opened #filter a {
   background-color: #F44336;
   color: #ffffff;
 }
 
-#page-wrapper #filters-content {
+#page-wrapper #settings-content {
   display: none;
   position: fixed;
   top: 45px;
@@ -19,21 +19,21 @@ body.no-touch #filters a:hover, body.filters-opened #filter a {
   border: 1px solid #000000;
 }
 
-#filters-inner {
+#settings-inner {
   overflow: auto;
   height: 100%;
   padding: 10px;
 }
 
-body.filters-opened #page-wrapper #filters-content {
+body.settings-opened #page-wrapper #settings-content {
   display: block;
 }
 
-#filters-content a {
+#settings-content a {
   cursor: pointer;
 }
 
-#filters-content a.link {
+#settings-content a.link {
   display: inline-block;
   padding: 10px;
   margin: 0;
@@ -43,13 +43,13 @@ body.filters-opened #page-wrapper #filters-content {
   text-decoration: underline;
 }
 
-#filters-content h2 {
+#settings-content h2 {
   margin: 10px 0;
   font-size: 24px;
   font-weight: bold;
 }
 
-#filters-content h3 {
+#settings-content h3 {
   float: left;
   width: 100px;
   padding: 10px;
@@ -58,13 +58,13 @@ body.filters-opened #page-wrapper #filters-content {
   font-weight: bold;
 }
 
-#filters-content ul.filter-list {
+#settings-content ul.filter-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#filters-content ul.filter-list li {
+#settings-content ul.filter-list li {
   display: block;
   float: left;
   padding: 10px;
@@ -75,28 +75,28 @@ body.filters-opened #page-wrapper #filters-content {
   text-decoration: underline;
 }
 
-#filters-content .subgroup {
+#settings-content .subgroup {
   margin: 0 0 20px 0;
 }
 
-#filters-content .subgroup ul.filter-list {
+#settings-content .subgroup ul.filter-list {
   margin-left: 100px;
 }
 
-#filters-content .subgroup ul.filter-list li {
+#settings-content .subgroup ul.filter-list li {
   width: 65px;
 }
 
-body.no-touch #filters-content a:hover, #filters-content ul.filter-list li.selected, body.no-touch #filters-content ul.filter-list li:hover {
+body.no-touch #settings-content a:hover, #settings-content ul.filter-list li.selected, body.no-touch #settings-content ul.filter-list li:hover {
   background-color: #F44336;
   color: #ffffff;
 }
 
-#filters-content ul.filter-list li.heading {
+#settings-content ul.filter-list li.heading {
   font-weight: bold;
 }
 
-#filters-content a.close {
+#settings-content a.close {
   position: absolute;
   right: 15px;
   padding: 0 5px 5px 5px;

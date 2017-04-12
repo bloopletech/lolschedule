@@ -24,7 +24,7 @@ a {
   text-decoration: underline;
 }
 
-#page-wrapper, #navbar, #filters-content {
+#page-wrapper, #navbar, #settings-content {
   max-width: 853px;
   margin: 0 auto;
 }

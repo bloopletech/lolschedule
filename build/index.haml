@@ -9,18 +9,18 @@
 
     :css
       #{include('css/icons.css')}
-      #{include('css/filters.css')}
+      #{include('css/settings.css')}
       #{include('css/style.css')}
 
     :javascript
       #{include('js/times.js')}
       #{include('js/js.js')}
-      #{include('js/filters.js')}
+      #{include('js/settings.js')}
       #{include('js/links.js')}
       #{include('js/reveals.js')}
   %body
     #page-wrapper
-      != partial('filters', { leagues: leagues, matches: matches, team_acronyms: team_acronyms })
+      != partial('settings', { leagues: leagues, matches: matches, team_acronyms: team_acronyms })
 
       != partial('links', { year: year })
 
