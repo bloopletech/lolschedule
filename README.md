@@ -8,3 +8,5 @@ Then, to generate LoL schedule:
 2. run `rake build`
 
 This will generate `index.html` and `icons.png`.
+
+For deployment instructions, see [DEPLOYMENT.md].

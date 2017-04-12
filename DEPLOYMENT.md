@@ -11,7 +11,7 @@ apt-get install build-essential git ruby2.2 ruby2.2-dev imagemagick libmagickwan
 gem install bundler
 ````
 
-## User setup & Nginx configuration
+## User setup & Web root configuration
 
 ````bash
 # As root
