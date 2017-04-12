@@ -33,7 +33,7 @@ body.filters-opened #page-wrapper #filters-content {
   cursor: pointer;
 }
 
-#filters-content a.clear {
+#filters-content a.link {
   display: inline-block;
   padding: 10px;
   margin: 0;

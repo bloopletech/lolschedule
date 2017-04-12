@@ -4,19 +4,23 @@
   %a#top Top
   %a#end Bottom
 
-  %h3 Filters:
-  %a.trigger All
+  %a#trigger ⚙️
 
 #filters-content
   %a.close &times;
 
   #filters-inner
-    %a.clear Clear all filters
+    %a.link#show-future Reveal future matchups
 
     %h2 VOD links
     %ul.filter-list.clearfix
       %li#vods-youtube.vods-link.selected{data: { type: 'youtube' }} YouTube
       %li#vods-surprise.vods-link{data: { type: 'surprise' }} Surprise
+
+    %h2 Currently applied filters
+    %span#current-filters
+    %div
+      %a.clear.link Clear all filters
 
     %h2 Filter Leagues
     .filter-group

@@ -10,6 +10,11 @@ function revealGame(event) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   document.body.addEventListener("click", function(e) {
-    if(e.target && e.target.matches(".reveal")) revealGame.call(e.target, e);
+    if(!e.target) return;
+
+    if(e.target.matches(".reveal")) revealGame.call(e.target, e);
+
+    var vs = e.target.closest(".vs");
+    if(vs) vs.classList.add("reveal");
   });
 });

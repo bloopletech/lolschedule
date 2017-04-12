@@ -42,6 +42,13 @@ a {
   z-index: 100;
 }
 
+#trigger {
+  float: right;
+  margin-right: 0;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
 .bar > h3, .bar > a, .bar > div {
   display: block;
   float: left;
@@ -94,6 +101,14 @@ h1 {
 
 .match.current > .time, .match.future > .time, .match.live > .time {
   font-weight: bold;
+}
+
+.match.future > .vs {
+  opacity: 0;
+}
+
+body.show-future .match.future > .vs, .match.future > .vs.reveal {
+  opacity: 1;
 }
 
 .match.live, .league.live {
@@ -246,6 +261,7 @@ a.reveal {
   #end::after {
     content: "⬇️";
   }
+
 
   .match, .league {
     width: auto;
