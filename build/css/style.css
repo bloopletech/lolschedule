@@ -103,11 +103,11 @@ h1 {
   font-weight: bold;
 }
 
-.match.future > .vs {
+.match.spoiler > .vs {
   opacity: 0;
 }
 
-body.show-future .match.future > .vs, .match.future > .vs.reveal {
+body.show-spoilers .match.spoiler > .vs, .match.spoiler > .vs.reveal {
   opacity: 1;
 }
 

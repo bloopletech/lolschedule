@@ -25,7 +25,7 @@ class Riot::Tournament
 
   def match(schedule_item)
     bracket = bracket(schedule_item['bracket'])
-    bracket_match(bracket, schedule_item['match'])
+    [bracket, bracket_match(bracket, schedule_item['match'])]
   end
 
   def match_type(match)
@@ -47,6 +47,10 @@ class Riot::Tournament
     return nil, nil if match_rosters.any? { |roster| roster.nil? }
 
     match_rosters.map { |roster| roster[participant_type].to_i }
+  end
+
+  def spoiler_bracket?(bracket)
+    bracket['name'] =~ /#{Date.today.year}.*(playoffs|promotion_relegation|regionals)$/
   end
 
   def match_videos(match)

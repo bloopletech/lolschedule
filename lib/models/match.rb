@@ -1,6 +1,6 @@
 class Models::Match < Models::Model
   set_fields :riot_id, :riot_league_id, :type, :riot_team_1_id, :riot_team_2_id, :riot_player_1_id, :riot_player_2_id,
-    :time, :vod_urls
+    :time, :vod_urls, :spoiler
 
   finder name: :league, relation: :leagues, key: :riot_league_id, foreign_key: :riot_id
   finder name: :team_1, relation: :teams, key: :riot_team_1_id, foreign_key: :riot_id
@@ -34,5 +34,9 @@ class Models::Match < Models::Model
 
   def players
     single? ? [player_1, player_2] : []
+  end
+
+  def spoiler?
+    spoiler
   end
 end

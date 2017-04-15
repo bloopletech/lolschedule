@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(vs) vs.classList.add("reveal");
   });
 
-  document.querySelector("a#show-future").addEventListener("click", function(event) {
+  document.querySelector("a#show-spoilers").addEventListener("click", function(event) {
     event.preventDefault();
-    document.body.classList.add("show-future");
+    document.body.classList.add("show-spoilers");
   });
 });
