@@ -27,7 +27,7 @@ class Build::Html
       leagues: leagues,
       matches: matches,
       team_acronyms: team_acronyms,
-      title: "#{year} League Schedule",
+      title: "#{year} League of Legends eSports Schedule",
       generated: Time.now.iso8601,
       data_generated: Build.source_path.mtime.iso8601
     }
