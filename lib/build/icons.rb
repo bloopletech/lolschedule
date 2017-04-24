@@ -8,6 +8,7 @@ class Build::Icons
       file = Build.icons_path + "#{team.slug}.png"
 
       unless file.exist?
+        next if team.logo.start_with?("http://na.lolesports.com")
         puts "Downloading #{team.logo}"
         body = URI.parse("http://am-a.akamaihd.net/image/?f=#{team.logo}&resize=50:50").read
         img = Magick::Image.from_blob(body)[0]
