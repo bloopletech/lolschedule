@@ -3,24 +3,16 @@ class Riot::Tournament
     @tournament = tournament
   end
 
-  def videos
-    @videos ||= Riot::ApiClient.instance.videos
-  end
-
-  def video(game_id)
-    videos['videos'].find { |video| video['game'] == game_id && video['locale'] == 'en' }
-  end
-
   def bracket(bracket_id)
     @tournament['brackets'][bracket_id]
   end
 
-  def bracket_match(bracket, match_id)
-    bracket['matches'][match_id]
-  end
-
   def roster(roster_id)
     @tournament['rosters'][roster_id]
+  end
+
+  def bracket_match(bracket, match_id)
+    bracket['matches'][match_id]
   end
 
   def match(schedule_item)
@@ -49,11 +41,7 @@ class Riot::Tournament
     match_rosters.map { |roster| roster[participant_type].to_i }
   end
 
-  def spoiler_bracket?(bracket)
-    bracket['name'] =~ /#{Date.today.year}.*(playoffs|promotion_relegation|regionals)$/
-  end
-
-  def match_videos(match)
-    match['games'].values.sort_by { |game| game['name'] }.map { |game| video(game['id']) }.compact
+  def match_game_ids(match)
+    match['games'].values.sort_by { |game| game['name'] }.map { |game| game['id'] }.compact
   end
 end

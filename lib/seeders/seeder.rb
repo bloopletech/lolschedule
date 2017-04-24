@@ -11,5 +11,7 @@ class Seeders::Seeder
     @source.leagues.each do |league|
       Seeders::RiotLeague.new(@source, league.riot_id).seed
     end
+
+    Seeders::RiotVideos.new(@source).seed
   end
 end

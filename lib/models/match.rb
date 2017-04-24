@@ -1,12 +1,20 @@
 class Models::Match < Models::Model
   set_fields :riot_id, :riot_league_id, :type, :riot_team_1_id, :riot_team_2_id, :riot_player_1_id, :riot_player_2_id,
-    :time, :vod_urls, :spoiler
+    :time, :riot_game_ids, :bracket_name
 
   finder name: :league, relation: :leagues, key: :riot_league_id, foreign_key: :riot_id
   finder name: :team_1, relation: :teams, key: :riot_team_1_id, foreign_key: :riot_id
   finder name: :team_2, relation: :teams, key: :riot_team_2_id, foreign_key: :riot_id
   finder name: :player_1, relation: :players, key: :riot_player_1_id, foreign_key: :riot_id
   finder name: :player_2, relation: :players, key: :riot_player_2_id, foreign_key: :riot_id
+
+  def vods
+    riot_game_ids.map { |riot_game_id| source.vods.find { |vod| vod.riot_id == riot_game_id } }.compact
+  end
+
+  def vod_urls
+    vods.map { |vod| vod.url }.compact
+  end
 
   def stream_url
     return if league.streams.empty?
@@ -37,6 +45,6 @@ class Models::Match < Models::Model
   end
 
   def spoiler?
-    spoiler
+    bracket_name =~ /#{Date.today.year}.*(playoffs|promotion_relegation|regionals)$/
   end
 end

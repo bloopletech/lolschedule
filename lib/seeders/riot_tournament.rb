@@ -1,7 +1,7 @@
 class Seeders::RiotTournament
   extend Forwardable
   def_delegators :@riot_league, :teams, :schedule_items
-  def_delegators :@riot_tournament, :match, :match_type, :match_teams, :match_players, :match_videos, :spoiler_bracket?
+  def_delegators :@riot_tournament, :match, :match_type, :match_teams, :match_players, :match_game_ids, :spoiler_bracket?
 
   def initialize(source, riot_league, tournament)
     @source = source
@@ -18,7 +18,7 @@ class Seeders::RiotTournament
     bracket, match = match(schedule_item)
 
     attrs = {
-      spoiler: spoiler_bracket?(bracket)
+      bracket_name: bracket['name']
     }
 
     if match_type(match) == 'team'
@@ -51,15 +51,11 @@ class Seeders::RiotTournament
   end
 
   def seed_match(item, match, attrs)
-    vod_urls = match_videos(match).map { |video| video['source'] }
-    vod_urls.map! { |url| Seeders::YoutubeLinkParser.new(url).parse }
-    vod_urls.compact!
-
     @source.matches << Models::Match.new({
       riot_id: match['id'],
       riot_league_id: @tournament['league'],
       time: item['scheduledTime'],
-      vod_urls: vod_urls
+      riot_game_ids: match_game_ids(match)
     }.merge(attrs))
   end
 end

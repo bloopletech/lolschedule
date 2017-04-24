@@ -4,7 +4,7 @@ class Seeders::YoutubeLinkParser
   end
 
   def parse
-    return nil if @url.empty?
+    return nil if @url.nil? || @url.empty?
 
     if @url.path =~ %r{^/embed/}
       parse_embed
@@ -17,7 +17,7 @@ class Seeders::YoutubeLinkParser
 
   def parse_embed
     video_id = @url.basename
-    start_time = @url.query_values["start"] || "0"
+    start_time = (@url.query_values && @url.query_values["start"]) || "0"
 
     { id: video_id, start: start_time }
   end
