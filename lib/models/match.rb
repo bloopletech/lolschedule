@@ -47,7 +47,7 @@ class Models::Match < Models::Model
   def spoiler?
     patterns = [
       /(playoffs|promotion_relegation|regionals)$/,
-      /^group_stage$/
+      /^(group_stage|bracket_stage)$/
     ]
 
     (rtime.year == Date.today.year) && patterns.any? { |regex| bracket_name =~ regex }
