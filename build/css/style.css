@@ -105,10 +105,12 @@ h1 {
 
 .match.spoiler > .vs {
   opacity: 0;
+  cursor: pointer;
 }
 
 body.show-spoilers .match.spoiler > .vs, .match.spoiler > .vs.reveal {
   opacity: 1;
+  cursor: auto;
 }
 
 .match.live, .league.live {
