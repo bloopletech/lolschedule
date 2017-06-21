@@ -29,7 +29,8 @@ class Build::Icons
       output_style: Build.build_path + 'css' + 'icons.css',
       margin: 1,
       selector: '.',
-      nocomments: true
+      nocomments: true,
+      layout: :packed
     )
   end
 end
