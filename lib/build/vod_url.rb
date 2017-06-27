@@ -14,7 +14,7 @@ class Build::VodUrl
   end
 
   def youtube
-    url = "https://youtu.be/#{@id}"
+    url = "#{@id}"
     url += "?t=#{@start}" if @start != "0"
     url
   end
