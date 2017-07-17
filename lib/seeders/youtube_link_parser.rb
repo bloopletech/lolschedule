@@ -11,7 +11,7 @@ class Seeders::YoutubeLinkParser
     elsif @url.path =~ %r{/watch}
       parse_watch
     else
-      raise "URL #{@url} is not a valid Youtube link"
+      parse_embed
     end
   end
 
