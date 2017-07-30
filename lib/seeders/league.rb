@@ -9,7 +9,8 @@ class Seeders::League
     '4' => 'NA CS',
     '5' => 'EU CS',
     '9' => 'Worlds',
-    '1' => 'All-Star'
+    '1' => 'All-Star',
+    '43' => 'Rivals'
   }
 
   def initialize(source)
