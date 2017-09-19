@@ -44,7 +44,7 @@ a {
 
 #trigger {
   float: right;
-  margin-right: 0;
+  margin-right: 6px;
   margin-left: 15px;
   text-decoration: none;
 }
@@ -224,6 +224,10 @@ a.reveal {
     padding-right: 10px;
   }
 
+  #trigger {
+    margin-right: 0;
+  }
+
   h1, .bar, #footer {
     margin-left: 10px;
     margin-right: 10px;
@@ -263,6 +267,9 @@ a.reveal {
     content: "⬇️";
   }
 
+  #trigger {
+    margin-right: 0;
+  }
 
   .match, .league {
     width: auto;
