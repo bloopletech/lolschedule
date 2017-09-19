@@ -22,7 +22,7 @@ body.no-touch #filters a:hover, body.settings-opened #filter a {
 #settings-inner {
   overflow: auto;
   height: 100%;
-  padding: 10px;
+  padding: 10px 20px 0 20px;
 }
 
 body.settings-opened #page-wrapper #settings-content {
@@ -50,12 +50,11 @@ body.settings-opened #page-wrapper #settings-content {
 }
 
 #settings-content h3 {
-  float: left;
-  width: 100px;
   padding: 10px;
   margin: 0;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 #settings-content ul.filter-list {
@@ -77,10 +76,7 @@ body.settings-opened #page-wrapper #settings-content {
 
 #settings-content .subgroup {
   margin: 0 0 20px 0;
-}
-
-#settings-content .subgroup ul.filter-list {
-  margin-left: 100px;
+  border: 1px solid #bbb;
 }
 
 #settings-content .subgroup ul.filter-list li {
