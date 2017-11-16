@@ -93,5 +93,8 @@ DEPENDENCIES
   sprite-factory
   vcr
 
+RUBY VERSION
+   ruby 2.4.2p198
+
 BUNDLED WITH
-   1.13.7
+   1.16.0

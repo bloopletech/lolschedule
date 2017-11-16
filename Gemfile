@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+ruby "~> 2.4.0"
 gem 'rake'
 gem 'excon'
 gem 'haml'

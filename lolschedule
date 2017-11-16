@@ -9,4 +9,4 @@ export HOME="/home/ubuntu"
 
 . ~/environment
 cd ~/lolschedule
-rake
+bundle exec rake
