@@ -20,9 +20,16 @@ class Riot::Tournament
     [bracket, bracket_match(bracket, schedule_item['match'])]
   end
 
+  def match_rosters(match)
+    match['input'].map { |input| roster(input['roster']) }
+  end
+
   def match_type(match)
-    return 'team' unless match.key?('gameMode')
-    match['gameMode']['requiredPlayers'].to_i > 1 ? 'team' : 'single'
+    rosters = match_rosters(match)
+
+    return nil if rosters.any? { |roster| roster.nil? }
+
+    rosters.first.key?('team') ? 'team' : 'single'
   end
 
   def match_teams(match)
@@ -34,11 +41,11 @@ class Riot::Tournament
   end
 
   def match_participants(match, participant_type)
-    match_rosters = match['input'].map { |input| roster(input['roster']) }
+    rosters = match_rosters(match)
 
-    return nil, nil if match_rosters.any? { |roster| roster.nil? }
+    return nil, nil if rosters.any? { |roster| roster.nil? }
 
-    match_rosters.map { |roster| roster[participant_type].to_i }
+    rosters.map { |roster| roster[participant_type].to_i }
   end
 
   def match_game_ids(match)
