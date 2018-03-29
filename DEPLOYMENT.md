@@ -7,7 +7,7 @@
 add-apt-repository ppa:brightbox/ruby-ng
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install build-essential git ruby2.2 ruby2.2-dev imagemagick libmagickwand-dev nginx certbot
+apt-get install build-essential git ruby2.4 ruby2.4-dev imagemagick libmagickwand-dev nginx certbot
 gem install bundler
 ````
 
@@ -15,17 +15,26 @@ gem install bundler
 
 ````bash
 # As root
+mkhomedir_helper ubuntu
+chsh ubuntu -s /bin/bash
 useradd -G www-data ubuntu
 chown -R ubuntu:www-data /var/www/html
 chmod -R g+rwx /var/www/html
 chmod g+s /var/www/html
 ````
 
-## Switch to ubuntu
+## Switch to ubuntu and configure SSH
 
 ````bash
-# As root
 su ubuntu
+cd ~
+mkdir .ssh
+chmod 700 .ssh
+cd .ssh
+touch authorized_keys
+chmod 600 authorized_keys
+# Edit authorized_keys file to add your SSH public key
+cd ~
 ````
 
 ## Bare Git repo setup
@@ -53,7 +62,14 @@ cat <<EOF > /home/ubuntu/environment
 export LOLSCHEDULE_OUTPUT_DIR="/var/www/html"
 export ROLLBAR_TOKEN="<rollbar token>"
 EOF
+````
 
+## Configure Git remote and first push
+
+````bash
+# On your local machine, in lolschedule directory
+git remote add droplet ssh://ubuntu@<server IP address>/home/ubuntu/lolschedule.git
+git push droplet master
 ````
 
 ## Crontab configuration
