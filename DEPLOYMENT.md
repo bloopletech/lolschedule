@@ -21,6 +21,7 @@ useradd -G www-data ubuntu
 chown -R ubuntu:www-data /var/www/html
 chmod -R g+rwx /var/www/html
 chmod g+s /var/www/html
+rm /var/www/html/index.nginx-debian.html
 ````
 
 ## Switch to ubuntu and configure SSH
@@ -70,6 +71,7 @@ EOF
 ````bash
 # On your local machine, in lolschedule directory
 git remote add droplet ssh://ubuntu@<server IP address>/home/ubuntu/lolschedule.git
+git commit --allow-empty -m "Bump"
 git push droplet master
 ````
 
@@ -80,16 +82,36 @@ git push droplet master
 cat <<EOF > /var/spool/cron/crontabs/ubuntu
 */10 * * * * /home/ubuntu/lolschedule/lolschedule
 EOF
+
+service cron restart
 ````
 
-## Nginx config block
+## Nginx gzip config block
+
+````
+gzip on;
+gzip_disable "msie6";
+
+gzip_vary on;
+gzip_proxied any;
+gzip_comp_level 6;
+gzip_buffers 16 8k;
+gzip_http_version 1.1;
+gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+````
+
+## Nginx server config block
 
 ````
 # As root
 cat <<EOF > /etc/nginx/sites-available/default
 server {
-        listen 80;
-        listen [::]:80 ipv6only=on;
+    listen         80;
+    listen [::]:80 ipv6only=on;
+    return 301 https://\$host\$request_uri;
+}
+
+server {
         listen 443 default_server ssl;
 
         ssl_certificate /etc/letsencrypt/live/lol.bloople.net/fullchain.pem;
@@ -115,7 +137,7 @@ server {
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+                try_files \$uri \$uri/ =404;
                 expires 10m;
         }
 
@@ -126,26 +148,15 @@ server {
         access_log off;
 }
 EOF
-````
 
-## Nginx gzip config block
-
-````
-gzip on;
-gzip_disable "msie6";
-
-gzip_vary on;
-gzip_proxied any;
-gzip_comp_level 6;
-gzip_buffers 16 8k;
-gzip_http_version 1.1;
-gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+service nginx restart
 ````
 
 ## SSL config
 
 ````bash
 # As root
+openssl dhparam -dsaparam -out /etc/ssl/private/dhparams.pem 4096
 certbot certonly --webroot -w /var/www/html -d lol.bloople.net
 ````
 
