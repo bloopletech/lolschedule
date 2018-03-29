@@ -83,6 +83,7 @@ cat <<EOF > /var/spool/cron/crontabs/ubuntu
 */10 * * * * /home/ubuntu/lolschedule/lolschedule
 EOF
 
+chown ubuntu:ubuntu /var/spool/cron/crontabs/ubuntu
 service cron restart
 ````
 
