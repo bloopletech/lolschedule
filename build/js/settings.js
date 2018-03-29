@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(e.target && e.target.matches("#settings-content a.clear")) clearFilters.call(e.target, e);
   });
 
-  if(window.location.hash.length > 1) unmarshalFilters(window.location.hash.substr(1));
+  if(window.location.hash.length > 1) unmarshalFilters(decodeURIComponent(window.location.hash.substr(1)));
   else if(window.localStorage[localStorageKey]) unmarshalFilters(window.localStorage[localStorageKey]);
   else updateFilterNames([]);
 });
