@@ -47,6 +47,7 @@ git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git 
 cd /home/ubuntu/lolschedule
 bundle install --without development test --deployment
 EOF
+chmod +x /home/ubuntu/lolschedule.git/hooks/post-receive
 ````
 
 ## Create lolschedule directory
