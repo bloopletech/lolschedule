@@ -25,7 +25,11 @@ class Models::Match < Models::Model
   end
 
   def rtime
-    Time.parse(time)
+    @rtime ||= parse_time(time)
+  end
+
+  def parse_time(time)
+    Time.xmlschema("#{time[0..18]}+00:00")
   end
 
   def team?

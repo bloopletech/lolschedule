@@ -1,6 +1,4 @@
 class Build::HamlContext
-  ENGINE_OPTIONS = { remove_whitespace: true, escape_html: true, ugly: true }
-
   def initialize(build_path)
     @build_path = build_path
     @haml_engine_cache = {}
@@ -20,7 +18,7 @@ class Build::HamlContext
 
   def haml_engine(path)
     unless @haml_engine_cache.key?(path)
-      @haml_engine_cache[path] = Haml::Engine.new(include(path), ENGINE_OPTIONS.merge(filename: path))
+      @haml_engine_cache[path] = Hamlit::Template.new(filename: path) { include(path) }
     end
     @haml_engine_cache[path]
   end

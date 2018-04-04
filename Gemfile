@@ -3,7 +3,7 @@ source "http://rubygems.org"
 ruby "~> 2.4.0"
 gem 'rake'
 gem 'excon'
-gem 'haml'
+gem 'hamlit'
 gem 'addressable'
 gem 'rmagick'
 gem 'sprite-factory', require: 'sprite_factory'
