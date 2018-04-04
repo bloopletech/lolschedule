@@ -47,7 +47,7 @@ cat <<EOF > /home/ubuntu/lolschedule.git/hooks/post-receive
 git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git checkout -f
 cd /home/ubuntu/lolschedule
 . /home/ubuntu/environment
-bundle install --without development test --deployment
+bundle install --without development test guard --deployment
 EOF
 chmod +x /home/ubuntu/lolschedule.git/hooks/post-receive
 ````
