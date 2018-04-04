@@ -1,3 +1,3 @@
 class Models::Vod < Models::Model
-  set_fields :riot_id, :url
+  set_fields :url
 end

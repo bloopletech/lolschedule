@@ -12,11 +12,11 @@ class Models::Source
   end
 
   def initialize
-    @matches = initialize_list([])
-    @vods = initialize_list([])
-    @leagues = initialize_list([])
-    @teams = initialize_list([])
-    @players = initialize_list([])
+    @matches = Models::List.new(self)
+    @vods = Models::List.new(self)
+    @leagues = Models::List.new(self)
+    @teams = Models::List.new(self)
+    @players = Models::List.new(self)
   end
 
   def list_for(record)
@@ -31,11 +31,6 @@ class Models::Source
       teams: @teams.map(&:to_h),
       players: @players.map(&:to_h)
     }
-  end
-
-  private
-  def initialize_list(list)
-    Models::List.new(self, list)
   end
 end
 

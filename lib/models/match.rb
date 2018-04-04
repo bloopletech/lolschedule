@@ -1,15 +1,15 @@
 class Models::Match < Models::Model
-  set_fields :riot_id, :riot_league_id, :type, :riot_team_1_id, :riot_team_2_id, :riot_player_1_id, :riot_player_2_id,
-    :time, :riot_game_ids, :bracket_name
+  set_fields :riot_league_id, :type, :riot_team_1_id, :riot_team_2_id, :riot_player_1_id, :riot_player_2_id, :time,
+    :riot_game_ids, :bracket_name
 
-  finder name: :league, relation: :leagues, key: :riot_league_id, foreign_key: :riot_id
-  finder name: :team_1, relation: :teams, key: :riot_team_1_id, foreign_key: :riot_id
-  finder name: :team_2, relation: :teams, key: :riot_team_2_id, foreign_key: :riot_id
-  finder name: :player_1, relation: :players, key: :riot_player_1_id, foreign_key: :riot_id
-  finder name: :player_2, relation: :players, key: :riot_player_2_id, foreign_key: :riot_id
+  finder name: :league, relation: :leagues, key: :riot_league_id
+  finder name: :team_1, relation: :teams, key: :riot_team_1_id
+  finder name: :team_2, relation: :teams, key: :riot_team_2_id
+  finder name: :player_1, relation: :players, key: :riot_player_1_id
+  finder name: :player_2, relation: :players, key: :riot_player_2_id
 
   def vods
-    riot_game_ids.map { |riot_game_id| source.vods.find { |vod| vod.riot_id == riot_game_id } }.compact
+    source.vods.find_all(riot_game_ids)
   end
 
   def vod_urls

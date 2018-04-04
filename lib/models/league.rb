@@ -1,5 +1,5 @@
 class Models::League < Models::Model
-  set_fields :riot_id, :name, :streams, :stream_match_ids
+  set_fields :name, :streams, :stream_match_ids
 
   def initialize(attributes = {})
     @streams = []

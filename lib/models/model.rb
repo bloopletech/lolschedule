@@ -5,19 +5,19 @@ class Models::Model
     attr_reader :fields
 
     def set_fields(*fields)
-      @fields = fields
+      @fields = [:riot_id] + fields
 
       attr_accessor *@fields
     end
   end
 
-  def self.finder(name:, relation:, key:, foreign_key:)
+  def self.finder(name:, relation:, key:)
     define_method(name) do
       return nil unless source
 
       self_value = send(key)
-      result = source.send(relation).find { |record| record.send(foreign_key) == self_value }
-      raise "Could not find record in relation #{relation} with #{foreign_key} of #{self_value}" unless result
+      result = source.send(relation).find(self_value)
+      raise "Could not find record in relation #{relation} with riot_id of #{self_value}" unless result
       result
     end
   end

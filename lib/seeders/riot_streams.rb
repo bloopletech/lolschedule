@@ -64,13 +64,13 @@ class Seeders::RiotStreams
 
     priority = stream_title == 'OGN' || stream_title.nil?
 
-    league = @source.leagues.find { |league| league.riot_id == riot_league_id }
+    league = @source.leagues.find(riot_league_id)
     league.streams << { 'id' => stream_title, 'url' => url, priority: priority }
   end
 
   def seed_active_matches
     active_matches.each_pair do |riot_league_id, match_ids|
-      league = @source.leagues.find { |league| league.riot_id == riot_league_id }
+      league = @source.leagues.find(riot_league_id)
       league.stream_match_ids = match_ids if league
     end
   end
