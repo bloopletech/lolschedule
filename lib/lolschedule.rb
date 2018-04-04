@@ -10,7 +10,8 @@ require 'singleton'
 
 require 'rubygems'
 require 'bundler/setup'
-Bundler.require(:default)
+ENV['LOLSCHEDULE_ENV'] ||= 'development'
+Bundler.require(:default, ENV['LOLSCHEDULE_ENV'])
 
 $:.unshift(File.dirname(__FILE__))
 

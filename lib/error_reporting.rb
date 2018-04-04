@@ -1,8 +1,5 @@
-Rollbar.configure do |config|
-  config.access_token = ENV['ROLLBAR_TOKEN']
-
-  if ENV['DEVELOPMENT']
-    config.enabled = false
+if defined?(Rollbar)
+  Rollbar.configure do |config|
+    config.access_token = ENV['ROLLBAR_TOKEN']
   end
 end
-  
