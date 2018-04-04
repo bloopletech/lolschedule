@@ -46,6 +46,7 @@ cat <<EOF > /home/ubuntu/lolschedule.git/hooks/post-receive
 #!/bin/bash
 git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git checkout -f
 cd /home/ubuntu/lolschedule
+. /home/ubuntu/environment
 bundle install --without development test --deployment
 EOF
 chmod +x /home/ubuntu/lolschedule.git/hooks/post-receive
@@ -61,6 +62,7 @@ mkdir /home/ubuntu/lolschedule
 
 ````bash
 cat <<EOF > /home/ubuntu/environment
+export LOLSCHEDULE_ENV="production"
 export LOLSCHEDULE_OUTPUT_DIR="/var/www/html"
 export ROLLBAR_TOKEN="<rollbar token>"
 EOF
