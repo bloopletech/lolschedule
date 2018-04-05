@@ -51,7 +51,7 @@ class Models::Match < Models::Model
   def spoiler?
     patterns = [
       /(playoffs|promotion_relegation|regionals)$/,
-      /^(group_stage|bracket_stage)$/,
+      /^(group_stage|bracket_stage|playoffs_bracket)$/,
       /^(elimination|semifinals|finals)$/
     ]
 
