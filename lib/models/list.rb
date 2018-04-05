@@ -1,20 +1,23 @@
 class Models::List
   attr_accessor :source
   extend Forwardable
-  def_delegators :@data, :each, :map, :select, :first
+  def_delegators :to_a, :each, :map, :select
 
   def initialize(source)
     @source = source
-    @data = []
     @index = {}
   end
 
   def <<(record)
     record.source = @source
-    @data << record
     @index[record.riot_id] = record
     self
   end
+
+  def to_a
+    @index.values
+  end
+  alias :all :to_a
 
   def find(riot_id)
     @index[riot_id]
