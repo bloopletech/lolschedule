@@ -19,10 +19,6 @@ class Models::Source
     @players = Models::List.new(self)
   end
 
-  def list_for(record)
-    send("#{record.class.name.split('::').last.downcase}s")
-  end
-
   def to_h
     {
       matches: @matches.map(&:to_h),

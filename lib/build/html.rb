@@ -6,8 +6,6 @@ class Build::Html
     2018 => 'index.html'
   }
 
-  TIME_FORMAT = '%a, %d %b %Y %-l:%M %p %z'
-
   def build
     haml_context = Build::HamlContext.new(Build.build_path)
 
