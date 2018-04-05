@@ -1,3 +1,3 @@
 -x
 --ignore 'output/*'
-bundle exec rake build:html
+time bundle exec rake build:html
