@@ -4,6 +4,8 @@ class Seeders::Seeder
   end
 
   def seed
+    Riot::Data.seed
+
     Seeders::League.new(@source).seed
 
     Seeders::RiotStreams.new(@source).seed

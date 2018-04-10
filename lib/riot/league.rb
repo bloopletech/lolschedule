@@ -4,7 +4,7 @@ class Riot::League
   end
 
   def data
-    @data ||= Riot::ApiClient.instance.matches(@league_id)
+    Riot::Data["league_#{@league_id}"]
   end
 
   def teams

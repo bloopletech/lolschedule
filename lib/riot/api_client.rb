@@ -1,6 +1,4 @@
 class Riot::ApiClient
-  include Singleton
-
   HOST = "http://api.lolesports.com"
   MATCHES_ENDPOINT = "/api/v1/scheduleItems?leagueId="
   VIDEOS_ENDPOINT = "/api/v2/videos"
@@ -21,41 +19,20 @@ class Riot::ApiClient
       middlewares: Excon.defaults[:middlewares] + [Excon::Middleware::Decompress],
       omit_default_port: true
     )
-
-    @cache = {}
   end
 
   def request_url(path)
-    print "Requesting #{HOST}#{path}..."
-
-    if @cache.key?(path)
-      puts " found in cache"
-      return @cache[path]
-    end
-
     start = Time.now
     response = @connection.get(path: path, headers: HEADERS)
 
     taken = ((Time.now - start) * 1000).round(1)
     size_kb = (response.body.bytes.length / 1024.0).round(1)
-    puts " done; took #{taken}ms, response status #{response.status}, body size #{size_kb}KB"
+    puts "Requested #{HOST}#{path}; took #{taken}ms, response status #{response.status}, body size #{size_kb}KB"
 
-    @cache[path] = response.body
+    response.body
   end
 
   def retrieve(path)
     JSON.parse(request_url(path))
-  end
-
-  def matches(league_id)
-    retrieve("#{MATCHES_ENDPOINT}#{league_id}")
-  end
-
-  def videos
-    retrieve(VIDEOS_ENDPOINT)
-  end
-
-  def livestreams
-    retrieve(LIVESTREAM_ENDPOINT)
   end
 end

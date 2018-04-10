@@ -18,7 +18,7 @@ class Build::VodUrl
     url += "?t=#{@start}" if @start != "0"
     url
   end
-  
+
   def surprise
     "http://surprise.ly/v/?#{@id}:#{@start}:0:0:100"
   end
