@@ -3,7 +3,7 @@ class Riot::Videos
   end
 
   def data
-    @data ||= Riot::ApiClient.instance.videos
+    Riot::Data['videos']
   end
 
   def videos

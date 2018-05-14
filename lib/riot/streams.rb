@@ -3,7 +3,7 @@ class Riot::Streams
   end
 
   def data
-    @data ||= Riot::ApiClient.instance.livestreams
+    Riot::Data['livestreams']
   end
 
   def streamgroups

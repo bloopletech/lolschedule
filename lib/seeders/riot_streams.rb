@@ -76,6 +76,6 @@ class Seeders::RiotStreams
   end
 
   def stream_league_id(slug)
-    Seeders::League::LEAGUES.key(STREAMGROUPS_LEAGUES[slug])
+    Riot::Data::LEAGUES.key(STREAMGROUPS_LEAGUES[slug])
   end
 end
