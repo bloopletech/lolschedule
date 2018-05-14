@@ -10,9 +10,9 @@
   .data.vs<
     - if match.team?
       = match.team_1.acronym
-      %span.logo{class: match.team_1.slug}
+      %span.logo{class: match.team_1.slug}>
       %span.middle< v
-      %span.logo{class: match.team_2.slug}
+      %span.logo{class: match.team_2.slug}>
       = match.team_2.acronym
     - if match.single?
       = match.player_1.name
