@@ -1,4 +1,5 @@
 class Parallel
+  MAX_PARALLELISM = 4
   MUTEX = Mutex.new
 
   def initialize(items)
@@ -6,13 +7,13 @@ class Parallel
   end
 
   def perform(&block)
-    threads = @items.map do |item|
-      Thread.new do
-        block.call(item)
+    @items.each_slice(MAX_PARALLELISM) do |batch|
+      threads = batch.map do |item|
+        Thread.new { block.call(item) }
       end
-    end
 
-    threads.each { |thread| thread.join }
+      threads.each { |thread| thread.join }
+    end
   end
 
   def perform_collate(&block)
