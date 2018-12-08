@@ -1,10 +1,8 @@
 require 'cgi'
-require 'fileutils'
 require 'forwardable'
 require 'json'
 require 'pathname'
 require 'time'
-require 'open-uri'
 
 require 'rubygems'
 require 'bundler/setup'
@@ -25,12 +23,15 @@ module Riot
 end
 
 require 'error_reporting'
+require 'synced_stdout'
+require 'client'
+require 'parallel'
 require 'build'
 require 'build/haml_context'
+require 'build/icons_downloader'
 require 'build/icons'
 require 'build/html'
 require 'build/vod_url'
-require 'riot/api_client'
 require 'riot/data'
 require 'riot/league'
 require 'riot/streams'

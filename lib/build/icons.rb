@@ -2,20 +2,8 @@ class Build::Icons
   def download
     source = Models::Persistence.load(Build.source_path)
 
-    Build.icons_path.mkpath
-
-    source.teams.each do |team|
-      file = Build.icons_path + "#{team.slug}.png"
-
-      unless file.exist?
-        next if team.logo.start_with?("http://na.lolesports.com")
-        puts "Downloading #{team.logo}"
-        body = URI.parse("http://am-a.akamaihd.net/image/?f=#{team.logo}&resize=50:50").read
-        img = Magick::Image.from_blob(body)[0]
-        small = img.resize_to_fit(36, 36)
-        small.write(file.to_s)
-      end
-    end
+    downloader = Build::IconsDownloader.new(source)
+    downloader.download
   end
 
   def clean

@@ -1,4 +1,9 @@
 class Riot::Data
+  HOST = "http://api.lolesports.com"
+  MATCHES_ENDPOINT = "#{HOST}/api/v1/scheduleItems?leagueId="
+  VIDEOS_ENDPOINT = "#{HOST}/api/v2/videos"
+  LIVESTREAM_ENDPOINT = "#{HOST}/api/v2/streamgroups"
+
   LEAGUES = {
     '1' => 'All-Star',
     '9' => 'Worlds',
@@ -13,35 +18,26 @@ class Riot::Data
     '5' => 'EU CS'
   }
 
-  MUTEX = Mutex.new
-
   def self.seed_urls
     urls = {
-      "livestreams" => Riot::ApiClient::LIVESTREAM_ENDPOINT,
-      "videos" => Riot::ApiClient::VIDEOS_ENDPOINT
+      LIVESTREAM_ENDPOINT => "livestreams",
+      VIDEOS_ENDPOINT => "videos"
     }
 
     LEAGUES.keys.each do |league_id|
-      urls["league_#{league_id}"] = "#{Riot::ApiClient::MATCHES_ENDPOINT}#{league_id}"
+      urls["#{MATCHES_ENDPOINT}#{league_id}"] = "league_#{league_id}"
     end
 
     urls
   end
 
   def self.seed
-    puts "Requesting data..."
+    SyncedStdout.puts "Requesting data..."
 
-    @data = {}
-    client = Riot::ApiClient.new
+    urls_keys = seed_urls
+    responses = Parallel.new(urls_keys.keys).perform_collate { |url| JSON.parse(Client.get(url)) }
 
-    threads = seed_urls.map do |(key, url)|
-      Thread.new do
-        response = client.retrieve(url)
-        MUTEX.synchronize { @data[key] = response }
-      end
-    end
-
-    threads.each { |thread| thread.join }
+    @data = responses.transform_keys { |url| urls_keys[url] }
   end
 
   def self.[](key)
