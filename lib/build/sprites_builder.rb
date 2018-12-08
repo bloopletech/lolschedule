@@ -1,6 +1,6 @@
 class Build::SpritesBuilder
   def build
-    @groups = grouped_icons
+    @groups = grouped_logos
 
     clean
     copy_used
@@ -8,22 +8,22 @@ class Build::SpritesBuilder
   end
 
   def clean
-    Build.used_icons_path.mkpath
-    Build.used_icons_path.children.each { |file| file.rmtree }
+    Build.used_logos_path.mkpath
+    Build.used_logos_path.children.each { |file| file.rmtree }
   end
 
   def copy_used
     @groups.each do |group|
       from = group.first
-      to = Build.used_icons_path + from.basename
+      to = Build.used_logos_path + from.basename
       to.write(from.read)
     end
   end
 
-  def grouped_icons
+  def grouped_logos
     group = {}
 
-    Build.icons_path.children.each do |file|
+    Build.logos_path.children.each do |file|
       hash = Magick::Image.read(file.to_s).first.signature
       group[hash] ||= []
       group[hash] << file
@@ -34,9 +34,9 @@ class Build::SpritesBuilder
 
   def create_styles
     SpriteFactory.run!(
-      Build.used_icons_path.to_s,
-      output_image: Build.output_path + 'icons.png',
-      output_style: Build.build_path + 'css' + 'icons.css',
+      Build.used_logos_path.to_s,
+      output_image: Build.output_path + 'logos.png',
+      output_style: Build.build_path + 'css' + 'logos.css',
       margin: 1,
       selector: '.',
       nocomments: true,

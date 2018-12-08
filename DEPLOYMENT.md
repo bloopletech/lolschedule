@@ -144,7 +144,7 @@ server {
                 expires 10m;
         }
 
-        location /icons.png {
+        location /logos.png {
                 expires 1h;
         }
 

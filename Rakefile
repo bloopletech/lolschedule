@@ -8,19 +8,19 @@ task :data do
 end
 
 namespace :build do
-  namespace :icons do
-    desc 'Download icons from Akamai'
+  namespace :logos do
+    desc 'Download logos from Akamai'
     task :download do
       source = Models::Persistence.load(Build.source_path)
-      Build::IconsDownloader.new(source).download
+      Build::LogosDownloader.new(source).download
     end
 
-    desc 'Delete downloaded icons'
+    desc 'Delete downloaded logos'
     task :clean do
-      Build.icons_path.children.each { |file| file.rmtree }
+      Build.logos_path.children.each { |file| file.rmtree }
     end
 
-    desc 'Generate sprite sheet of downloaded icons'
+    desc 'Generate sprite sheet of downloaded logos'
     task :sprite do
       Build::SpritesBuilder.new.build
     end
@@ -32,24 +32,24 @@ namespace :build do
   end
 end
 
-desc 'Build complete HTML page and team icons'
-task build: ['build:icons:download', 'build:icons:sprite', 'build:html']
+desc 'Build complete HTML page and team logos'
+task build: ['build:logos:download', 'build:logos:sprite', 'build:html']
 
 namespace :clean do
-  desc 'Delete generated HTML page and icons sprite sheet'
+  desc 'Delete generated HTML page and logos sprite sheet'
   task :build do
-    Build.icons_path.children.each { |file| file.rmtree }
+    Build.logos_path.children.each { |file| file.rmtree }
 
-    icons_css_path = (Build.build_path + 'css' + 'icons.css')
-    icons_css_path.delete if icons_css_path.exist?
+    logos_css_path = (Build.build_path + 'css' + 'logos.css')
+    logos_css_path.delete if logos_css_path.exist?
 
     Build::Html::SEASONS.each_pair do |year, file|
       html_path = (Build.output_path + file)
       html_path.delete if html_path.exist?
     end
 
-    icons_png_path = (Build.output_path + 'icons.png')
-    icons_png_path.delete if icons_png_path.exist?
+    logos_png_path = (Build.output_path + 'logos.png')
+    logos_png_path.delete if logos_png_path.exist?
   end
 end
 
@@ -71,5 +71,5 @@ task :develop do
   exec('find . | entr rake -t build')
 end
 
-desc 'Download data and then build HTML page and icons'
+desc 'Download data and then build HTML page and logos'
 task default: [:data, :build]

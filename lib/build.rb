@@ -19,12 +19,12 @@ module Build
     root_path + 'build'
   end
 
-  def self.icons_path
-    build_path + 'icons'
+  def self.logos_path
+    build_path + 'logos'
   end
 
-  def self.used_icons_path
-    build_path + 'used_icons'
+  def self.used_logos_path
+    build_path + 'used_logos'
   end
 
   def self.output_path
