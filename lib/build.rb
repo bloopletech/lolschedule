@@ -23,6 +23,10 @@ module Build
     build_path + 'icons'
   end
 
+  def self.used_icons_path
+    build_path + 'used_icons'
+  end
+
   def self.output_path
     if ENV.key?('LOLSCHEDULE_OUTPUT_DIR')
       Pathname.new(ENV['LOLSCHEDULE_OUTPUT_DIR'])

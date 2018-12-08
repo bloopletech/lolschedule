@@ -11,17 +11,18 @@ namespace :build do
   namespace :icons do
     desc 'Download icons from Akamai'
     task :download do
-      Build::Icons.new.download
+      source = Models::Persistence.load(Build.source_path)
+      Build::IconsDownloader.new(source).download
     end
 
     desc 'Delete downloaded icons'
     task :clean do
-      Build::Icons.new.clean
+      Build.icons_path.children.each { |file| file.rmtree }
     end
 
     desc 'Generate sprite sheet of downloaded icons'
     task :sprite do
-      Build::Icons.new.build_sprites
+      Build::SpritesBuilder.new.build
     end
   end
 
@@ -37,7 +38,7 @@ task build: ['build:icons:download', 'build:icons:sprite', 'build:html']
 namespace :clean do
   desc 'Delete generated HTML page and icons sprite sheet'
   task :build do
-    Build::Icons.new.clean
+    Build.icons_path.children.each { |file| file.rmtree }
 
     icons_css_path = (Build.build_path + 'css' + 'icons.css')
     icons_css_path.delete if icons_css_path.exist?
