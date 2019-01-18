@@ -13,4 +13,16 @@ class Models::League < Models::Model
   def slug
     name.gsub(' ', '-')
   end
+
+  def brand_name(year)
+    return name if year < 2019
+    case name
+    when 'EU LCS'
+      'LEC'
+    when 'NA LCS'
+      'LCS'
+    else
+      name
+    end
+  end
 end

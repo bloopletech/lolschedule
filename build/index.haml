@@ -20,7 +20,7 @@
       #{include('js/reveals.js')}
   %body
     #page-wrapper
-      != partial('settings', { leagues: leagues, matches: matches, team_acronyms: team_acronyms })
+      != partial('settings', { leagues: leagues, matches: matches, team_acronyms: team_acronyms, year: year })
 
       != partial('links', { year: year })
 
@@ -28,9 +28,9 @@
 
       - leagues.reject { |league| league.streams.empty? }.each do |league|
         - league.streams.each do |stream|
-          != partial('league_stream', { league: league, stream: stream })
+          != partial('league_stream', { league: league, stream: stream, year: year })
       - matches.sort_by { |match| match.rtime }.each do |match|
-        != partial('match', { match: match })
+        != partial('match', { match: match, year: year  })
       #no-results.match.filter-no-match
         %div There are no matches that fit all the filters you have applied.
 
