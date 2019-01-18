@@ -5,6 +5,7 @@ class Seeders::RiotStreams
     'nalcs-2' => 'NA LCS',
     'eulcs1' => 'EU LCS',
     'eulcs-2' => 'EU LCS',
+    'lec' => 'EU LCS',
     'lck-korea' => 'LCK',
     'lck' => 'LCK',
     'lpl' => 'LPL',
