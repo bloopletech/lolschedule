@@ -20,7 +20,7 @@ class Seeders::RiotLeague
   def seed_teams
     teams.each do |team|
       @source.teams << Models::Team.new(
-        riot_id: team['id'],
+        riot_id: "#{@riot_league_id}-#{team['id']}",
         riot_league_id: @riot_league_id,
         acronym: team['acronym'],
         logo: team['logoUrl']
@@ -31,7 +31,7 @@ class Seeders::RiotLeague
   def seed_players
     players.each do |player|
       @source.players << Models::Player.new(
-        riot_id: player['id'],
+        riot_id: "#{@riot_league_id}-#{player['id']}",
         riot_league_id: @riot_league_id,
         name: player['name']
       )

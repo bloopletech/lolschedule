@@ -3,10 +3,26 @@ class Models::Match < Models::Model
     :riot_game_ids, :bracket_name
 
   finder name: :league, relation: :leagues, key: :riot_league_id
-  finder name: :team_1, relation: :teams, key: :riot_team_1_id
-  finder name: :team_2, relation: :teams, key: :riot_team_2_id
-  finder name: :player_1, relation: :players, key: :riot_player_1_id
-  finder name: :player_2, relation: :players, key: :riot_player_2_id
+  finder name: :team_1, relation: :teams, key: :combined_team_1_id
+  finder name: :team_2, relation: :teams, key: :combined_team_2_id
+  finder name: :player_1, relation: :players, key: :combined_player_1_id
+  finder name: :player_2, relation: :players, key: :combined_player_2_id
+
+  def combined_team_1_id
+    "#{riot_league_id}-#{riot_team_1_id}"
+  end
+
+  def combined_team_2_id
+    "#{riot_league_id}-#{riot_team_2_id}"
+  end
+
+  def combined_player_1_id
+    "#{riot_league_id}-#{riot_player_1_id}"
+  end
+
+  def combined_player_2_id
+    "#{riot_league_id}-#{riot_player_2_id}"
+  end
 
   def vods
     source.vods.find_all(riot_game_ids)
