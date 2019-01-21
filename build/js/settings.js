@@ -88,7 +88,11 @@ function updateFilterNames(groups) {
   var content = [];
 
   var terms = [].concat.apply([], groups);
-  for(var i = 0; i < terms.length; i++) content.push(terms[i].replace(/-/g, " "));
+
+  for(var i = 0; i < terms.length; i++) {
+    var select = document.querySelector(".filter-group li[data-value=\"" + terms[i] + "\"]");
+    content.push(select.dataset.name);
+  }
 
   var filter = document.querySelector("#current-filters");
   if(content.length > 0) {

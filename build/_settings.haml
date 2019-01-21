@@ -26,7 +26,7 @@
     .filter-group
       %ul.filter-list.clearfix
         - leagues.each do |league|
-          %li{data: { value: league.slug }}= league.brand_name(year)
+          %li{data: { value: league.slug, name: league.brand_name(year) }}= league.brand_name(year)
 
     %h2 Filter Teams
     .filter-group
@@ -36,4 +36,4 @@
           %ul.filter-list.clearfix
             - teams = league.teams.select { |team| team_acronyms.include?(team.acronym) }
             - teams.sort_by { |team| team.acronym }.each do |team|
-              %li{data: { value: team.acronym }}= team.acronym
+              %li{data: { value: team.acronym, name: team.acronym }}= team.acronym
