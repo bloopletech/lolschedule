@@ -53,7 +53,7 @@ class Seeders::RiotTournament
   def seed_match(item, match, attrs)
     @source.matches << Models::Match.new({
       riot_id: match['id'],
-      riot_league_id: @tournament['league'],
+      riot_league_id: item['league'],
       time: item['scheduledTime'],
       riot_game_ids: match_game_ids(match)
     }.merge(attrs))
