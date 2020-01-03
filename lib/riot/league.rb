@@ -25,7 +25,7 @@ class Riot::League
 
   def current_tournament?(tournament)
     return false unless tournament['startDate']
-    Date.strptime(tournament['startDate'], '%Y-%m-%d').year >= Date.today.year
+    Date.strptime(tournament['startDate'], '%Y-%m-%d').year >= 2019
   end
 
   def schedule_items(tournament_id = nil)
