@@ -3,7 +3,7 @@
 /build/used_logos/
 /build/css/logos.css
 /build/logos.png
-/output
+/output/
 .DS_Store
 /spec/fixtures/vcr_cassettes
 /.env

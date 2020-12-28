@@ -1,5 +1,10 @@
 .links.bar.clearfix
   %h3 Schedules:
+  %a{href: "/2015.html"} 2015
+  %a{href: "/2016.html"} 2016
+  %a{href: "/2017.html"} 2017
+  %a{href: "/2018.html"} 2018
+  %a{href: "/2019.html"} 2019
   - Build::Html::SEASONS.each_pair do |link_year, file|
     - if year == link_year
       %div #{link_year}

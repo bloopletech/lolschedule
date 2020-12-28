@@ -7,7 +7,7 @@
 add-apt-repository ppa:brightbox/ruby-ng
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install build-essential git ruby2.4 ruby2.4-dev imagemagick libmagickwand-dev nginx certbot
+apt-get install build-essential git ruby2.6 ruby2.6-dev imagemagick libmagickwand-dev nginx certbot
 gem install bundler
 ````
 
