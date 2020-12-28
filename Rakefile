@@ -26,6 +26,11 @@ namespace :build do
     end
   end
 
+  desc 'Copy archived output into the output directory'
+  task :archived do
+    Build.archived_path.children.each { |file| (Build.output_path + file.basename).write(file.read) }
+  end 
+
   desc 'Build HTML page containing schedule'
   task :html do
     Build::Html.new.build
@@ -33,7 +38,7 @@ namespace :build do
 end
 
 desc 'Build complete HTML page and team logos'
-task build: ['build:logos:download', 'build:logos:sprite', 'build:html']
+task build: ['build:logos:download', 'build:logos:sprite', 'build:archived', 'build:html']
 
 namespace :clean do
   desc 'Delete generated HTML page and logos sprite sheet'

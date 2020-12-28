@@ -27,6 +27,10 @@ module Build
     build_path + 'used_logos'
   end
 
+  def self.archived_path
+    root_path + 'archived'
+  end
+
   def self.output_path
     if ENV.key?('LOLSCHEDULE_OUTPUT_DIR')
       Pathname.new(ENV['LOLSCHEDULE_OUTPUT_DIR'])

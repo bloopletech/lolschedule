@@ -1,10 +1,5 @@
 class Build::Html
   SEASONS = {
-    2015 => '2015.html',
-    2016 => '2016.html',
-    2017 => '2017.html',
-    2018 => '2018.html',
-    2019 => '2019.html',
     2020 => 'index.html'
   }
 
