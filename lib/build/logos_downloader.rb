@@ -34,6 +34,6 @@ class Build::LogosDownloader
   def logo_url(logo)
     return nil if logo.start_with?("http://na.lolesports.com")
     return logo if logo.start_with?("https://lolstatic-a.akamaihd.net")
-    "http://am-a.akamaihd.net/image/?f=#{logo}&resize=50:50"
+    "https://am-a.akamaihd.net/image/?resize=60:&f=#{logo}"
   end
 end

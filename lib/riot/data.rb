@@ -1,43 +1,39 @@
 class Riot::Data
-  HOST = "http://api.lolesports.com"
-  MATCHES_ENDPOINT = "#{HOST}/api/v1/scheduleItems?leagueId="
-  VIDEOS_ENDPOINT = "#{HOST}/api/v2/videos"
-  LIVESTREAM_ENDPOINT = "#{HOST}/api/v2/streamgroups"
+  HOST = "https://esports-api.lolesports.com"
+  LEAGUES_ENDPOINT = "#{HOST}/persisted/gw/getLeagues?hl=en-US"
+  TOURNAMENTS_ENDPOINT = "#{HOST}/persisted/gw/getTournamentsForLeague?hl=en-US&leagueId="
+  VODS_ENDPOINT = "#{HOST}/persisted/gw/getVods?hl=en-US&tournamentId="
+  #LIVESTREAM_ENDPOINT = "#{HOST}/api/v2/streamgroups"
 
-  LEAGUES = {
-    '1' => 'All-Star',
-    '9' => 'Worlds',
-    '43' => 'Rivals',
-    '10' => 'MSI',
-    '2' => 'NA LCS',
-    '3' => 'EU LCS',
-    '6' => 'LCK',
-    '7' => 'LPL',
-    '8' => 'LMS',
-    '4' => 'NA CS',
-    '5' => 'EU CS'
-  }
-
-  def self.seed_urls
-    urls = {
-      LIVESTREAM_ENDPOINT => "livestreams",
-      VIDEOS_ENDPOINT => "videos"
-    }
-
-    LEAGUES.keys.each do |league_id|
-      urls["#{MATCHES_ENDPOINT}#{league_id}"] = "league_#{league_id}"
-    end
-
-    urls
-  end
+  API_KEY = "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"
 
   def self.seed
     SyncedStdout.puts "Requesting data..."
 
-    urls_keys = seed_urls
-    responses = Parallel.new(urls_keys.keys).perform_collate { |url| JSON.parse(Client.get(url)) }
+    @data = {}
+    seed_leagues
+    seed_tournaments
+    seed_events
+  end
 
-    @data = responses.transform_keys { |url| urls_keys[url] }
+  def self.seed_leagues
+    @data["leagues"] = Riot::League.parse(get(LEAGUES_ENDPOINT))
+  end
+
+  def self.seed_tournaments
+    urls_keys = @data["leagues"].map { |league| [league.tournament_url, league.id] }.to_h
+    responses = Parallel.new(urls_keys.keys).perform_collate { |url| get(url) }
+    @data["tournaments"] = responses.map { |url, response| Riot::Tournament.parse(response, urls_keys[url]) }.flatten
+  end
+
+  def self.seed_events
+    urls_keys = @data["tournaments"].map { |tournament| [tournament.events_url, tournament.league_id] }.to_h
+    responses = Parallel.new(urls_keys.keys).perform_collate { |url| get(url) }
+    @data["events"] = responses.map { |url, response| Riot::Event.parse(response, urls_keys[url]) }.flatten
+  end
+
+  def self.get(url)
+    JSON.parse(Client.get(url, API_KEY))
   end
 
   def self.[](key)

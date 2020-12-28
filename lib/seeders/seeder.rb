@@ -6,14 +6,16 @@ class Seeders::Seeder
   def seed
     Riot::Data.seed
 
-    Seeders::League.new(@source).seed
+    Seeders::Leagues.new(@source).seed
 
-    Seeders::RiotStreams.new(@source).seed
+    Seeders::Tournaments.new(@source).seed
 
-    @source.leagues.each do |league|
-      Seeders::RiotLeague.new(@source, league.riot_id).seed
-    end
+    Seeders::Events.new(@source).seed
 
-    Seeders::RiotVideos.new(@source).seed
+    # Seeders::RiotStreams.new(@source).seed
+    # 
+    # @source.leagues.each do |league|
+    #   Seeders::RiotLeague.new(@source, league.riot_id).seed
+    # end
   end
 end

@@ -17,9 +17,14 @@ class Client
     )
   end
 
-  def get(path)
+  def get(path, api_key = nil)
     start = Time.now
-    response = @connection.get(path: path, headers: HEADERS)
+
+    response = if api_key
+      @connection.get(path: path, headers: HEADERS.merge("x-api-key" => api_key))
+    else
+      @connection.get(path: path, headers: HEADERS)
+    end
 
     taken = ((Time.now - start) * 1000).round(1)
     size_kb = (response.body.bytes.length / 1024.0).round(1)
@@ -35,8 +40,8 @@ class Client
     end
   end
 
-  def self.get(url)
+  def self.get(url, api_key = nil)
     parsed = Addressable::URI.parse(url)
-    self.for(parsed.site).get(parsed.request_uri)
+    self.for(parsed.site).get(parsed.request_uri, api_key)
   end
 end
