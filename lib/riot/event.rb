@@ -1,15 +1,14 @@
 class Riot::Event
   def self.parse(response, league_id)
-    response["data"]["schedule"]["events"].map { |event| new(event, league_id) }
+    response["data"]["schedule"]["events"].map { |event| new(event.merge("league_id" => league_id)) }
   end
 
-  attr_reader :league_id, :teams, :games
-
-  def initialize(data, league_id)
+  def initialize(data)
     @data = data
-    @league_id = league_id
-    @teams = @data["match"]["teams"].map { |team| Riot::Team.new(team) }
-    @games = @data["games"].map { |game| Riot::Game.new(game) }
+  end
+
+  def league_id
+    @data["league_id"]
   end
 
   def match_id
@@ -18,5 +17,13 @@ class Riot::Event
 
   def start_time
     @data["startTime"]
+  end
+
+  def teams
+    @data["match"]["teams"].map { |team| Riot::Team.new(team.merge("league_id" => league_id)) }
+  end
+
+  def games
+    @data["games"].map { |game| Riot::Game.new(game) }
   end
 end
