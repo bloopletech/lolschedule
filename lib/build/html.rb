@@ -39,6 +39,6 @@ class Build::Html
   end
 
   def leagues_for_matches(source, matches)
-    source.leagues.select { |league| matches.any? { |match| match.league == league } }
+    source.leagues.select { |league| matches.any? { |match| match.league == league } }.uniq { |league| league.slug }
   end
 end

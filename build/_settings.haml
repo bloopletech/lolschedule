@@ -35,5 +35,6 @@
           %h3= league.brand_name(year)
           %ul.filter-list.clearfix
             - teams = league.teams.select { |team| team_acronyms.include?(team.acronym) }
+            - teams = teams.uniq { |team| team.acronym }
             - teams.sort_by { |team| team.acronym }.each do |team|
               %li{data: { value: team.acronym, name: team.acronym }}= team.acronym
