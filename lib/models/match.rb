@@ -69,7 +69,8 @@ class Models::Match < Models::Model
       /(playoffs|promotion_relegation|regionals)$/,
       /^(group_stage|bracket_stage|playoffs_bracket)$/,
       /^(elimination|semifinals|finals)$/,
-      /^playoffs/
+      /^playoffs/,
+      /^(groups|knockouts)$/
     ]
 
     (rtime.year == Date.today.year) && patterns.any? { |regex| bracket_name.downcase =~ regex }
