@@ -8,7 +8,7 @@ class Riot::Game
   end
 
   def vods
-    @data["vods"].map.with_index do |vod, i|
+    @data["vods"].take(1).map.with_index do |vod, i|
       Riot::Vod.new(vod.merge("id" => "#{id}-#{i}"))
     end
   end
