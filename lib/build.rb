@@ -15,6 +15,10 @@ module Build
     data_path + 'source.json'
   end
 
+  def self.archived_source_path
+    data_path + 'archived.json'
+  end
+
   def self.build_path
     root_path + 'build'
   end
@@ -25,10 +29,6 @@ module Build
 
   def self.used_logos_path
     build_path + 'used_logos'
-  end
-
-  def self.archived_path
-    root_path + 'archived'
   end
 
   def self.output_path

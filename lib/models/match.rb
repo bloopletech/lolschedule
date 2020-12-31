@@ -1,6 +1,6 @@
 class Models::Match < Models::Model
   set_fields :riot_league_id, :type, :riot_team_1_id, :riot_team_2_id, :riot_player_1_id, :riot_player_2_id, :time,
-    :vod_urls, :bracket_name
+    :riot_game_ids, :bracket_name
 
   finder name: :league, relation: :leagues, key: :riot_league_id
   finder name: :team_1, relation: :teams, key: :combined_team_1_id
@@ -22,6 +22,14 @@ class Models::Match < Models::Model
 
   def combined_player_2_id
     "#{riot_league_id}-#{riot_player_2_id}"
+  end
+
+  def vods
+    source.vods.find_all(riot_game_ids)
+  end
+
+  def vod_urls
+    vods.map { |vod| vod.url }.compact
   end
 
   def stream_url

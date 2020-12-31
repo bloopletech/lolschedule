@@ -8,8 +8,6 @@ class Seeders::Seeder
 
     Seeders::Leagues.new(@source).seed
 
-    Seeders::Tournaments.new(@source).seed
-
     Seeders::Events.new(@source).seed
 
     # Seeders::RiotStreams.new(@source).seed

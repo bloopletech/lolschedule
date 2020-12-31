@@ -3,12 +3,13 @@ class Riot::Event
     response["data"]["schedule"]["events"].map { |event| new(event, league_id) }
   end
 
-  attr_reader :league_id, :teams
+  attr_reader :league_id, :teams, :games
 
   def initialize(data, league_id)
     @data = data
     @league_id = league_id
     @teams = @data["match"]["teams"].map { |team| Riot::Team.new(team) }
+    @games = @data["games"].map { |game| Riot::Game.new(game) }
   end
 
   def match_id
@@ -17,16 +18,5 @@ class Riot::Event
 
   def start_time
     @data["startTime"]
-  end
-
-  def games_parameters
-    parameters = []
-    @data["games"].each do |game|
-      game["vods"].each do |vod|
-        parameters << vod["parameter"]
-      end
-    end
-
-    parameters
   end
 end
