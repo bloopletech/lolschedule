@@ -19,6 +19,10 @@ class Riot::Event
     @data["startTime"]
   end
 
+  def block_name
+    @data["blockName"]
+  end
+
   def teams
     @data["match"]["teams"].map { |team| Riot::Team.new(team.merge("league_id" => league_id)) }
   end
