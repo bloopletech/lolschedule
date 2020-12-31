@@ -24,6 +24,6 @@ class Riot::Event
   end
 
   def games
-    @data["games"].map { |game| Riot::Game.new(game) }
+    @data["games"].map { |game| Riot::Game.new(game) }.select { |game| game.completed? }
   end
 end
