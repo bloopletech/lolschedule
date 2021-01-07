@@ -5,7 +5,8 @@ class Build::Html
     2017 => '2017.html',
     2018 => '2018.html',
     2019 => '2019.html',
-    2020 => 'index.html'
+    2020 => '2020.html',
+    2021 => 'index.html'
   }
 
   def build
