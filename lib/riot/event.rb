@@ -1,6 +1,9 @@
 class Riot::Event
-  def self.parse(response, league_id)
-    response["data"]["schedule"]["events"].map { |event| new(event.merge("league_id" => league_id)) }
+  def self.parse(data_response)
+    league_id = data_response.parent_id
+    events = data_response.body["data"]["schedule"]["events"]
+    events.reject! { |event| event["type"] == "show" }
+    events.map { |event| new(event.merge("league_id" => league_id)) }
   end
 
   def initialize(data)
@@ -28,6 +31,7 @@ class Riot::Event
   end
 
   def games
+    return [] unless @data.key?("games")
     @data["games"].map { |game| Riot::Game.new(game) }.select { |game| game.completed? }
   end
 end

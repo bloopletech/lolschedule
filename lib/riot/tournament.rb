@@ -1,6 +1,10 @@
 class Riot::Tournament
-  def self.parse(response, league_id)
-    response["data"]["leagues"][0]["tournaments"].map { |tournament| new(tournament, league_id) }
+  HOST = "https://esports-api.lolesports.com"
+  VODS_ENDPOINT = "#{HOST}/persisted/gw/getVods?hl=en-US&tournamentId="
+
+  def self.parse(data_response)
+    league_id = data_response.parent_id
+    data_response.body["data"]["leagues"][0]["tournaments"].map { |tournament| new(tournament, league_id) }
   end
 
   attr_reader :league_id
@@ -27,6 +31,10 @@ class Riot::Tournament
   end
 
   def events_url
-    "#{Riot::Data::VODS_ENDPOINT}#{id}"
+    "#{VODS_ENDPOINT}#{id}"
+  end
+
+  def events_request
+    Riot::DataRequest.new(url: events_url, parent_id: @league_id)
   end
 end

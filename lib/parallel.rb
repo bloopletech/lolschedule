@@ -17,11 +17,11 @@ class Parallel
   end
 
   def perform_collate(&block)
-    results = {}
+    results = []
 
     perform do |item|
       result = block.call(item)
-      MUTEX.synchronize { results[item] = result }
+      MUTEX.synchronize { results << result }
     end
 
     results
