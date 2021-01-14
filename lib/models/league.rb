@@ -44,4 +44,8 @@ class Models::League < Models::Model
     result << " (#{brand_name_short(year)})" if result != brand_name_short(year)
     result
   end
+
+  def international?
+    ["worlds", "msi", "all-star", "all-star-event"].include?(slug.downcase)
+  end
 end
