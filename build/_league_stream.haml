@@ -1,3 +1,4 @@
+- stream_url = Build::StreamUrl.new(stream['url'])
 .league.clearfix.live{class: league.slug}
   .data.league-name #{league.brand_name_short(year)}#{" #{stream['id']}" if stream['id']}
-  %a.data.live-banner{href: stream['url'], target: '_blank'} WATCH LIVE NOW ➔
+  %a.data.live-banner{href: stream_url.url, target: '_blank'} WATCH LIVE NOW ➔

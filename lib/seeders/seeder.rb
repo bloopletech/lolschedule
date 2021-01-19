@@ -10,10 +10,6 @@ class Seeders::Seeder
 
     Seeders::Events.new(@source).seed
 
-    # Seeders::RiotStreams.new(@source).seed
-    # 
-    # @source.leagues.each do |league|
-    #   Seeders::RiotLeague.new(@source, league.riot_id).seed
-    # end
+    Seeders::StreamEvents.new(@source).seed
   end
 end

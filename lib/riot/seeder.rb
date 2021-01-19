@@ -1,7 +1,7 @@
 class Riot::Seeder
   HOST = "https://esports-api.lolesports.com"
   LEAGUES_ENDPOINT = "#{HOST}/persisted/gw/getLeagues?hl=en-US"
-  #LIVESTREAM_ENDPOINT = "#{HOST}/api/v2/streamgroups"
+  LIVESTREAMS_ENDPOINT = "#{HOST}/persisted/gw/getLive?hl=en-US"
 
   def seed
     SyncedStdout.puts "Requesting data..."
@@ -11,6 +11,7 @@ class Riot::Seeder
     tournaments
     events
     schedules
+    stream_events
   end
 
   def leagues
@@ -42,11 +43,16 @@ class Riot::Seeder
   def schedules_for(league:, direction:, page_token:)
     request = Riot::DataRequest.new(url: league.schedule_url(page_token), parent_id: league.id)
     response = request.get
-    
+
     data.events.concat(Riot::Event.parse(response))
 
     followup_page_token = response.body.dig("data", "schedule", "pages", direction)
     schedules_for(league: league, direction: direction, page_token: followup_page_token) if followup_page_token
+  end
+
+  def stream_events
+    request = Riot::DataRequest.new(url: LIVESTREAMS_ENDPOINT, parent_id: nil)
+    data.stream_events = Riot::StreamEvent.parse(request.get)
   end
 
   def data
