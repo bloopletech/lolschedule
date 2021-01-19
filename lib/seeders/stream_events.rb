@@ -9,6 +9,7 @@ class Seeders::StreamEvents
 
   def seed_stream_event(event)
     league = @source.leagues.find(event.league_id)
+    return unless league
     league.stream_match_ids ||= []
     league.stream_match_ids << event.id
     event.streams.each { |stream| seed_stream(stream, league) }
