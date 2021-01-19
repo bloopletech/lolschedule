@@ -22,7 +22,7 @@ function selectedFilters() {
 
 function filterMatches(terms) {
   var selectors = [];
-  for(var j = 0; j < terms.length; j++) selectors.push(":not([class*='" + terms[j] + "'])");
+  for(var j = 0; j < terms.length; j++) selectors.push(":not([class~='" + terms[j] + "'])");
 
   if(selectors.length == 0) return;
 
