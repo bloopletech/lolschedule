@@ -83,6 +83,8 @@ h1 {
   position: relative;
   width: 853px;
   height: 64px;
+  content-visibility: auto;
+  contain-intrinsic-size: 853px 64px;
   overflow: hidden;
   padding: 13px 5px;
   background-color: #000000;
@@ -199,6 +201,7 @@ a.reveal {
 @media (min-width: 768px) and (max-width: 950px) {
   .match, .league {
     width: auto;
+    contain-intrinsic-size: 100vw 64px;
     padding: 13px 4px;
     font-size: 18px;
   }
@@ -274,6 +277,7 @@ a.reveal {
   .match, .league {
     width: auto;
     height: 106px;
+    contain-intrinsic-size: 100vw 106px;
     padding: 8px 5px 8px 5px;
     font-size: 18px;
   }
