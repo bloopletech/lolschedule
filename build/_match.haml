@@ -20,6 +20,7 @@
       = match.player_2.name
   .data.time{data: { value: match.rtime.iso8601 }}
   - if match.stream_url
-    %a.data.live-banner{href: match.stream_url, target: '_blank'} WATCH LIVE NOW ➔
+    - stream_url = Build::StreamUrl.new(match.stream_url)
+    %a.data.live-banner{href: stream_url.url, target: '_blank'} WATCH LIVE NOW ➔
   - if match.vod_urls.any?
     != partial('vods', { vod_urls: match.vod_urls })
