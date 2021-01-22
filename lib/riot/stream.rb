@@ -24,6 +24,10 @@ class Riot::Stream
   end
 
   def english?
-    locale == "en-US"
+    locale =~ /^en/
+  end
+
+  def youtube?
+    provider == "youtube"
   end
 end

@@ -12,25 +12,30 @@ class Seeders::StreamEvents
     return unless league
     league.stream_match_ids ||= []
     league.stream_match_ids << event.id
-    event.streams.each { |stream| seed_stream(stream, league) }
+
+    stream = best_stream(event.streams)
+    return unless stream
+    seed_stream(stream, league)
+  end
+
+  def best_stream(streams)
+    stream = streams.find { |stream| stream.english? && stream.youtube? }
+    return stream if stream
+
+    stream = streams.find(&:english?)
+    return stream if stream
+
+    stream = streams.find(&:youtube?)
+    return stream if stream
+
+    streams.first
   end
 
   def seed_stream(stream, league)
     league.streams << {
-      'id' => stream_id(stream),
+      'id' => nil,
       'url' => { provider: stream.provider, id: stream.parameter, start: stream.offset.to_s },
       priority: 0
     }
-  end
-
-  def stream_id(stream)
-    case stream.provider
-    when "youtube"
-      "YouTube"
-    when "twitch"
-      "Twitch"
-    else
-      ""
-    end
   end
 end

@@ -21,6 +21,6 @@ class Riot::StreamEvent
 
   def streams
     return [] unless @data.key?("streams")
-    @data["streams"].map { |stream| Riot::Stream.new(stream) }.select { |stream| stream.english? }
+    @data["streams"].map { |stream| Riot::Stream.new(stream) }
   end
 end
