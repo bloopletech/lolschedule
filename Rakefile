@@ -30,10 +30,15 @@ namespace :build do
   task :html do
     Build::Html.new.build
   end
+
+  desc 'Build JSON files containing schedule'
+  task :json do
+    Build::Json.new.build
+  end
 end
 
 desc 'Build complete HTML page and team logos'
-task build: ['build:logos:download', 'build:logos:sprite', 'build:html']
+task build: ['build:logos:download', 'build:logos:sprite', 'build:html', 'build:json']
 
 namespace :clean do
   desc 'Delete generated HTML page and logos sprite sheet'

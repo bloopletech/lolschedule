@@ -38,4 +38,16 @@ module Build
       root_path + 'output'
     end
   end
+
+  def self.grouped_logos
+    group = {}
+
+    logos_path.children.each do |file|
+      hash = Magick::Image.read(file.to_s).first.signature
+      group[hash] ||= []
+      group[hash] << file
+    end
+
+    group.values
+  end
 end

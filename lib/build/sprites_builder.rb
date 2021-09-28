@@ -1,6 +1,6 @@
 class Build::SpritesBuilder
   def build
-    @groups = grouped_logos
+    @groups = Build.grouped_logos
 
     clean
     copy_used
@@ -18,18 +18,6 @@ class Build::SpritesBuilder
       to = Build.used_logos_path + from.basename
       to.write(from.read)
     end
-  end
-
-  def grouped_logos
-    group = {}
-
-    Build.logos_path.children.each do |file|
-      hash = Magick::Image.read(file.to_s).first.signature
-      group[hash] ||= []
-      group[hash] << file
-    end
-
-    group.values
   end
 
   def create_styles
