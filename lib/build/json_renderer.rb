@@ -1,6 +1,6 @@
 class Build::JsonRenderer
   def initialize
-    @current_year = Time.now.year
+    @current_year = Date.today.year
   end
 
   def render(matches:, leagues:, generated:, data_generated:)
