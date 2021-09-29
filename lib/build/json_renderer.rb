@@ -79,7 +79,7 @@ class Build::JsonRenderer
   end
 
   def render_vods(vod_urls:)
-    vod_urls.map { |vod_url| Build::VodUrl.new(vod_url).to_h }
+    vod_urls.map { |vod_url| Build::VodUrl.new(vod_url).youtube }
   end
 
   def render_tags(match)
