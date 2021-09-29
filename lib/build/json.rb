@@ -1,13 +1,14 @@
 class Build::Json
   def build
-    renderer = Build::JsonRenderer.new
+    output = Build::JsonRenderer.new.render(**context)
 
-    source = Models::Persistence.load(Build.source_path)
-
-    (Build.output_path + "index.json").write(renderer.render(**context(source)))
+    (Build.output_path + "index.json").write(output)
+    (Build.output_path + "index.json.gz").write(Zlib.gzip(output, level: Zlib::BEST_COMPRESSION))
   end
 
-  def context(source)
+  def context
+    source = Models::Persistence.load(Build.source_path)
+
     matches = source.matches.to_a
     leagues = source.leagues.to_a
 

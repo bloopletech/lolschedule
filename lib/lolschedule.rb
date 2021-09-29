@@ -4,6 +4,7 @@ require 'forwardable'
 require 'json'
 require 'pathname'
 require 'time'
+require 'zlib'
 
 require 'rubygems'
 require 'bundler/setup'
