@@ -24,10 +24,21 @@ class Build::JsonRenderer
   def render_stream(league:, stream:)
     stream_url = Build::StreamUrl.new(stream['url'])
 
-    {
-      tags: [league.slug],
+    result = {
       name: "#{league.brand_name_short(@current_year)}#{" #{stream['id']}" if stream['id']}",
-      url: stream_url.url,
+      url: stream_url.url
+    }
+
+    result.merge!(league_data(league: league, year: @current_year))
+
+    result
+  end
+
+  def league_data(league:, year:)
+    {
+      league: league.brand_name_short(year),
+      league_long: league.brand_name(year),
+      league_slug: league.slug
     }
   end
 
@@ -38,14 +49,12 @@ class Build::JsonRenderer
   end
 
   def render_match(match)
-    year = match.rtime.year
-
     result = {
-      tags: render_tags(match),
-      league: match.league.brand_name_short(year),
-      league_long: match.league.brand_name(year),
-      time: match.rtime.iso8601
+      time: match.rtime.iso8601,
+      tags: render_tags(match)
     }
+
+    result.merge!(league_data(league: match.league, year: match.rtime.year))
 
     if match.team?
       result.merge!({
