@@ -50,4 +50,9 @@ module Build
 
     group.values
   end
+
+  def self.write_with_gz(path:, data:)
+    path.write(data)
+    Pathname.new("#{path.to_s}.gz").write(Zlib.gzip(data, level: Zlib::BEST_COMPRESSION))
+  end
 end

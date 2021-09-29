@@ -2,8 +2,7 @@ class Build::Json
   def build
     output = Build::JsonRenderer.new.render(**context)
 
-    (Build.output_path + "data.json").write(output)
-    (Build.output_path + "data.json.gz").write(Zlib.gzip(output, level: Zlib::BEST_COMPRESSION))
+    Build.write_with_gz(path: Build.output_path + "data.json", data: output)
   end
 
   def context
