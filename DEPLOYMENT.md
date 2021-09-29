@@ -93,6 +93,7 @@ service cron restart
 
 ````
 gzip on;
+gzip_static on;
 gzip_disable "msie6";
 
 gzip_vary on;
