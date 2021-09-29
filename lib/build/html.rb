@@ -15,7 +15,10 @@ class Build::Html
     source = Models::Persistence.load(Build.source_path)
 
     SEASONS.each_pair do |year, file|
-      (Build.output_path + file).write(haml_context.render('index.haml', context(source, year)))
+      Build.write_with_gz(
+        path: Build.output_path + file,
+        data: haml_context.render('index.haml', context(source, year))
+      )
     end
   end
 
