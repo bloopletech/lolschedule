@@ -42,24 +42,24 @@ class Build::JsonRenderer
 
     result = {
       tags: render_tags(match),
-      league_name: match.league.brand_name_short(year),
-      league_name_long: match.league.brand_name(year),
+      league: match.league.brand_name_short(year),
+      league_long: match.league.brand_name(year),
       time: match.rtime.iso8601
     }
 
     if match.team?
       result.merge!({
-        participant_1_name: match.team_1.acronym,
-        participant_1_logo: match.team_1.slug,
-        participant_2_name: match.team_2.acronym,
-        participant_2_logo: match.team_2.slug
+        team_1: match.team_1.acronym,
+        team_1_logo: match.team_1.slug,
+        team_2: match.team_2.acronym,
+        team_2_logo: match.team_2.slug
       })
     end
 
     if match.single?
       result.merge!({
-        participant_1_name: match.player_1.name,
-        participant_2_name: match.player_2.name
+        player_1: match.player_1.name,
+        player_2: match.player_2.name
       })
     end
 
