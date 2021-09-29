@@ -5,6 +5,7 @@ class Build::JsonRenderer
 
   def render(matches:, leagues:, generated:, data_generated:)
     result = {
+      version: 1,
       generated: generated,
       data_generated: data_generated,
       streams: render_streams(leagues),
