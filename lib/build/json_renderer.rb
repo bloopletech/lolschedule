@@ -52,7 +52,8 @@ class Build::JsonRenderer
   def render_match(match)
     result = {
       time: match.rtime.iso8601,
-      tags: render_tags(match)
+      tags: render_tags(match),
+      bracket: match.bracket_name
     }
 
     result.merge!(league_data(league: match.league, year: match.rtime.year))
