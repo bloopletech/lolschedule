@@ -6,7 +6,7 @@
 - classes.push(match.player_1.name, match.player_2.name) if match.single?
 
 .match.clearfix{class: classes.join(' '), data: { stream_url: match.stream_url }}
-  .data.league-name{title: match.league.brand_name(year)}= match.league.brand_name_short(year)
+  .data.league-name{title: match.league.brand_name(match.rtime.year)}= match.league.brand_name_short(match.rtime.year)
   .data.vs<
     - if match.team?
       = match.team_1.acronym
