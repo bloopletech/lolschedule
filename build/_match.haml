@@ -1,7 +1,7 @@
 - classes = [match.league.slug]
 - classes << 'live' if match.stream_url
 - classes << 'games' if match.vod_urls.any?
-- classes << 'spoiler' if match.spoiler?
+- classes << 'spoiler' if match.spoiler?(now)
 - classes.push(match.team_1.acronym, match.team_2.acronym) if match.team?
 - classes.push(match.player_1.name, match.player_2.name) if match.single?
 

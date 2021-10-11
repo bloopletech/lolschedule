@@ -30,7 +30,7 @@
         - league.streams.each do |stream|
           != partial('league_stream', { league: league, stream: stream, year: year })
       - matches.sort_by { |match| match.rtime }.each do |match|
-        != partial('match', { match: match, year: year  })
+        != partial('match', { match: match, year: year, now: now })
       #no-results.match.filter-no-match
         %div There are no matches that fit all the filters you have applied.
 

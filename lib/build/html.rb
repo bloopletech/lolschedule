@@ -9,6 +9,10 @@ class Build::Html
     2021 => 'index.html'
   }
 
+  def initialize
+    @now = Time.now
+  end
+
   def build
     haml_context = Build::HamlContext.new(Build.build_path)
 
@@ -17,23 +21,24 @@ class Build::Html
     SEASONS.each_pair do |year, file|
       Build.write_with_gz(
         path: Build.output_path + file,
-        data: haml_context.render('index.haml', context(source, year))
+        data: haml_context.render('index.haml', context(source: source, year: year))
       )
     end
   end
 
-  def context(source, year)
+  def context(source:, year:)
     matches = matches_for_year(source, year)
     leagues = leagues_for_matches(source, matches)
     team_acronyms = matches.flat_map { |match| match.teams }.uniq.map { |team| team.acronym }
 
     {
+      now: @now,
       year: year,
       leagues: leagues,
       matches: matches,
       team_acronyms: team_acronyms,
       title: "#{year} League of Legends eSports Schedule",
-      generated: Time.now.iso8601,
+      generated: @now.iso8601,
       data_generated: Build.source_path.mtime.iso8601
     }
   end

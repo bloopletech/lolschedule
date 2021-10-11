@@ -1,6 +1,6 @@
 class Build::JsonRenderer
-  def initialize
-    @current_year = Date.today.year
+  def initialize(now)
+    @now = now
   end
 
   def render(matches:, leagues:, generated:, data_generated:)
@@ -26,11 +26,11 @@ class Build::JsonRenderer
     stream_url = Build::StreamUrl.new(stream['url'])
 
     result = {
-      name: "#{league.brand_name_short(@current_year)}#{" #{stream['id']}" if stream['id']}",
+      name: "#{league.brand_name_short(@now.year)}#{" #{stream['id']}" if stream['id']}",
       url: stream_url.url
     }
 
-    result.merge!(league_data(league: league, year: @current_year))
+    result.merge!(league_data(league: league, year: @now.year))
 
     result
   end
@@ -76,7 +76,7 @@ class Build::JsonRenderer
 
     if match.stream_url
       result.merge!({
-        stream: render_stream(league: match.league, stream: match.stream_url)
+        stream: render_stream(league: match.league, stream: match.stream)
       })
     end
 
@@ -97,7 +97,7 @@ class Build::JsonRenderer
     result = [match.league.slug]
     result << 'live' if match.stream_url
     result << 'games' if match.vod_urls.any?
-    result << 'spoiler' if match.spoiler?
+    result << 'spoiler' if match.spoiler?(@now)
     result.push(match.team_1.acronym, match.team_2.acronym) if match.team?
     result.push(match.player_1.name, match.player_2.name) if match.single?
     result

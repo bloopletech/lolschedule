@@ -1,6 +1,10 @@
 class Build::Json
+  def initialize
+    @now = Time.now
+  end
+
   def build
-    output = Build::JsonRenderer.new.render(**context)
+    output = Build::JsonRenderer.new(@now).render(**context)
 
     Build.write_with_gz(path: Build.output_path + "data.json", data: output)
   end
@@ -14,7 +18,7 @@ class Build::Json
     {
       leagues: leagues,
       matches: matches,
-      generated: Time.now.iso8601,
+      generated: @now.iso8601,
       data_generated: Build.source_path.mtime.iso8601
     }
   end

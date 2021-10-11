@@ -32,12 +32,15 @@ class Models::Match < Models::Model
     vods.map { |vod| vod.url }.compact
   end
 
-  def stream_url
+  def stream
     return if league.streams.empty?
     return unless league.stream_match_ids && league.stream_match_ids.include?(riot_id)
 
-    stream = league.streams.find { |s| s[:priority] } || league.streams.first
-    stream['url']
+    league.streams.find { |s| s[:priority] } || league.streams.first
+  end
+
+  def stream_url
+    stream&.dig("url")
   end
 
   def rtime
@@ -64,7 +67,7 @@ class Models::Match < Models::Model
     single? ? [player_1, player_2] : []
   end
 
-  def spoiler?
+  def spoiler?(now)
     patterns = [
       /(playoffs|promotion_relegation|regionals)$/,
       /^(group_stage|bracket_stage|playoffs_bracket)$/,
@@ -74,6 +77,6 @@ class Models::Match < Models::Model
     ]
     patterns << /^groups$/ if league.international?
 
-    (rtime.year == Date.today.year) && patterns.any? { |regex| bracket_name.downcase =~ regex }
+    (rtime.year == now.year) && patterns.any? { |regex| bracket_name.downcase =~ regex }
   end
 end
