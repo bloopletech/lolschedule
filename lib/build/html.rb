@@ -6,7 +6,8 @@ class Build::Html
     2018 => '2018.html',
     2019 => '2019.html',
     2020 => '2020.html',
-    2021 => 'index.html'
+    2021 => '2021.html',
+    2022 => 'index.html'
   }
 
   def initialize
