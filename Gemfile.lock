@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/RandieM/sprite-factory
+  revision: a2ffe4c1f37cfbe5c39912deed49a82fe0dad026
+  specs:
+    sprite-factory (1.7.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -54,7 +60,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    rmagick (2.15.4)
+    rmagick (4.2.4)
     rollbar (2.12.0)
       multi_json
     rspec (3.5.0)
@@ -72,7 +78,6 @@ GEM
     rspec-support (3.5.0)
     shellany (0.0.1)
     slop (3.6.0)
-    sprite-factory (1.7.1)
     temple (0.8.0)
     thor (0.19.1)
     tilt (2.0.8)
@@ -93,7 +98,7 @@ DEPENDENCIES
   rmagick
   rollbar
   rspec
-  sprite-factory
+  sprite-factory!
   vcr
 
 RUBY VERSION

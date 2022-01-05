@@ -6,7 +6,7 @@ gem 'excon'
 gem 'hamlit'
 gem 'addressable'
 gem 'rmagick'
-gem 'sprite-factory', require: 'sprite_factory'
+gem 'sprite-factory', git: 'https://github.com/RandieM/sprite-factory', require: 'sprite_factory'
 gem 'dotenv'
 
 group :guard do
