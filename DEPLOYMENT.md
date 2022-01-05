@@ -7,7 +7,8 @@
 add-apt-repository ppa:brightbox/ruby-ng
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install build-essential git ruby2.6 ruby2.6-dev imagemagick libmagickwand-dev nginx certbot
+apt-get install build-essential git ruby2.6 ruby2.6-dev nginx certbot
+git clone https://github.com/SoftCreatR/imei && cd imei && chmod +x imei.sh && ./imei.sh --checkinstall
 gem install bundler
 ````
 
