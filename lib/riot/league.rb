@@ -3,21 +3,38 @@ class Riot::League
   TOURNAMENTS_ENDPOINT = "#{HOST}/persisted/gw/getTournamentsForLeague?hl=en-US&leagueId="
   SCHEDULES_ENDPOINT = "#{HOST}/persisted/gw/getSchedule?hl=en-US&leagueId="
   VALID_LEAGUE_SLUGS = [
-    "turkey-academy-league",
-    "lla",
-    "pcs",
+    #International tournaments
     "worlds",
     "all-star",
-    "lcs",
-    "lec",
+    "msi",
+    #Tier 1 leagues
     "lck",
     "lpl",
-    "msi",
-    "oce-opl",
+    "lec",
+    "lcs",
+    "pcs",
+    "vcs",
     "cblol-brazil",
-    "turkiye-sampiyonluk-ligi",
     "ljl-japan",
-    "lcs-academy"
+    "lla",
+    #Tier 2 leagues
+    "lco",
+    "european-masters",
+    "north_american_challenger_league",
+    "lck_challengers_league",
+    "lck_academy",
+    "ljl_academy",
+    "cblol_academy",
+    "turkey-academy-league",
+    #"honor_division",
+    #"elements_league",
+    #"movistar_fiber_golden_league",
+    #"volcano_discover_league",
+    #"honor_league",
+    #"master_flow_league",
+    #"claro_gaming_stars_league",
+    #Former tier 1 and 2 leagues
+    "turkiye-sampiyonluk-ligi",
   ]
 
   def self.parse(response)

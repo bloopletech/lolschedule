@@ -23,6 +23,10 @@ class Models::League < Models::Model
       'LCS'
     when 'All-Star Event'
       'All-Star'
+    when 'EMEA Masters'
+      year <= 2022 ? 'European Masters' : name.dup
+    when 'LCO'
+      year <= 2020 ? 'OPL' : name.dup
     else
       name.dup
     end
@@ -34,6 +38,16 @@ class Models::League < Models::Model
       'LCSA'
     when 'European Masters'
       'EU Mas'
+    when 'LCS Challengers'
+      'LCS Chl'
+    when 'LCK Challengers'
+      'LCK Chl'
+    when 'CBLOL Academy'
+      'CBLOLA'
+    when 'EMEA Masters'
+      year <= 2022 ? 'EU Mas' : 'EMEA'
+    when 'LJL Academy'
+      'LJLA'
     else
       brand_name(year)
     end
