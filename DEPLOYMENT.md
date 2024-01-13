@@ -59,7 +59,7 @@ git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git 
 cd /home/ubuntu/lolschedule
 . /home/ubuntu/environment
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/lib/pkgconfig:$PKG_CONFIG_PATH"
-bundle install --without development test guard --deployment
+bundle install
 EOF
 chmod +x /home/ubuntu/lolschedule.git/hooks/post-receive
 ````
@@ -68,6 +68,9 @@ chmod +x /home/ubuntu/lolschedule.git/hooks/post-receive
 
 ````bash
 mkdir /home/ubuntu/lolschedule
+cd /home/ubuntu/lolschedule
+bundle config set deployment true
+bundle config set without 'development test guard'
 ````
 
 ## Environment variables
