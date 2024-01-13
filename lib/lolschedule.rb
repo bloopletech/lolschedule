@@ -62,3 +62,7 @@ require 'seeders/leagues'
 require 'seeders/stream_events'
 require 'seeders/events'
 require 'seeders/seeder'
+
+class << File
+  alias_method :exists?, :exist?
+end

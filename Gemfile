@@ -1,10 +1,11 @@
 source "http://rubygems.org"
 
-ruby "~> 2.6.0"
+ruby "~> 3.3.0"
 gem 'rake'
 gem 'excon'
 gem 'hamlit'
 gem 'addressable'
+gem 'observer'
 gem 'rmagick'
 gem 'sprite-factory', git: 'https://github.com/RandieM/sprite-factory', require: 'sprite_factory'
 gem 'dotenv'

@@ -4,12 +4,9 @@
 
 ````bash
 # As root
-add-apt-repository ppa:brightbox/ruby-ng
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install build-essential git ruby2.6 ruby2.6-dev nginx certbot
-git clone https://github.com/SoftCreatR/imei && cd imei && chmod +x imei.sh && ./imei.sh --checkinstall
-gem install bundler
+apt-get install build-essential git nginx certbot
 ````
 
 ## User setup & Web root configuration
@@ -23,6 +20,19 @@ chown -R ubuntu:www-data /var/www/html
 chmod -R g+rwx /var/www/html
 chmod g+s /var/www/html
 rm /var/www/html/index.nginx-debian.html
+````
+
+## Install brew and packages
+
+````bash
+# As root
+usermod -a -G sudo ubuntu
+su ubuntu
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install ruby@3.3
+brew install imagemagick
+exit
+deluser ubuntu sudo
 ````
 
 ## Switch to ubuntu and configure SSH
@@ -63,6 +73,9 @@ mkdir /home/ubuntu/lolschedule
 
 ````bash
 cat <<EOF > /home/ubuntu/environment
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export PATH="/home/linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin:$PATH"
+
 export LOLSCHEDULE_ENV="production"
 export LOLSCHEDULE_OUTPUT_DIR="/var/www/html"
 export ROLLBAR_TOKEN="<rollbar token>"
