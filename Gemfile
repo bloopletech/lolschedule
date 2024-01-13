@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 ruby "~> 3.3.0"
+gem 'base64'
 gem 'rake'
 gem 'excon'
 gem 'hamlit'
