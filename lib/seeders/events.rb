@@ -8,6 +8,8 @@ class Seeders::Events
   end
 
   def seed_event(event)
+    return unless event.year >= 2022
+
     teams = seed_teams(event)
 
     riot_game_ids = seed_games(event)

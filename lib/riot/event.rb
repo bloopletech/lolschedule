@@ -22,6 +22,10 @@ class Riot::Event
     @data["startTime"]
   end
 
+  def year
+    start_time[0..3].to_i
+  end
+
   def block_name
     @data["blockName"]
   end

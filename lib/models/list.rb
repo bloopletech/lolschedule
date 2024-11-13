@@ -26,4 +26,8 @@ class Models::List
   def find_all(riot_ids)
     @index.values_at(*riot_ids).compact
   end
+
+  def delete(riot_id)
+    @index.delete(riot_id)
+  end
 end

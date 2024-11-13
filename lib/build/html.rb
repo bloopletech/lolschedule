@@ -47,7 +47,7 @@ class Build::Html
   end
 
   def matches_for_year(source, year)
-    source.matches.select { |match| match.rtime.year == year }
+    source.matches.select { |match| match.year == year }
   end
 
   def leagues_for_matches(source, matches)

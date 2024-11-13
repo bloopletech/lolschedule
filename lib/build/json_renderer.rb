@@ -56,7 +56,7 @@ class Build::JsonRenderer
       bracket: match.bracket_name
     }
 
-    result.merge!(league_data(league: match.league, year: match.rtime.year))
+    result.merge!(league_data(league: match.league, year: match.year))
 
     if match.team?
       result.merge!({

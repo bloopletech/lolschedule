@@ -51,6 +51,10 @@ class Models::Match < Models::Model
     Time.xmlschema("#{time[0..18]}+00:00")
   end
 
+  def year
+    time[0..3].to_i
+  end
+
   def team?
     type == 'team'
   end
@@ -77,6 +81,6 @@ class Models::Match < Models::Model
     ]
     patterns << /^groups$/ if league.international?
 
-    (rtime.year == now.year) && patterns.any? { |regex| bracket_name.downcase =~ regex }
+    (year == now.year) && patterns.any? { |regex| bracket_name.downcase =~ regex }
   end
 end
