@@ -10,7 +10,7 @@ class Build::Json
   end
 
   def context
-    source = Models::Persistence.load(Build.source_path)
+    source = Models::Persistence.load(Build.year_paths)
 
     matches = source.matches.to_a
     leagues = source.leagues.to_a
@@ -19,7 +19,7 @@ class Build::Json
       leagues: leagues,
       matches: matches,
       generated: @now.iso8601,
-      data_generated: Build.source_path.mtime.iso8601
+      data_generated: Build.current_year_path.mtime.iso8601
     }
   end
 end

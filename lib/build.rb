@@ -1,4 +1,8 @@
 module Build
+  YEARS = (2015..2026).to_a
+  CURRENT_YEAR = YEARS.last
+  PAST_YEARS = YEARS[0..-2]
+
   def self.root_path
     Pathname.new(__FILE__).dirname.parent
   end
@@ -11,12 +15,16 @@ module Build
     end
   end
 
-  def self.source_path
-    data_path + 'source.json'
+  def self.year_path(year)
+    data_path + "#{year}.json"
   end
 
-  def self.archived_source_path
-    data_path + 'archived.json'
+  def self.current_year_path
+    year_path(CURRENT_YEAR)
+  end
+
+  def self.year_paths
+    YEARS.map { |year| year_path(year) }
   end
 
   def self.build_path

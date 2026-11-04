@@ -2,16 +2,16 @@ require_relative './lib/lolschedule.rb'
 
 desc 'Download league, tournament, match, and team data'
 task :data do
-  source = Models::Persistence.load(Build.archived_source_path)
+  source = Models::Source.new
   Seeders::Seeder.new(source).seed
-  Models::Persistence.save(source, Build.source_path)
+  Models::Persistence.save(source, Build.current_year_path)
 end
 
 namespace :build do
   namespace :logos do
     desc 'Download logos from Akamai'
     task :download do
-      source = Models::Persistence.load(Build.source_path)
+      source = Models::Persistence.load(Build.year_paths)
       Build::LogosDownloader.new(source).download
     end
 
@@ -62,7 +62,7 @@ desc 'Start an IRB console with the project and data loaded'
 task :console do
   require 'irb'
   ARGV.clear
-  $source = Models::Persistence.load(Build.source_path)
+  $source = Models::Persistence.load(Build.year_paths)
   IRB.start
 end
 

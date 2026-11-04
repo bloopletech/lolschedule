@@ -8,7 +8,7 @@ class Seeders::Events
   end
 
   def seed_event(event)
-    return unless event.year >= 2022
+    return unless event.year == Build::CURRENT_YEAR
 
     teams = seed_teams(event)
 

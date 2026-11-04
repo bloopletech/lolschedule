@@ -1,6 +1,8 @@
 class Models::Persistence
-  def self.load(path)
-    Models::Source.from_h(JSON.parse(path.read))
+  def self.load(*paths)
+    source = Models::Source.new
+    paths.each { |path| source.from_h(JSON.parse(path.read)) }
+    source
   end
 
   def self.save(source, path)

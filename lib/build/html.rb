@@ -1,16 +1,5 @@
 class Build::Html
-  SEASONS = {
-    2015 => '2015.html',
-    2016 => '2016.html',
-    2017 => '2017.html',
-    2018 => '2018.html',
-    2019 => '2019.html',
-    2020 => '2020.html',
-    2021 => '2021.html',
-    2022 => '2022.html',
-    2023 => '2023.html',
-    2024 => 'index.html'
-  }
+  SEASONS = Build::PAST_YEARS.to_h { |year| [year, "#{year}.html"] }.merge(Build::CURRENT_YEAR => "index.html")
 
   def initialize
     @now = Time.now
@@ -19,7 +8,7 @@ class Build::Html
   def build
     haml_context = Build::HamlContext.new(Build.build_path)
 
-    source = Models::Persistence.load(Build.source_path)
+    source = Models::Persistence.load(*Build.year_paths)
 
     SEASONS.each_pair do |year, file|
       Build.write_with_gz(
@@ -42,7 +31,7 @@ class Build::Html
       team_acronyms: team_acronyms,
       title: "#{year} League of Legends eSports Schedule",
       generated: @now.iso8601,
-      data_generated: Build.source_path.mtime.iso8601
+      data_generated: Build.current_year_path.mtime.iso8601
     }
   end
 
