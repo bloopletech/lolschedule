@@ -11,7 +11,7 @@ namespace :build do
   namespace :logos do
     desc 'Download logos from Akamai'
     task :download do
-      source = Models::Persistence.load(Build.year_paths)
+      source = Models::Persistence.load(*Build.year_paths)
       Build::LogosDownloader.new(source).download
     end
 
@@ -62,7 +62,7 @@ desc 'Start an IRB console with the project and data loaded'
 task :console do
   require 'irb'
   ARGV.clear
-  $source = Models::Persistence.load(Build.year_paths)
+  $source = Models::Persistence.load(*Build.year_paths)
   IRB.start
 end
 
