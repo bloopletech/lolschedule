@@ -8,11 +8,7 @@ module Build
   end
 
   def self.data_path
-    if ENV.key?('LOLSCHEDULE_DATA_DIR')
-      Pathname.new(ENV['LOLSCHEDULE_DATA_DIR'])
-    else
-      root_path + 'data'
-    end
+    root_path + 'data'
   end
 
   def self.year_path(year)

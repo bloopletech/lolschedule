@@ -13,10 +13,10 @@ apt-get install build-essential pkg-config git nginx certbot
 
 ````bash
 # As root
-mkhomedir_helper ubuntu
-chsh ubuntu -s /bin/bash
-useradd -G www-data ubuntu
-chown -R ubuntu:www-data /var/www/html
+useradd -G www-data lolschedule
+mkhomedir_helper lolschedule
+chsh lolschedule -s /bin/bash
+chown -R lolschedule:www-data /var/www/html
 chmod -R g+rwx /var/www/html
 chmod g+s /var/www/html
 rm /var/www/html/index.nginx-debian.html
@@ -26,19 +26,20 @@ rm /var/www/html/index.nginx-debian.html
 
 ````bash
 # As root
-usermod -a -G sudo ubuntu
-su ubuntu
+usermod -a -G sudo lolschedule
+su lolschedule
+cd ~
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install ruby@3.3
 brew install imagemagick
 exit
-deluser ubuntu sudo
+deluser lolschedule sudo
 ````
 
 ## Switch to ubuntu and configure SSH
 
 ````bash
-su ubuntu
+su lolschedule
 cd ~
 mkdir .ssh
 chmod 700 .ssh
@@ -52,23 +53,23 @@ cd ~
 ## Bare Git repo setup
 
 ````bash
-git clone --bare https://github.com/bloopletech/lolschedule.git /home/ubuntu/lolschedule.git
-cat <<EOF > /home/ubuntu/lolschedule.git/hooks/post-receive
+git clone --bare https://github.com/bloopletech/lolschedule.git /home/lolschedule/lolschedule.git
+cat <<EOF > /home/lolschedule/lolschedule.git/hooks/post-receive
 #!/bin/bash
-git --work-tree=/home/ubuntu/lolschedule --git-dir=/home/ubuntu/lolschedule.git checkout -f
-cd /home/ubuntu/lolschedule
-. /home/ubuntu/environment
+git --work-tree=/home/lolschedule/lolschedule --git-dir=/home/lolschedule/lolschedule.git checkout -f
+cd /home/lolschedule/lolschedule
+. /home/lolschedule/environment
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 bundle install
 EOF
-chmod +x /home/ubuntu/lolschedule.git/hooks/post-receive
+chmod +x /home/lolschedule/lolschedule.git/hooks/post-receive
 ````
 
 ## Create lolschedule directory
 
 ````bash
-mkdir /home/ubuntu/lolschedule
-cd /home/ubuntu/lolschedule
+mkdir /home/lolschedule/lolschedule
+cd /home/lolschedule/lolschedule
 bundle config set deployment true
 bundle config set without 'development test guard'
 ````
@@ -76,13 +77,12 @@ bundle config set without 'development test guard'
 ## Environment variables
 
 ````bash
-cat <<EOF > /home/ubuntu/environment
+cat <<EOF > /home/lolschedule/environment
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="/home/linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin:$PATH"
 
 export LOLSCHEDULE_ENV="production"
 export LOLSCHEDULE_OUTPUT_DIR="/var/www/html"
-export ROLLBAR_TOKEN="<rollbar token>"
 EOF
 ````
 
@@ -90,7 +90,7 @@ EOF
 
 ````bash
 # On your local machine, in lolschedule directory
-git remote add droplet ssh://ubuntu@<server IP address>/home/ubuntu/lolschedule.git
+git remote add droplet ssh://lolschedule@<server IP address>/home/lolschedule/lolschedule.git
 git commit --allow-empty -m "Bump"
 git push droplet master
 ````
@@ -99,11 +99,11 @@ git push droplet master
 
 ````bash
 # As root
-cat <<EOF > /var/spool/cron/crontabs/ubuntu
-*/10 * * * * /home/ubuntu/lolschedule/lolschedule
+cat <<EOF > /var/spool/cron/crontabs/lolschedule
+*/10 * * * * /home/lolschedule/lolschedule/lolschedule
 EOF
 
-chown ubuntu:ubuntu /var/spool/cron/crontabs/ubuntu
+chown lolschedule:lolschedule /var/spool/cron/crontabs/lolschedule
 service cron restart
 ````
 
@@ -179,7 +179,9 @@ service nginx restart
 ````bash
 # As root
 openssl dhparam -dsaparam -out /etc/ssl/private/dhparams.pem 4096
-certbot certonly --webroot -w /var/www/html -d lol.bloople.net
+service nginx stop
+certbot certonly --standalone -d lol.bloople.net
+service nginx start
 ````
 
 ## Logrotate config
@@ -187,14 +189,14 @@ certbot certonly --webroot -w /var/www/html -d lol.bloople.net
 ````bash
 # As root
 cat <<EOF > /etc/logrotate.d/lolschedule
-/home/ubuntu/lolschedule.log {
+/home/lolschedule/lolschedule.log {
         daily
         missingok
         rotate 14
         compress
         delaycompress
         notifempty
-        create 640 ubuntu ubuntu
+        create 640 lolschedule lolschedule
 }
 EOF
 ````

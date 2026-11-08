@@ -1,11 +1,11 @@
 #!/bin/bash
 
-exec >>/home/ubuntu/lolschedule.log 2>&1
+exec >>/home/lolschedule/lolschedule.log 2>&1
 set -e
 set -x
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-export HOME="/home/ubuntu"
+export HOME="/home/lolschedule"
 
 . ~/environment
 cd ~/lolschedule
