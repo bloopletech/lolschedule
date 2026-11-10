@@ -1,5 +1,5 @@
 class Parallel
-  MAX_PARALLELISM = 4
+  MAX_PARALLELISM = 8
   MUTEX = Mutex.new
 
   def initialize(items)
