@@ -1,15 +1,14 @@
 class Seeders::Events
-  def initialize(source)
+  def initialize(source, riot_data)
     @source = source
+    @riot_data = riot_data
   end
 
   def seed
-    Riot::Data["events"].each { |event| seed_event(event) }
+    @riot_data.events.each { |event| seed_event(event) }
   end
 
   def seed_event(event)
-    return unless event.year == Build::CURRENT_YEAR
-
     teams = seed_teams(event)
 
     riot_game_ids = seed_games(event)
@@ -43,7 +42,7 @@ class Seeders::Events
   end
 
   def seed_games(event)
-    event_detail = Riot::Data["event_details"].find { |event_detail| event_detail.id == event.match_id }
+    event_detail = @riot_data.event_details.find { |event_detail| event_detail.id == event.match_id }
     event_detail.games.map { |riot_game| seed_vods(riot_game) }.flatten
   end
 

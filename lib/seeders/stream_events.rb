@@ -1,10 +1,11 @@
 class Seeders::StreamEvents
-  def initialize(source)
+  def initialize(source, riot_data)
     @source = source
+    @riot_data = riot_data
   end
 
   def seed
-    Riot::Data["stream_events"].each { |event| seed_stream_event(event) }
+    @riot_data.stream_events.each { |event| seed_stream_event(event) }
   end
 
   def seed_stream_event(event)

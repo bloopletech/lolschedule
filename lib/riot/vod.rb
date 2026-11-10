@@ -10,10 +10,10 @@ class Riot::Vod
   end
 
   def english?
-    @locale == "en-US"
+    locale =~ /^en/
   end
 
   def youtube?
-    @provider == "youtube"
+    provider == "youtube"
   end
 end

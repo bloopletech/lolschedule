@@ -3,7 +3,8 @@ require_relative './lib/lolschedule.rb'
 desc 'Download league, tournament, match, and team data'
 task :data do
   source = Models::Source.new
-  Seeders::Seeder.new(source).seed
+  riot_data = Riot::Seeder.new.seed
+  Seeders::Seeder.new(source, riot_data).seed
   Models::Persistence.save(source, Build.current_year_path)
 end
 

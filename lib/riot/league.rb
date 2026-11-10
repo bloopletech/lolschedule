@@ -3,21 +3,16 @@ class Riot::League
   TOURNAMENTS_ENDPOINT = "#{HOST}/persisted/gw/getTournamentsForLeague?hl=en-US&leagueId="
   SCHEDULES_ENDPOINT = "#{HOST}/persisted/gw/getSchedule?hl=en-US&leagueId="
 
+  attr_reader :id, :name
+
   def self.parse(response)
     leagues = response.body["data"]["leagues"]
     leagues.map { |league| new(league) }
   end
 
   def initialize(data)
-    @data = data
-  end
-
-  def id
-    @data["id"]
-  end
-
-  def name
-    @data["name"]
+    @id = data["id"]
+    @name = data["name"]
   end
 
   def tournament_url

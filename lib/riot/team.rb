@@ -1,21 +1,13 @@
 class Riot::Team
-  def initialize(data)
-    @data = data
-  end
+  attr_reader :league_id, :code, :image
 
-  def league_id
-    @data["league_id"]
+  def initialize(data)
+    @league_id = data["league_id"]
+    @code = data["code"]
+    @image = data["image"]
   end
 
   def id
     "#{league_id}-#{code}"
-  end
-
-  def code
-    @data["code"]
-  end
-
-  def image
-    @data["image"]
   end
 end

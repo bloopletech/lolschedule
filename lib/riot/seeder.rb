@@ -6,63 +6,62 @@ class Riot::Seeder
   def seed
     SyncedStdout.puts "Requesting data..."
 
-    data.clear
-    leagues
-    tournaments
-    events
-    schedules
-    event_details
-    stream_events
+    seed_leagues
+    seed_tournaments
+    seed_events
+    seed_schedules
+    filter_events
+    seed_event_details
+    seed_stream_events
+
+    Riot::Data.new(leagues: @leagues, events: @events, event_details: @event_details, stream_events: @stream_events)
   end
 
-  def leagues
-    request = Riot::DataRequest.new(url: LEAGUES_ENDPOINT, parent_id: nil)
-    data.leagues = Riot::League.parse(request.get)
+  def seed_leagues
+    request = Riot::DataRequest.new(url: LEAGUES_ENDPOINT)
+    @leagues = Riot::League.parse(request.get)
   end
 
-  def tournaments
-    requests = data.leagues.map(&:tournament_request)
+  def seed_tournaments
+    requests = @leagues.map(&:tournament_request)
     responses = Parallel.new(requests).perform_collate(&:get)
-    data.tournaments = responses.flat_map { |response| Riot::Tournament.parse(response) }
+    @tournaments = responses.flat_map { |response| Riot::Tournament.parse(response) }
+    @tournaments.select! { |tournament| tournament.year == Build::CURRENT_YEAR }
   end
 
-  def events
-    requests = data.tournaments.map(&:events_request)
+  def seed_events
+    requests = @tournaments.map(&:events_request)
     responses = Parallel.new(requests).perform_collate(&:get)
-    data.events = responses.flat_map { |response| Riot::Event.parse(response) }
+    @events = responses.flat_map { |response| Riot::Event.parse(response) }
   end
 
-  def schedules
-    data.leagues.each do |league|
-      schedules_for(league: league, direction: "older", page_token: nil)
-      schedules_for(league: league, direction: "newer", page_token: nil)
-    end
-
-    data.events.uniq! { |event| event.match_id }
+  def seed_schedules
+    @leagues.each { |league| seed_schedules_for(league: league) }
   end
 
-  def schedules_for(league:, direction:, page_token:)
+  def seed_schedules_for(league:, page_token: nil)
     request = Riot::DataRequest.new(url: league.schedule_url(page_token), parent_id: league.id)
     response = request.get
 
-    data.events.concat(Riot::Event.parse(response))
+    @events.concat(Riot::Event.parse(response))
 
-    followup_page_token = response.body.dig("data", "schedule", "pages", direction)
-    schedules_for(league: league, direction: direction, page_token: followup_page_token) if followup_page_token
+    page_token = response.body.dig("data", "schedule", "pages", "older")
+    seed_schedules_for(league: league, page_token: page_token) if page_token
   end
 
-  def event_details
-    requests = data.events.map(&:event_detail_request)
+  def filter_events
+    @events.uniq! { |event| event.match_id }
+    @events.select! { |event| event.year == Build::CURRENT_YEAR }
+  end
+
+  def seed_event_details
+    requests = @events.map(&:event_detail_request)
     responses = Parallel.new(requests).perform_collate(&:get)
-    data.event_details = responses.flat_map { |response| Riot::EventDetail.parse(response) }
+    @event_details = responses.flat_map { |response| Riot::EventDetail.parse(response) }
   end
 
-  def stream_events
-    request = Riot::DataRequest.new(url: LIVESTREAMS_ENDPOINT, parent_id: nil)
-    data.stream_events = Riot::StreamEvent.parse(request.get)
-  end
-
-  def data
-    Riot::Data
+  def seed_stream_events
+    request = Riot::DataRequest.new(url: LIVESTREAMS_ENDPOINT)
+    @stream_events = Riot::StreamEvent.parse(request.get)
   end
 end

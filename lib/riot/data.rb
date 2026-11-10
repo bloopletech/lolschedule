@@ -1,28 +1,10 @@
 class Riot::Data
-  class << self
-    attr_accessor :leagues, :tournaments, :events, :stream_events, :event_details
+  attr_reader :leagues, :tournaments, :events, :stream_events, :event_details
 
-    def clear
-      @leagues = []
-      @tournaments = []
-      @events = []
-      @stream_events = []
-      @event_details
-    end
-
-    def [](key)
-      case key
-      when "leagues"
-        @leagues
-      when "tournaments"
-        @tournaments
-      when "events"
-        @events
-      when "stream_events"
-        @stream_events
-      when "event_details"
-        @event_details
-      end
-    end
+  def initialize(leagues:, events:, event_details:, stream_events:)
+    @leagues = leagues
+    @events = events
+    @event_details = event_details
+    @stream_events = stream_events
   end
 end

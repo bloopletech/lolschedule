@@ -30,6 +30,10 @@ class Riot::Tournament
     Time.strptime(@data["endDate"], "%Y-%m-%d")
   end
 
+  def year
+    start_time.year
+  end
+
   def events_url
     "#{VODS_ENDPOINT}#{id}"
   end

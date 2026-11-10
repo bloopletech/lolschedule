@@ -3,7 +3,7 @@ class Riot::DataRequest
 
   attr_reader :url, :parent_id
 
-  def initialize(url:, parent_id:)
+  def initialize(url:, parent_id: nil)
     @url = url
     @parent_id = parent_id
   end
