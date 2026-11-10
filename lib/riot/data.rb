@@ -1,12 +1,13 @@
 class Riot::Data
   class << self
-    attr_accessor :leagues, :tournaments, :events, :stream_events
+    attr_accessor :leagues, :tournaments, :events, :stream_events, :event_details
 
     def clear
       @leagues = []
       @tournaments = []
       @events = []
       @stream_events = []
+      @event_details
     end
 
     def [](key)
@@ -19,6 +20,8 @@ class Riot::Data
         @events
       when "stream_events"
         @stream_events
+      when "event_details"
+        @event_details
       end
     end
   end

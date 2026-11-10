@@ -11,7 +11,6 @@ class Client
   def initialize(site)
     @site = site
     @connection = Excon.new(site,
-      persistent: true,
       middlewares: Excon.defaults[:middlewares] + [Excon::Middleware::Decompress],
       omit_default_port: true
     )

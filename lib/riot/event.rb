@@ -1,4 +1,7 @@
 class Riot::Event
+  HOST = "https://esports-api.lolesports.com"
+  EVENT_DETAIL_ENDPOINT = "#{HOST}/persisted/gw/getEventDetails?hl=en-US&id="
+
   def self.parse(data_response)
     league_id = data_response.parent_id
     events = data_response.body["data"]["schedule"]["events"]
@@ -34,8 +37,11 @@ class Riot::Event
     @data["match"]["teams"].map { |team| Riot::Team.new(team.merge("league_id" => league_id)) }
   end
 
-  def games
-    return [] unless @data.key?("games")
-    @data["games"].map { |game| Riot::Game.new(game) }.select { |game| game.completed? }
+  def event_detail_url
+    "#{EVENT_DETAIL_ENDPOINT}#{match_id}"
+  end
+
+  def event_detail_request
+    Riot::DataRequest.new(url: event_detail_url, parent_id: @league_id)
   end
 end

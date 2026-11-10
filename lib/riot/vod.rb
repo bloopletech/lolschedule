@@ -1,13 +1,19 @@
 class Riot::Vod
+  attr_reader :id, :locale, :provider, :parameter, :offset
+
   def initialize(data)
-    @data = data
+    @id = data["id"]
+    @locale = data["locale"]
+    @provider = data["provider"]
+    @parameter = data["parameter"]
+    @offset = data["offset"]
   end
 
-  def id
-    @data["id"]
+  def english?
+    @locale == "en-US"
   end
 
-  def parameter
-    @data["parameter"]
+  def youtube?
+    @provider == "youtube"
   end
 end

@@ -11,6 +11,7 @@ class Riot::Seeder
     tournaments
     events
     schedules
+    event_details
     stream_events
   end
 
@@ -48,6 +49,12 @@ class Riot::Seeder
 
     followup_page_token = response.body.dig("data", "schedule", "pages", direction)
     schedules_for(league: league, direction: direction, page_token: followup_page_token) if followup_page_token
+  end
+
+  def event_details
+    requests = data.events.map(&:event_detail_request)
+    responses = Parallel.new(requests).perform_collate(&:get)
+    data.event_details = responses.flat_map { |response| Riot::EventDetail.parse(response) }
   end
 
   def stream_events

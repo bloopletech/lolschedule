@@ -1,23 +1,13 @@
 class Riot::Game
+  attr_reader :id, :state, :vods
+
   def initialize(data)
-    @data = data
-  end
-
-  def id
-    @data["id"]
-  end
-
-  def state
-    @data["state"]
+    @id = data["id"]
+    @state = data["state"]
+    @vods = data["vods"].map { |vod| Riot::Vod.new(vod) }.select { |vod| vod.english? && vod.youtube? }
   end
 
   def completed?
-    state == "completed"
-  end
-
-  def vods
-    @data["vods"].take(1).map.with_index do |vod, i|
-      Riot::Vod.new(vod.merge("id" => "#{id}-#{i}"))
-    end
+    @state == "completed"
   end
 end

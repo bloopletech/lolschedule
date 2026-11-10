@@ -43,7 +43,8 @@ class Seeders::Events
   end
 
   def seed_games(event)
-    event.games.map { |riot_game| seed_vods(riot_game) }.flatten
+    event_detail = Riot::Data["event_details"].find { |event_detail| event_detail.id == event.match_id }
+    event_detail.games.map { |riot_game| seed_vods(riot_game) }.flatten
   end
 
   def seed_vods(game)
