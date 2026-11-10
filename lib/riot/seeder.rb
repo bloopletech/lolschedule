@@ -55,7 +55,7 @@ class Riot::Seeder
   end
 
   def seed_event_details
-    requests = @events.map(&:event_detail_request)
+    requests = @events.select { |event| event.needs_event_detail? }.map(&:event_detail_request)
     responses = Parallel.new(requests).perform_collate(&:get)
     @event_details = responses.flat_map { |response| Riot::EventDetail.parse(response) }
   end

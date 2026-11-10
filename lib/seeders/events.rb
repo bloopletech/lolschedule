@@ -42,18 +42,23 @@ class Seeders::Events
   end
 
   def seed_games(event)
-    event_detail = @riot_data.event_details.find { |event_detail| event_detail.id == event.match_id }
-    event_detail.games.map { |riot_game| seed_vods(riot_game) }.flatten
+    if event.needs_event_detail?
+      event_detail = @riot_data.event_details.find { |event_detail| event_detail.id == event.match_id }
+      event_detail.games.map { |riot_game| seed_vod(riot_game) }.compact
+    else
+      event.games.map { |riot_game| seed_vod(riot_game) }.compact
+    end
   end
 
-  def seed_vods(game)
-    game.vods.map do |riot_vod|
-      @source.vods << Models::Vod.new({
-        riot_id: riot_vod.id,
-        url: { id: riot_vod.parameter, start: "0" }
-      })
+  def seed_vod(game)
+    riot_vod = game.vod
+    return nil unless riot_vod
 
-      riot_vod.id
-    end
+    @source.vods << Models::Vod.new({
+      riot_id: riot_vod.id,
+      url: { id: riot_vod.parameter, start: "0" }
+    })
+
+    riot_vod.id
   end
 end
