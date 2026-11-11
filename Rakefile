@@ -1,12 +1,24 @@
 require_relative './lib/lolschedule.rb'
 
-desc 'Download league, tournament, match, and team data'
-task :data do
-  source = Models::Source.new
-  riot_data = Riot::Seeder.new.seed
-  Seeders::Seeder.new(source, riot_data).seed
-  Models::Persistence.save(source, Build.current_year_path)
+namespace :data do
+  desc 'Download league, tournament, match, and team data'
+  task :download do
+    source = Models::Source.new
+    riot_data = Riot::Seeder.new.seed
+    Seeders::Seeder.new(source, riot_data).seed
+    Models::Persistence.save(source, Build.current_year_path)
+  end
+
+  task :migrate do
+    Models::Persistence.migrate
+  end
+
+  task :split do
+    Models::Persistence.split
+  end
 end
+
+task data: ['data:download']
 
 namespace :build do
   namespace :logos do

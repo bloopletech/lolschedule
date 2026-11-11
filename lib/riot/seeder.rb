@@ -20,6 +20,14 @@ class Riot::Seeder
   def seed_leagues
     request = Riot::DataRequest.new(url: LEAGUES_ENDPOINT)
     @leagues = Riot::League.parse(request.get)
+    filter_leagues
+  end
+
+  def filter_leagues
+    if ENV.key?("LOLSCHEDULE_LEAGUE_IDS")
+      league_ids = ENV["LOLSCHEDULE_LEAGUE_IDS"].split(",")
+      @leagues.select! { |league| league_ids.include?(league.id) }
+    end
   end
 
   def seed_tournaments

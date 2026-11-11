@@ -51,14 +51,27 @@ class Seeders::Events
   end
 
   def seed_vod(game)
-    riot_vod = game.vod
-    return nil unless riot_vod
+    vod = best_vod(game.vods)
+    return nil unless vod
 
     @source.vods << Models::Vod.new({
-      riot_id: riot_vod.id,
-      url: { id: riot_vod.parameter, start: "0" }
+      riot_id: vod.id,
+      url: { provider: vod.provider, id: vod.parameter, start: vod.offset.to_s }
     })
 
-    riot_vod.id
+    vod.id
+  end
+
+  def best_vod(vods)
+    vod = vods.find { |vod| vod.english? && vod.youtube? }
+    return vod if vod
+
+    vod = vods.find(&:english?)
+    return vod if vod
+
+    vod = vods.find(&:youtube?)
+    return vod if vod
+
+    vods.first
   end
 end

@@ -151,7 +151,7 @@ function vodLinks(type) {
   var vods = document.querySelectorAll("a.vod");
   for(var i = 0; i < vods.length; i++) {
     var vod = vods[i];
-    vod.href = vod.dataset[type];
+    vod.href = vod.dataset[type] ?? vod.dataset.url;
   }
 
   marshalFilters(selectedFilters());
