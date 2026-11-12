@@ -21,6 +21,9 @@ gem 'dotenv'
 
 group :test do
   gem 'rspec'
+end
+
+group :development, :test do
   gem 'vcr'
 end
 

@@ -4,6 +4,6 @@
 /build/css/logos.css
 /build/logos.png
 /output/
-.DS_Store
+/vcr_cassettes
 /spec/fixtures/vcr_cassettes
 /.env
