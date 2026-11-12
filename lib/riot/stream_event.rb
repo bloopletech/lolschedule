@@ -1,8 +1,8 @@
 class Riot::StreamEvent
   attr_reader :league_id, :id, :start_time, :streams
 
-  def self.parse(data_response)
-    events = data_response.body.dig!("data", "schedule", "events").map { |event| new(event) }
+  def self.parse(response)
+    response.body.dig!("data", "schedule", "events").map { |event| new(event) }
   end
 
   def initialize(data)

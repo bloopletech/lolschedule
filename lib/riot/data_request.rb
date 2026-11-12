@@ -10,6 +10,6 @@ class Riot::DataRequest
 
   def get
     body = JSON.parse(Client.get(@url, API_KEY))
-    Riot::DataResponse.new(data_request: self, body: body)
+    Riot::DataResponse.new(body:, parent_id:)
   end
 end

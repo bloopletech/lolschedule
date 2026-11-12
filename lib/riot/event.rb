@@ -4,11 +4,10 @@ class Riot::Event
 
   attr_reader :league_id, :match_id, :start_time, :block_name, :teams, :games
 
-  def self.parse(data_response)
-    league_id = data_response.parent_id
-    events = data_response.body.dig!("data", "schedule", "events")
+  def self.parse(response)
+    events = response.body.dig!("data", "schedule", "events")
     events.reject! { |event| event["type"] == "show" }
-    events.map { |event| new(event.merge("league_id" => league_id)) }
+    events.map { |event| new(event.merge("league_id" => response.parent_id)) }
   end
 
   def initialize(data)
@@ -17,11 +16,7 @@ class Riot::Event
     @start_time = data.dig!("startTime")
     @block_name = data.dig!("blockName")
     @teams = data.dig!("match", "teams").map { |team| Riot::Team.new(team.merge("league_id" => @league_id)) }
-    @games = if data.key?("games")
-      data["games"].map { |game| Riot::Game.new(game) }.select { |game| game.completed? }
-    else
-      []
-    end
+    @games = (data["games"] || []).map { |game| Riot::Game.new(game) }.select { |game| game.completed? }
   end
 
   def year
