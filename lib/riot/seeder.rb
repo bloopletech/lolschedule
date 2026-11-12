@@ -18,7 +18,7 @@ class Riot::Seeder
   end
 
   def seed_leagues
-    request = Riot::DataRequest.new(url: LEAGUES_ENDPOINT)
+    request = Riot::Request.new(url: LEAGUES_ENDPOINT)
     @leagues = Riot::League.parse(request.get)
     filter_leagues
   end
@@ -48,7 +48,7 @@ class Riot::Seeder
   end
 
   def seed_schedules_for(league:, page_token: nil)
-    request = Riot::DataRequest.new(url: league.schedule_url(page_token), league_id: league.id)
+    request = Riot::Request.new(url: league.schedule_url(page_token), league_id: league.id)
     response = request.get
 
     @events.concat(Riot::Event.parse(response))
@@ -69,7 +69,7 @@ class Riot::Seeder
   end
 
   def seed_stream_events
-    request = Riot::DataRequest.new(url: LIVESTREAMS_ENDPOINT)
+    request = Riot::Request.new(url: LIVESTREAMS_ENDPOINT)
     @stream_events = Riot::StreamEvent.parse(request.get)
   end
 end

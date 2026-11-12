@@ -34,6 +34,6 @@ class Riot::Tournament
   end
 
   def events_request
-    Riot::DataRequest.new(url: events_url, league_id:)
+    Riot::Request.new(url: events_url, league_id:)
   end
 end

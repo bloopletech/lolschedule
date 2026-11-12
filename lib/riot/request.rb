@@ -1,7 +1,5 @@
-class Riot::DataRequest
+class Riot::Request
   API_KEY = "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"
-
-  attr_reader :url, :league_id
 
   def initialize(url:, league_id: nil)
     @url = url
@@ -10,6 +8,6 @@ class Riot::DataRequest
 
   def get
     body = JSON.parse(Client.get(@url, API_KEY))
-    Riot::DataResponse.new(body:, league_id:)
+    Riot::Response.new(body, @league_id)
   end
 end

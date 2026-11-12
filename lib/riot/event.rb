@@ -32,6 +32,6 @@ class Riot::Event
   end
 
   def event_detail_request
-    Riot::DataRequest.new(url: event_detail_url, league_id:)
+    Riot::Request.new(url: event_detail_url, league_id:)
   end
 end

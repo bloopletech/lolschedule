@@ -28,10 +28,10 @@ class Riot::League
   end
 
   def tournament_request
-    Riot::DataRequest.new(url: tournament_url, league_id: id)
+    Riot::Request.new(url: tournament_url, league_id: id)
   end
 
   def schedule_request(page_token = nil)
-    Riot::DataRequest.new(url: schedule_url(page_token), league_id: id)
+    Riot::Request.new(url: schedule_url(page_token), league_id: id)
   end
 end
