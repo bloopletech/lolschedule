@@ -1,4 +1,4 @@
-if ENV["LOLSCHEDULE_ENV"] == "development" && ENV["VCR"] == "true"
+if defined?(VCR) && ENV["VCR"] == "true"
   SyncedStdout.puts "Using VCR to record and play back requests."
 
   VCR.configure do |c|
