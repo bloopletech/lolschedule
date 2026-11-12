@@ -24,7 +24,6 @@ end
 module Riot
 end
 
-require "error_reporting"
 require "synced_stdout"
 require "client"
 require "parallel"
