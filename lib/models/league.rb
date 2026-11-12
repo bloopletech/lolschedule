@@ -90,6 +90,8 @@ class Models::League < Models::Model
       "EWC"
     when "Americas Cup"
       "Ame Cup"
+    when "LCP P&R"
+      "LCP Pro"
     else
       brand_name(year)
     end
