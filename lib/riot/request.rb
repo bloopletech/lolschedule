@@ -1,13 +1,8 @@
 class Riot::Request
-  API_KEY = "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"
+  attr_reader :path, :league_id
 
-  def initialize(url:, league_id: nil)
-    @url = url
+  def initialize(url, league_id = nil)
+    @path = url
     @league_id = league_id
-  end
-
-  def get
-    body = JSON.parse(Client.get(@url, API_KEY))
-    Riot::Response.new(body, @league_id)
   end
 end

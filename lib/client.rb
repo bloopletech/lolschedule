@@ -8,22 +8,20 @@ class Client
     "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36"
   }
 
-  def initialize(site)
+  def initialize(site, headers = {})
     @site = site
-    @connection = Excon.new(site,
+    @connection = Excon.new(
+      site,
       middlewares: Excon.defaults[:middlewares] + [Excon::Middleware::Decompress],
-      omit_default_port: true
+      omit_default_port: true,
+      headers: HEADERS.merge(headers)
     )
   end
 
-  def get(path, api_key = nil)
+  def get(path)
     start = Time.now
 
-    response = if api_key
-      @connection.get(path: path, headers: HEADERS.merge("x-api-key" => api_key))
-    else
-      @connection.get(path: path, headers: HEADERS)
-    end
+    response = @connection.get(path: path)
 
     taken = ((Time.now - start) * 1000).round(1)
     size_kb = (response.body.bytes.length / 1024.0).round(1)

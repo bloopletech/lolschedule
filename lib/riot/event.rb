@@ -1,6 +1,5 @@
 class Riot::Event
-  HOST = "https://esports-api.lolesports.com"
-  EVENT_DETAIL_ENDPOINT = "#{HOST}/persisted/gw/getEventDetails?hl=en-US&id="
+  EVENT_DETAIL_ENDPOINT = "/persisted/gw/getEventDetails?hl=en-US&id="
 
   attr_reader :league_id, :match_id, :start_time, :block_name, :teams, :games
 
@@ -32,6 +31,6 @@ class Riot::Event
   end
 
   def event_detail_request
-    Riot::Request.new(url: event_detail_url, league_id:)
+    Riot::Request.new(event_detail_url, @league_id)
   end
 end

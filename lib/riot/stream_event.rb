@@ -1,4 +1,10 @@
 class Riot::StreamEvent
+  LIVESTREAMS_ENDPOINT = "/persisted/gw/getLive?hl=en-US"
+
+  def self.request
+    Riot::Request.new(LIVESTREAMS_ENDPOINT)
+  end
+
   attr_reader :league_id, :id, :start_time, :streams
 
   def self.parse(response)

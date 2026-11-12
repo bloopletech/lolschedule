@@ -1,7 +1,15 @@
 class Riot::Seeder
-  HOST = "https://esports-api.lolesports.com"
-  LEAGUES_ENDPOINT = "#{HOST}/persisted/gw/getLeagues?hl=en-US"
-  LIVESTREAMS_ENDPOINT = "#{HOST}/persisted/gw/getLive?hl=en-US"
+  def initialize
+    @client = Riot::Client.new
+  end
+
+  def get(request)
+    @client.get(request)
+  end
+
+  def parallel_get(requests)
+    @client.parallel_get(requests)
+  end
 
   def seed
     SyncedStdout.puts "Requesting data..."
@@ -18,8 +26,8 @@ class Riot::Seeder
   end
 
   def seed_leagues
-    request = Riot::Request.new(url: LEAGUES_ENDPOINT)
-    @leagues = Riot::League.parse(request.get)
+    response = get(Riot::League.request)
+    @leagues = Riot::League.parse(response)
     filter_leagues
   end
 
@@ -31,15 +39,13 @@ class Riot::Seeder
   end
 
   def seed_tournaments
-    requests = @leagues.map(&:tournament_request)
-    responses = Parallel.new(requests).perform_collate(&:get)
+    responses = parallel_get(@leagues.map(&:tournament_request))
     @tournaments = responses.flat_map { |response| Riot::Tournament.parse(response) }
     @tournaments.select! { |tournament| tournament.year == Build::CURRENT_YEAR }
   end
 
   def seed_events
-    requests = @tournaments.map(&:events_request)
-    responses = Parallel.new(requests).perform_collate(&:get)
+    responses = parallel_get(@tournaments.map(&:events_request))
     @events = responses.flat_map { |response| Riot::Event.parse(response) }
   end
 
@@ -48,8 +54,7 @@ class Riot::Seeder
   end
 
   def seed_schedules_for(league:, page_token: nil)
-    request = Riot::Request.new(url: league.schedule_url(page_token), league_id: league.id)
-    response = request.get
+    response = get(Riot::Request.new(league.schedule_url(page_token), league.id))
 
     @events.concat(Riot::Event.parse(response))
 
@@ -63,13 +68,12 @@ class Riot::Seeder
   end
 
   def seed_event_details
-    requests = @events.select { |event| event.needs_event_detail? }.map(&:event_detail_request)
-    responses = Parallel.new(requests).perform_collate(&:get)
+    responses = parallel_get(@events.select { |event| event.needs_event_detail? }.map(&:event_detail_request))
     @event_details = responses.flat_map { |response| Riot::EventDetail.parse(response) }
   end
 
   def seed_stream_events
-    request = Riot::Request.new(url: LIVESTREAMS_ENDPOINT)
-    @stream_events = Riot::StreamEvent.parse(request.get)
+    response = get(Riot::StreamEvent.request)
+    @stream_events = Riot::StreamEvent.parse(response)
   end
 end

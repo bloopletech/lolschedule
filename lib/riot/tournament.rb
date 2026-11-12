@@ -1,6 +1,5 @@
 class Riot::Tournament
-  HOST = "https://esports-api.lolesports.com"
-  VODS_ENDPOINT = "#{HOST}/persisted/gw/getVods?hl=en-US&tournamentId="
+  VODS_ENDPOINT = "/persisted/gw/getVods?hl=en-US&tournamentId="
 
   def self.parse(response)
     tournaments = response.body.dig!("data", "leagues", 0, "tournaments")
@@ -34,6 +33,6 @@ class Riot::Tournament
   end
 
   def events_request
-    Riot::Request.new(url: events_url, league_id:)
+    Riot::Request.new(events_url, @league_id)
   end
 end
