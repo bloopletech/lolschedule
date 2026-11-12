@@ -1,6 +1,4 @@
 class Client
-  MUTEX = Mutex.new
-
   HEADERS = {
     "Accept-Encoding" => "gzip, deflate, sdch",
     "Accept-Language" => ":en-GB,en;q=0.8,en-US;q=0.6",
@@ -30,15 +28,8 @@ class Client
     response.body
   end
 
-  def self.for(site)
-    MUTEX.synchronize do
-      @connections ||= {}
-      @connections[site] ||= new(site)
-    end
-  end
-
-  def self.get(url, api_key = nil)
+  def self.get(url)
     parsed = Addressable::URI.parse(url)
-    self.for(parsed.site).get(parsed.request_uri, api_key)
+    new(parsed.site).get(parsed.request_uri)
   end
 end
