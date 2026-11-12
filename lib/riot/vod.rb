@@ -1,8 +1,7 @@
 class Riot::Vod
-  attr_reader :id, :locale, :parameter
+  attr_reader :locale, :parameter
 
   def initialize(data)
-    @id = data["id"]
     @locale = data["locale"]
     @parameter = data["parameter"]
     @provider = data["provider"]

@@ -55,13 +55,13 @@ class Seeders::Events
     return nil unless vod
 
     @store.vods << Models::Vod.new({
-      riot_id: vod.id,
+      riot_id: game.id,
       provider: vod.provider,
       id: vod.parameter,
       start: vod.offset.to_s
     })
 
-    vod.id
+    game.id
   end
 
   def best_vod(vods)
