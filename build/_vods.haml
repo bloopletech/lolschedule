@@ -1,4 +1,4 @@
-- vod_urls.map! { |vod_url| Build::VodUrl.new(vod_url) }
+- vod_urls = vods.map { |vod| Build::VodUrl.new(vod) }
 - multiple = vod_urls.length > 1
 - vod_urls.each_with_index do |vod, i|
   - classes = []

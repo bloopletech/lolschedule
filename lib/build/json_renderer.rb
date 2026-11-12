@@ -80,23 +80,23 @@ class Build::JsonRenderer
       })
     end
 
-    if match.vod_urls.any?
+    if match.vods.any?
       result.merge!({
-        vods: render_vods(vod_urls: match.vod_urls)
+        vods: render_vods(match.vods)
       })
     end
 
     result
   end
 
-  def render_vods(vod_urls:)
-    vod_urls.map { |vod_url| Build::VodUrl.new(vod_url).youtube }
+  def render_vods(vods)
+    vods.map { |vod| Build::VodUrl.new(vod).url }
   end
 
   def render_tags(match)
     result = [match.league.slug]
     result << "live" if match.stream_url
-    result << "games" if match.vod_urls.any?
+    result << "games" if match.vods.any?
     result << "spoiler" if match.spoiler?(@now)
     result.push(match.team_1.acronym, match.team_2.acronym) if match.team?
     result.push(match.player_1.name, match.player_2.name) if match.single?

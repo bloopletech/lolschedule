@@ -1,10 +1,10 @@
 class Build::VodUrl
   TWITCH_VOD_EXPIRY = 2600 * 24 * 30
 
-  def initialize(attributes)
-    @provider = attributes["provider"]
-    @id = attributes["id"]
-    @start = attributes["start"]
+  def initialize(vod)
+    @provider = vod.provider
+    @id = vod.id
+    @start = vod.start
   end
 
   def to_h

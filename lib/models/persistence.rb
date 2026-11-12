@@ -21,12 +21,10 @@ class Models::Persistence
   end
 
   def self.migrate
-    (2015..2026).each do |year|
-      store = load(Build.year_path(year))
-      store.vods.each do |vod|
-        vod.url.merge!("provider" => "youtube") if vod.url
-      end
-      save(store, Build.year_path(year))
+    Build.year_paths.each do |year_path|
+      store = load(year_path)
+      # Do something
+      save(store, year_path)
     end
   end
 end

@@ -56,7 +56,9 @@ class Seeders::Events
 
     @store.vods << Models::Vod.new({
       riot_id: vod.id,
-      url: { provider: vod.provider, id: vod.parameter, start: vod.offset.to_s }
+      provider: vod.provider,
+      id: vod.parameter,
+      start: vod.offset.to_s
     })
 
     vod.id

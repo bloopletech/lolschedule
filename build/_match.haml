@@ -1,6 +1,6 @@
 - classes = [match.league.slug]
 - classes << "live" if match.stream_url
-- classes << "games" if match.vod_urls.any?
+- classes << "games" if match.vods.any?
 - classes << "spoiler" if match.spoiler?(now)
 - classes.push(match.team_1.acronym, match.team_2.acronym) if match.team?
 - classes.push(match.player_1.name, match.player_2.name) if match.single?
@@ -22,5 +22,5 @@
   - if match.stream_url
     - stream_url = Build::StreamUrl.new(match.stream_url)
     %a.data.live-banner{href: stream_url.url, target: "_blank"} WATCH LIVE NOW ➔
-  - if match.vod_urls.any?
-    != partial("vods", { vod_urls: match.vod_urls, rtime: match.rtime })
+  - if match.vods.any?
+    != partial("vods", { vods: match.vods, rtime: match.rtime })

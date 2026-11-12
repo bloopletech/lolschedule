@@ -1,3 +1,3 @@
 class Models::Vod < Models::Model
-  set_fields :url
+  set_fields :provider, :id, :start
 end

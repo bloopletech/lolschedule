@@ -25,11 +25,7 @@ class Models::Match < Models::Model
   end
 
   def vods
-    store.vods.find_all(riot_game_ids)
-  end
-
-  def vod_urls
-    vods.map { |vod| vod.url }.compact
+    store.vods.find_all(riot_game_ids).select { |vod| vod.provider }
   end
 
   def stream
