@@ -48,7 +48,7 @@ class Riot::Seeder
   end
 
   def seed_schedules_for(league:, page_token: nil)
-    request = Riot::DataRequest.new(url: league.schedule_url(page_token), parent_id: league.id)
+    request = Riot::DataRequest.new(url: league.schedule_url(page_token), league_id: league.id)
     response = request.get
 
     @events.concat(Riot::Event.parse(response))

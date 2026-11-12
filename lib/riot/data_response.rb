@@ -1,8 +1,8 @@
 class Riot::DataResponse
-  attr_reader :body, :parent_id
+  attr_reader :body, :league_id
   
-  def initialize(body:, parent_id:)
+  def initialize(body:, league_id:)
     @body = body
-    @parent_id = parent_id
+    @league_id = league_id
   end
 end

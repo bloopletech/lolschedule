@@ -7,7 +7,7 @@ class Riot::Event
   def self.parse(response)
     events = response.body.dig!("data", "schedule", "events")
     events.reject! { |event| event["type"] == "show" }
-    events.map { |event| new(event.merge("league_id" => response.parent_id)) }
+    events.map { |event| new(event.merge("league_id" => response.league_id)) }
   end
 
   def initialize(data)
@@ -32,6 +32,6 @@ class Riot::Event
   end
 
   def event_detail_request
-    Riot::DataRequest.new(url: event_detail_url, parent_id: @league_id)
+    Riot::DataRequest.new(url: event_detail_url, league_id:)
   end
 end

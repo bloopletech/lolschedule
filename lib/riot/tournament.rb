@@ -4,7 +4,7 @@ class Riot::Tournament
 
   def self.parse(response)
     tournaments = response.body.dig!("data", "leagues", 0, "tournaments")
-    tournaments.map { |tournament| new(tournament.merge("league_id" => response.parent_id)) }
+    tournaments.map { |tournament| new(tournament.merge("league_id" => response.league_id)) }
   end
 
   attr_reader :league_id, :id, :slug
@@ -34,6 +34,6 @@ class Riot::Tournament
   end
 
   def events_request
-    Riot::DataRequest.new(url: events_url, parent_id: @league_id)
+    Riot::DataRequest.new(url: events_url, league_id:)
   end
 end
