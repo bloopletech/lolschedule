@@ -25,7 +25,7 @@ class Models::Match < Models::Model
   end
 
   def vods
-    source.vods.find_all(riot_game_ids)
+    store.vods.find_all(riot_game_ids)
   end
 
   def vod_urls

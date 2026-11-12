@@ -1,5 +1,5 @@
 class Models::Model
-  attr_accessor :source
+  attr_accessor :store
 
   class << self
     attr_reader :fields
@@ -13,10 +13,10 @@ class Models::Model
 
   def self.finder(name:, relation:, key:)
     define_method(name) do
-      return nil unless source
+      return nil unless store
 
       self_value = send(key)
-      result = source.send(relation).find(self_value)
+      result = store.send(relation).find(self_value)
       raise "Could not find record in relation #{relation} with riot_id of #{self_value}" unless result
       result
     end

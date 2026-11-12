@@ -1,6 +1,6 @@
 class Build::LogosDownloader
-  def initialize(source)
-    @source = source
+  def initialize(store)
+    @store = store
   end
 
   def download
@@ -21,7 +21,7 @@ class Build::LogosDownloader
 
   def find_logos
     logos = {}
-    @source.teams.each do |team|
+    @store.teams.each do |team|
       url = logo_url(team.logo)
       next unless url
 

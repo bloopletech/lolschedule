@@ -1,6 +1,6 @@
 class Seeders::Events
-  def initialize(source, riot_data)
-    @source = source
+  def initialize(store, riot_data)
+    @store = store
     @riot_data = riot_data
   end
 
@@ -13,7 +13,7 @@ class Seeders::Events
 
     riot_game_ids = seed_games(event)
 
-    @source.matches << Models::Match.new({
+    @store.matches << Models::Match.new({
       riot_id: event.match_id,
       riot_league_id: event.league_id,
       time: event.start_time,
@@ -30,7 +30,7 @@ class Seeders::Events
   end
 
   def seed_team(riot_team)
-    team = @source.teams.find(riot_team.id)
+    team = @store.teams.find(riot_team.id)
     return team if team
 
     Models::Team.new(
@@ -38,7 +38,7 @@ class Seeders::Events
       riot_league_id: riot_team.league_id,
       acronym: riot_team.code,
       logo: riot_team.image
-    ).tap { |team| @source.teams << team }
+    ).tap { |team| @store.teams << team }
   end
 
   def seed_games(event)
@@ -54,7 +54,7 @@ class Seeders::Events
     vod = best_vod(game.vods)
     return nil unless vod
 
-    @source.vods << Models::Vod.new({
+    @store.vods << Models::Vod.new({
       riot_id: vod.id,
       url: { provider: vod.provider, id: vod.parameter, start: vod.offset.to_s }
     })

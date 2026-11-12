@@ -1,10 +1,10 @@
-class Models::Source
+class Models::Store
   attr_accessor :matches, :vods, :leagues, :teams, :players
 
   def self.from_h(hash)
-    source = new
-    source.from_h(hash)
-    source
+    store = new
+    store.from_h(hash)
+    store
   end
 
   def initialize

@@ -8,19 +8,19 @@ class Build::Html
   def build
     haml_context = Build::HamlContext.new(Build.build_path)
 
-    source = Models::Persistence.load(*Build.year_paths)
+    store = Models::Persistence.load(*Build.year_paths)
 
     SEASONS.each_pair do |year, file|
       Build.write_with_gz(
         path: Build.output_path + file,
-        data: haml_context.render("index.haml", context(source: source, year: year))
+        data: haml_context.render("index.haml", context(store: store, year: year))
       )
     end
   end
 
-  def context(source:, year:)
-    matches = matches_for_year(source, year)
-    leagues = leagues_for_matches(source, matches)
+  def context(store:, year:)
+    matches = matches_for_year(store, year)
+    leagues = leagues_for_matches(store, matches)
     team_acronyms = matches.flat_map { |match| match.teams }.uniq.map { |team| team.acronym }
 
     {
@@ -35,11 +35,11 @@ class Build::Html
     }
   end
 
-  def matches_for_year(source, year)
-    source.matches.select { |match| match.year == year }
+  def matches_for_year(store, year)
+    store.matches.select { |match| match.year == year }
   end
 
-  def leagues_for_matches(source, matches)
-    source.leagues.select { |league| matches.any? { |match| match.league == league } }.uniq { |league| league.slug }
+  def leagues_for_matches(store, matches)
+    store.leagues.select { |league| matches.any? { |match| match.league == league } }.uniq { |league| league.slug }
   end
 end

@@ -3,10 +3,10 @@ require_relative "./lib/lolschedule.rb"
 namespace :data do
   desc "Download league, tournament, match, and team data"
   task :download do
-    source = Models::Source.new
+    store = Models::Store.new
     riot_data = Riot::Seeder.new.seed
-    Seeders::Seeder.new(source, riot_data).seed
-    Models::Persistence.save(source, Build.current_year_path)
+    Seeders::Seeder.new(store, riot_data).seed
+    Models::Persistence.save(store, Build.current_year_path)
   end
 
   task :migrate do
@@ -24,8 +24,8 @@ namespace :build do
   namespace :logos do
     desc "Download logos from Akamai"
     task :download do
-      source = Models::Persistence.load(*Build.year_paths)
-      Build::LogosDownloader.new(source).download
+      store = Models::Persistence.load(*Build.year_paths)
+      Build::LogosDownloader.new(store).download
     end
 
     desc "Delete downloaded logos"
@@ -75,7 +75,7 @@ desc "Start an IRB console with the project and data loaded"
 task :console do
   require "irb"
   ARGV.clear
-  $source = Models::Persistence.load(*Build.year_paths)
+  $store = Models::Persistence.load(*Build.year_paths)
   IRB.start
 end
 

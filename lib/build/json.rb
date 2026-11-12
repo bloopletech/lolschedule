@@ -10,10 +10,10 @@ class Build::Json
   end
 
   def context
-    source = Models::Persistence.load(*Build.year_paths)
+    store = Models::Persistence.load(*Build.year_paths)
 
-    matches = source.matches.to_a
-    leagues = source.leagues.to_a
+    matches = store.matches.to_a
+    leagues = store.leagues.to_a
 
     {
       leagues: leagues,

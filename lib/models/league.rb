@@ -7,7 +7,7 @@ class Models::League < Models::Model
   end
 
   def teams
-    source.teams.select { |team| team.riot_league_id == riot_id }
+    store.teams.select { |team| team.riot_league_id == riot_id }
   end
 
   def slug

@@ -1,6 +1,6 @@
 class Seeders::StreamEvents
-  def initialize(source, riot_data)
-    @source = source
+  def initialize(store, riot_data)
+    @store = store
     @riot_data = riot_data
   end
 
@@ -9,7 +9,7 @@ class Seeders::StreamEvents
   end
 
   def seed_stream_event(event)
-    league = @source.leagues.find(event.league_id)
+    league = @store.leagues.find(event.league_id)
     return unless league
     league.stream_match_ids ||= []
     league.stream_match_ids << event.id

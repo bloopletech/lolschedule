@@ -1,15 +1,15 @@
 class Models::List
-  attr_accessor :source
+  attr_accessor :store
   extend Forwardable
   def_delegators :to_a, :each, :map, :select
 
-  def initialize(source)
-    @source = source
+  def initialize(store)
+    @store = store
     @index = {}
   end
 
   def <<(record)
-    record.source = @source
+    record.store = @store
     @index[record.riot_id] = record
     self
   end
