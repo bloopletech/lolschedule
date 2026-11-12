@@ -16,20 +16,20 @@ Date.prototype.isSameWeekFuzzy = function(b) {
 }
 
 Date.prototype.formatDate = function(today) {
-  var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  var ampm = (this.getHours() >= 12) ? 'PM' : 'AM';
+  var ampm = (this.getHours() >= 12) ? "PM" : "AM";
   var hours = this.getHours() % 12;
   if(hours == 0) hours = 12;
 
   var minutes = this.getMinutes();
-  if(minutes == 0) minutes = '';
-  else if(minutes < 10) minutes = ':0' + minutes;
-  else minutes = ':' + minutes;
+  if(minutes == 0) minutes = "";
+  else if(minutes < 10) minutes = ":0" + minutes;
+  else minutes = ":" + minutes;
 
   if(this.isSameDate(today))
-    var parts = ['Today', hours + minutes + ampm];
+    var parts = ["Today", hours + minutes + ampm];
   else if(this.isSameWeekFuzzy(today) && this.getTime() > today.getTime())
     var parts = [days[this.getDay()], hours + minutes + ampm];
   else

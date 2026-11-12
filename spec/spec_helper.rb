@@ -17,9 +17,9 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require_relative '../lib/lolschedule.rb'
+require_relative "../lib/lolschedule.rb"
 
-require 'vcr'
+require "vcr"
 
 Dir[File.dirname(__FILE__) + "/support/*.rb"].each { |f| require f }
 
@@ -74,18 +74,18 @@ RSpec.configure do |config|
   #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
   config.disable_monkey_patching!
 
-  # This setting enables warnings. It's recommended, but in some cases may
+  # This setting enables warnings. It"s recommended, but in some cases may
   # be too noisy due to issues in dependencies.
   config.warnings = true
 
   # Many RSpec users commonly either run the entire suite or an individual
-  # file, and it's useful to allow more verbose output when running an
+  # file, and it"s useful to allow more verbose output when running an
   # individual spec file.
   if config.files_to_run.one?
     # Use the documentation formatter for detailed output,
     # unless a formatter has already been configured
     # (e.g. via a command-line flag).
-    config.default_formatter = 'doc'
+    config.default_formatter = "doc"
   end
 
   # Print the 10 slowest examples and example groups at the

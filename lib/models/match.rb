@@ -56,11 +56,11 @@ class Models::Match < Models::Model
   end
 
   def team?
-    type == 'team'
+    type == "team"
   end
 
   def single?
-    type == 'single'
+    type == "single"
   end
 
   def teams

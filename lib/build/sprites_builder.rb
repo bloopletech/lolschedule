@@ -23,10 +23,10 @@ class Build::SpritesBuilder
   def create_styles
     SpriteFactory.run!(
       Build.used_logos_path.to_s,
-      output_image: Build.output_path + 'logos.png',
-      output_style: Build.build_path + 'css' + 'logos.css',
+      output_image: Build.output_path + "logos.png",
+      output_style: Build.build_path + "css" + "logos.css",
       margin: 1,
-      selector: '.',
+      selector: ".",
       nocomments: true,
       layout: :packed
     ) { |sprites| css_rules(sprites) }

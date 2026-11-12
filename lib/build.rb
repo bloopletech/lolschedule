@@ -8,7 +8,7 @@ module Build
   end
 
   def self.data_path
-    root_path + 'data'
+    root_path + "data"
   end
 
   def self.year_path(year)
@@ -24,22 +24,22 @@ module Build
   end
 
   def self.build_path
-    root_path + 'build'
+    root_path + "build"
   end
 
   def self.logos_path
-    build_path + 'logos'
+    build_path + "logos"
   end
 
   def self.used_logos_path
-    build_path + 'used_logos'
+    build_path + "used_logos"
   end
 
   def self.output_path
-    if ENV.key?('LOLSCHEDULE_OUTPUT_DIR')
-      Pathname.new(ENV['LOLSCHEDULE_OUTPUT_DIR'])
+    if ENV.key?("LOLSCHEDULE_OUTPUT_DIR")
+      Pathname.new(ENV["LOLSCHEDULE_OUTPUT_DIR"])
     else
-      root_path + 'output'
+      root_path + "output"
     end
   end
 

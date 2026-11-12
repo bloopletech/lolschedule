@@ -11,7 +11,7 @@ function selectedFilters() {
 
     for(var j = 0; j < selected.length; j++) {
       var term = selected[j].dataset.value;
-      if(term != 'all') terms.push(term);
+      if(term != "all") terms.push(term);
     }
 
     groups.push(terms);

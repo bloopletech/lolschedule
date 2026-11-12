@@ -1,11 +1,11 @@
 - classes = [match.league.slug]
-- classes << 'live' if match.stream_url
-- classes << 'games' if match.vod_urls.any?
-- classes << 'spoiler' if match.spoiler?(now)
+- classes << "live" if match.stream_url
+- classes << "games" if match.vod_urls.any?
+- classes << "spoiler" if match.spoiler?(now)
 - classes.push(match.team_1.acronym, match.team_2.acronym) if match.team?
 - classes.push(match.player_1.name, match.player_2.name) if match.single?
 
-.match.clearfix{class: classes.join(' '), data: { stream_url: match.stream_url }}
+.match.clearfix{class: classes.join(" "), data: { stream_url: match.stream_url }}
   .data.league-name{title: match.league.brand_name(match.year)}= match.league.brand_name_short(match.year)
   .data.vs<
     - if match.team?
@@ -21,6 +21,6 @@
   .data.time{data: { value: match.rtime.iso8601 }}
   - if match.stream_url
     - stream_url = Build::StreamUrl.new(match.stream_url)
-    %a.data.live-banner{href: stream_url.url, target: '_blank'} WATCH LIVE NOW ➔
+    %a.data.live-banner{href: stream_url.url, target: "_blank"} WATCH LIVE NOW ➔
   - if match.vod_urls.any?
-    != partial('vods', { vod_urls: match.vod_urls })
+    != partial("vods", { vod_urls: match.vod_urls })

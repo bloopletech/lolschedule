@@ -13,7 +13,7 @@ class Build::Html
     SEASONS.each_pair do |year, file|
       Build.write_with_gz(
         path: Build.output_path + file,
-        data: haml_context.render('index.haml', context(source: source, year: year))
+        data: haml_context.render("index.haml", context(source: source, year: year))
       )
     end
   end

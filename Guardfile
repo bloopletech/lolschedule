@@ -1,4 +1,4 @@
-require_relative './lib/lolschedule.rb'
+require_relative "./lib/lolschedule.rb"
 
 def yield_hash(object, &block)
   run_proc = proc do |*args|
@@ -35,6 +35,6 @@ guard :yield, build_options do
   watch(%r{^data/.*$})
 end
 
-guard 'livereload' do
+guard "livereload" do
   watch(%r{^output/.*$})
 end

@@ -23,10 +23,10 @@ class Build::JsonRenderer
   end
 
   def render_stream(league:, stream:)
-    stream_url = Build::StreamUrl.new(stream['url'])
+    stream_url = Build::StreamUrl.new(stream["url"])
 
     result = {
-      name: "#{league.brand_name_short(@now.year)}#{" #{stream['id']}" if stream['id']}",
+      name: "#{league.brand_name_short(@now.year)}#{" #{stream["id"]}" if stream["id"]}",
       url: stream_url.url
     }
 
@@ -95,9 +95,9 @@ class Build::JsonRenderer
 
   def render_tags(match)
     result = [match.league.slug]
-    result << 'live' if match.stream_url
-    result << 'games' if match.vod_urls.any?
-    result << 'spoiler' if match.spoiler?(@now)
+    result << "live" if match.stream_url
+    result << "games" if match.vod_urls.any?
+    result << "spoiler" if match.spoiler?(@now)
     result.push(match.team_1.acronym, match.team_2.acronym) if match.team?
     result.push(match.player_1.name, match.player_2.name) if match.single?
     result

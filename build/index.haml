@@ -1,40 +1,40 @@
 !!!
 %html
   %head
-    %meta{charset: 'utf-8'}
+    %meta{charset: "utf-8"}
     %title= title
 
-    %meta{name: 'HandheldFriendly', content: 'true'}
-    %meta{name: 'viewport', content: 'width=device-width, height=device-height, user-scalable=no'}
+    %meta{name: "HandheldFriendly", content: "true"}
+    %meta{name: "viewport", content: "width=device-width, height=device-height, user-scalable=no"}
 
     :css
-      #{include('css/logos.css')}
-      #{include('css/settings.css')}
-      #{include('css/style.css')}
+      #{include("css/logos.css")}
+      #{include("css/settings.css")}
+      #{include("css/style.css")}
 
     :javascript
-      #{include('js/times.js')}
-      #{include('js/js.js')}
-      #{include('js/settings.js')}
-      #{include('js/links.js')}
-      #{include('js/reveals.js')}
+      #{include("js/times.js")}
+      #{include("js/js.js")}
+      #{include("js/settings.js")}
+      #{include("js/links.js")}
+      #{include("js/reveals.js")}
   %body
     #page-wrapper
-      != partial('settings', { leagues: leagues, matches: matches, team_acronyms: team_acronyms, year: year })
+      != partial("settings", { leagues: leagues, matches: matches, team_acronyms: team_acronyms, year: year })
 
-      != partial('links', { year: year })
+      != partial("links", { year: year })
 
       %h1= title
 
       - leagues.reject { |league| league.streams.empty? }.each do |league|
         - league.streams.each do |stream|
-          != partial('league_stream', { league: league, stream: stream, year: year })
+          != partial("league_stream", { league: league, stream: stream, year: year })
       - matches.sort_by { |match| match.rtime }.each do |match|
-        != partial('match', { match: match, now: now })
+        != partial("match", { match: match, now: now })
       #no-results.match.filter-no-match
         %div There are no matches that fit all the filters you have applied.
 
-      != partial('links', { year: year })
+      != partial("links", { year: year })
 
       #footer<
         %p

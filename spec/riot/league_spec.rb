@@ -2,7 +2,7 @@ RSpec.describe Riot::League, vcr: true do
   let(:league_id) { 2 }
   let(:league) { described_class.new(league_id) }
 
-  describe '#teams' do
+  describe "#teams" do
     specify { expect(league.teams).to be_a(Array) }
 
     let(:team) { league.teams.first }
@@ -12,7 +12,7 @@ RSpec.describe Riot::League, vcr: true do
     specify { expect(team["logoUrl"]).to eq("http://assets.lolesports.com/team/team-solomid-er9lau58.png") }
   end
 
-  describe '#tournaments' do
+  describe "#tournaments" do
     specify { expect(league.tournaments).to be_a(Array) }
 
     let(:tournament) { league.tournaments.find { |t| t["title"] =~ /2016/ } }

@@ -11,22 +11,22 @@ class Models::League < Models::Model
   end
 
   def slug
-    name.gsub(' ', '-')
+    name.gsub(" ", "-")
   end
 
   def brand_name(year)
     return name.dup if year < 2019
     case name
-    when 'EU LCS'
-      'LEC'
-    when 'NA LCS'
-      'LCS'
-    when 'All-Star Event'
-      'All-Star'
-    when 'EMEA Masters'
-      year <= 2022 ? 'European Masters' : name.dup
-    when 'LCO'
-      year <= 2020 ? 'OPL' : name.dup
+    when "EU LCS"
+      "LEC"
+    when "NA LCS"
+      "LCS"
+    when "All-Star Event"
+      "All-Star"
+    when "EMEA Masters"
+      year <= 2022 ? "European Masters" : name.dup
+    when "LCO"
+      year <= 2020 ? "OPL" : name.dup
     else
       name.dup
     end
@@ -34,62 +34,62 @@ class Models::League < Models::Model
 
   def brand_name_short(year)
     case name
-    when 'LCS Academy'
-      'LCSA'
-    when 'European Masters'
-      'EU Mas'
-    when 'LCS Challengers'
-      'LCS Chl'
-    when 'LCK Challengers'
-      'LCK Chl'
-    when 'CBLOL Academy'
-      'CBLOLA'
-    when 'EMEA Masters'
-      year <= 2022 ? 'EU Mas' : 'EMEA'
-    when 'LJL Academy'
-      'LJLA'
-    when 'LTA North'
-      'LTA Nth'
-    when 'LTA South'
-      'LTA Sth'
-    when 'LTA Cross-Conference'
-      'LTA CC'
-    when 'La Ligue Française'
-      '🇫🇷'
-    when 'Prime League'
-      '🇩🇪'
-    when 'Hellenic Legends League'
-      '🇬🇷'
-    when 'Hitpoint Masters'
-      '🇨🇿 🇸🇰'
-    when 'Road of Legends'
-      '🇳🇱'
-    when 'LoL Italian Tournament'
-      '🇮🇹'
-    when 'Liga Portuguesa'
-      '🇵🇹'
-    when 'Esports Balkan League'
-      '🇷🇸'
-    when 'Circuito Desafiante'
-      '🇧🇷'
-    when 'Arabian League'
-      'Arab'
-    when 'Rift Legends'
-      '🇵🇱'
-    when 'First Stand'
-      'FST'
-    when 'LCS Promotion'
-      'LCS Pro'
-    when 'CBLOL Promotion'
-      'CBLOLP'
-    when 'Asian Games'
-      'Asiad'
-    when 'KeSPA Cup'
-      'KeSPA'
-    when 'Esports World Cup'
-      'EWC'
-    when 'Americas Cup'
-      'Ame Cup'
+    when "LCS Academy"
+      "LCSA"
+    when "European Masters"
+      "EU Mas"
+    when "LCS Challengers"
+      "LCS Chl"
+    when "LCK Challengers"
+      "LCK Chl"
+    when "CBLOL Academy"
+      "CBLOLA"
+    when "EMEA Masters"
+      year <= 2022 ? "EU Mas" : "EMEA"
+    when "LJL Academy"
+      "LJLA"
+    when "LTA North"
+      "LTA Nth"
+    when "LTA South"
+      "LTA Sth"
+    when "LTA Cross-Conference"
+      "LTA CC"
+    when "La Ligue Française"
+      "🇫🇷"
+    when "Prime League"
+      "🇩🇪"
+    when "Hellenic Legends League"
+      "🇬🇷"
+    when "Hitpoint Masters"
+      "🇨🇿 🇸🇰"
+    when "Road of Legends"
+      "🇳🇱"
+    when "LoL Italian Tournament"
+      "🇮🇹"
+    when "Liga Portuguesa"
+      "🇵🇹"
+    when "Esports Balkan League"
+      "🇷🇸"
+    when "Circuito Desafiante"
+      "🇧🇷"
+    when "Arabian League"
+      "Arab"
+    when "Rift Legends"
+      "🇵🇱"
+    when "First Stand"
+      "FST"
+    when "LCS Promotion"
+      "LCS Pro"
+    when "CBLOL Promotion"
+      "CBLOLP"
+    when "Asian Games"
+      "Asiad"
+    when "KeSPA Cup"
+      "KeSPA"
+    when "Esports World Cup"
+      "EWC"
+    when "Americas Cup"
+      "Ame Cup"
     else
       brand_name(year)
     end

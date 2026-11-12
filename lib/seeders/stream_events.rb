@@ -34,8 +34,8 @@ class Seeders::StreamEvents
 
   def seed_stream(stream, league)
     league.streams << {
-      'id' => nil,
-      'url' => { provider: stream.provider, id: stream.parameter, start: stream.offset.to_s },
+      "id" => nil,
+      "url" => { provider: stream.provider, id: stream.parameter, start: stream.offset.to_s },
       priority: 0
     }
   end

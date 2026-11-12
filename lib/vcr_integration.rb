@@ -2,7 +2,7 @@ if ENV["LOLSCHEDULE_ENV"] == "development" && ENV["VCR"] == "true"
   SyncedStdout.puts "Using VCR to record and play back requests."
 
   VCR.configure do |c|
-    c.cassette_library_dir = 'vcr_cassettes'
+    c.cassette_library_dir = "vcr_cassettes"
     c.hook_into :excon
 
     c.default_cassette_options = {

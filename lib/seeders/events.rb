@@ -18,7 +18,7 @@ class Seeders::Events
       riot_league_id: event.league_id,
       time: event.start_time,
       riot_game_ids: riot_game_ids,
-      type: 'team',
+      type: "team",
       riot_team_1_id: teams.first.acronym,
       riot_team_2_id: teams.last.acronym,
       bracket_name: event.block_name

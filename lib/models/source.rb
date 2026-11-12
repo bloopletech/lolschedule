@@ -16,11 +16,11 @@ class Models::Source
   end
 
   def from_h(hash)
-    hash['matches'].each { |hash| @matches << Models::Match.new(hash) }
-    hash['vods'].each { |hash| @vods << Models::Vod.new(hash) }
-    hash['leagues'].each { |hash| @leagues << Models::League.new(hash) }
-    hash['teams'].each { |hash| @teams << Models::Team.new(hash) }
-    hash['players'].each { |hash| @players << Models::Player.new(hash) }
+    hash["matches"].each { |hash| @matches << Models::Match.new(hash) }
+    hash["vods"].each { |hash| @vods << Models::Vod.new(hash) }
+    hash["leagues"].each { |hash| @leagues << Models::League.new(hash) }
+    hash["teams"].each { |hash| @teams << Models::Team.new(hash) }
+    hash["players"].each { |hash| @players << Models::Player.new(hash) }
   end
 
   def to_h

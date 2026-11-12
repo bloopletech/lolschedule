@@ -71,7 +71,7 @@ chmod +x /home/lolschedule/lolschedule.git/hooks/post-receive
 mkdir /home/lolschedule/lolschedule
 cd /home/lolschedule/lolschedule
 bundle config set deployment true
-bundle config set without 'development test guard'
+bundle config set without "development test guard"
 ````
 
 ## Environment variables

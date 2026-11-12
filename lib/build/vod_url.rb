@@ -1,8 +1,8 @@
 class Build::VodUrl
   def initialize(attributes)
-    @provider = attributes['provider']
-    @id = attributes['id']
-    @start = attributes['start']
+    @provider = attributes["provider"]
+    @id = attributes["id"]
+    @start = attributes["start"]
   end
 
   def to_h
