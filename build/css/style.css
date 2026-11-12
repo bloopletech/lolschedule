@@ -183,6 +183,11 @@ a.vod.revealed {
   display: block;
 }
 
+a.vod.expired {
+  color: #888;
+  text-decoration: none;
+}
+
 a.reveal {
   color: #ffffff;
   font-weight: bold;
