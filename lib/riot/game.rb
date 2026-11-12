@@ -2,9 +2,9 @@ class Riot::Game
   attr_reader :id, :state, :vods
 
   def initialize(data)
-    @id = data["id"]
-    @state = data["state"]
-    @vods = data["vods"].map { |vod| Riot::Vod.new(vod) }
+    @id = data.dig!("id")
+    @state = data.dig!("state")
+    @vods = data.dig!("vods").map { |vod| Riot::Vod.new(vod) }
   end
 
   def completed?

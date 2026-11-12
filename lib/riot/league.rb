@@ -6,13 +6,13 @@ class Riot::League
   attr_reader :id, :name
 
   def self.parse(response)
-    leagues = response.body["data"]["leagues"]
+    leagues = response.body.dig!("data", "leagues")
     leagues.map { |league| new(league) }
   end
 
   def initialize(data)
-    @id = data["id"]
-    @name = data["name"]
+    @id = data.dig!("id")
+    @name = data.dig!("name")
   end
 
   def tournament_url

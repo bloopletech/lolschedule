@@ -2,10 +2,10 @@ class Riot::Stream
   attr_reader :id, :provider, :parameter, :offset, :locale
 
   def initialize(data)
-    @id = data["id"]
-    @provider = data["provider"]
-    @offset = data["offset"]
-    @locale = data["locale"]
+    @id = data.dig!("id")
+    @provider = data.dig!("provider")
+    @offset = data.dig!("offset")
+    @locale = data.dig!("locale")
   end
 
   def english?

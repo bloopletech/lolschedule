@@ -3,7 +3,7 @@ class Riot::Vod
 
   def initialize(data)
     @locale = data["locale"]
-    @parameter = data["parameter"]
+    @parameter = data.dig!("parameter")
     @provider = data["provider"]
     @offset = data["offset"]
   end

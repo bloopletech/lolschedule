@@ -4,30 +4,25 @@ class Riot::Tournament
 
   def self.parse(data_response)
     league_id = data_response.parent_id
-    data_response.body["data"]["leagues"][0]["tournaments"].map { |tournament| new(tournament, league_id) }
+    data_response.body.dig!("data", "leagues", 0, "tournaments").map { |tournament| new(tournament, league_id) }
   end
 
-  attr_reader :league_id
+  attr_reader :league_id, :id, :slug
 
   def initialize(data, league_id)
-    @data = data
     @league_id = league_id
-  end
-
-  def id
-    @data["id"]
-  end
-
-  def slug
-    @data["slug"]
+    @id = data.dig!("id")
+    @slug = data.dig!("slug")
+    @start_time = data.dig!("startDate")
+    @end_time = data.dig!("endDate")
   end
 
   def start_time
-    Time.strptime(@data["startDate"], "%Y-%m-%d")
+    Time.strptime(@start_time, "%Y-%m-%d")
   end
 
   def end_time
-    Time.strptime(@data["endDate"], "%Y-%m-%d")
+    Time.strptime(@end_time, "%Y-%m-%d")
   end
 
   def year

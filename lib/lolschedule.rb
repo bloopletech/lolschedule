@@ -67,3 +67,9 @@ require "vcr_integration"
 class << File
   alias_method :exists?, :exist?
 end
+
+class Hash
+  def dig!(*values)
+    dig(*values).tap { |result| raise "Hash.dig(#{values.map(&:inspect).join(", ")}) returned nil" unless result }
+  end
+end
