@@ -10,7 +10,6 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     base64 (0.2.0)
-    diff-lcs (1.2.5)
     dotenv (2.1.1)
     excon (1.11.0)
     hamlit (2.8.7)
@@ -25,19 +24,6 @@ GEM
     rake (13.1.0)
     rmagick (5.3.0)
       pkg-config (~> 1.4)
-    rspec (3.5.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
-    rspec-core (3.5.1)
-      rspec-support (~> 3.5.0)
-    rspec-expectations (3.5.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-mocks (3.5.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-support (3.5.0)
     temple (0.8.0)
     thor (0.19.1)
     tilt (2.0.8)
@@ -57,7 +43,6 @@ DEPENDENCIES
   ostruct
   rake
   rmagick
-  rspec
   sprite-factory!
   vcr
 

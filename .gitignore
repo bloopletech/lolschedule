@@ -5,5 +5,4 @@
 /build/logos.png
 /output/
 /vcr_cassettes
-/spec/fixtures/vcr_cassettes
 /.env
