@@ -66,10 +66,10 @@ class Seeders::Events
     vod = vods.find { |vod| vod.english? && vod.youtube? }
     return vod if vod
 
-    vod = vods.find(&:english?)
+    vod = vods.find(&:youtube?)
     return vod if vod
 
-    vod = vods.find(&:youtube?)
+    vod = vods.find(&:english?)
     return vod if vod
 
     vods.first
