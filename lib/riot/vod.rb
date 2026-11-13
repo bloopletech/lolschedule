@@ -2,10 +2,10 @@ class Riot::Vod
   attr_reader :locale, :parameter
 
   def initialize(data)
-    @locale = data["locale"]
-    @parameter = data.dig!("parameter")
     @provider = data["provider"]
+    @parameter = data.dig!("parameter")
     @offset = data["offset"]
+    @locale = data["locale"]
   end
 
   def provider

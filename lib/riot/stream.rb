@@ -1,9 +1,9 @@
 class Riot::Stream
-  attr_reader :id, :provider, :parameter, :offset, :locale
+  attr_reader :provider, :parameter, :offset, :locale
 
   def initialize(data)
-    @id = data.dig!("id")
     @provider = data.dig!("provider")
+    @parameter = data.dig!("parameter")
     @offset = data.dig!("offset")
     @locale = data.dig!("locale")
   end
