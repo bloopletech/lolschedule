@@ -7,15 +7,6 @@ class Build::VodUrl
     @start = vod.start
   end
 
-  def to_h
-    {
-      "id": @id,
-      "start": @start,
-      "url": url,
-      "surprise": @provider == "youtube" ? surprise : nil
-    }
-  end
-
   def url
     case @provider
     when "youtube"
@@ -35,10 +26,6 @@ class Build::VodUrl
 
   def twitch
     "https://twitch.tv/videos/#{@id}"
-  end
-
-  def surprise
-    "http://surprise.ly/v/?#{@id}:#{@start}:0:0:100"
   end
 
   def expired?(match_time)

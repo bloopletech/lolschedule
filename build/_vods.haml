@@ -4,7 +4,7 @@
   - classes = []
   - classes << "revealed" if i == 0
   - classes << "expired" if vod.expired?(rtime)
-  %a.data.vod{href: vod.url, data: vod.to_h, target: "_blank", class: classes}
+  %a.data.vod{href: vod.url, target: "_blank", class: classes}
     - if multiple
       vod #{i + 1}
     - else
