@@ -16,11 +16,13 @@ namespace :data do
   task :split do
     Models::Persistence.split
   end
-end
 
-task data: ["data:download"]
+  desc "Delete downloaded data"
+  task :clean do
+    path = Build.current_year_path
+    path.delete if path.exist?
+  end
 
-namespace :build do
   namespace :logos do
     desc "Download logos from Akamai"
     task :download do
@@ -32,11 +34,15 @@ namespace :build do
     task :clean do
       Build.logos_path.children.each { |file| file.rmtree }
     end
+  end
+end
 
-    desc "Generate sprite sheet of downloaded logos"
-    task :sprite do
-      Build::SpritesBuilder.new.build
-    end
+task data: ["data:download", "data:logos:download"]
+
+namespace :build do
+  desc "Generate sprite sheet of downloaded logos"
+  task :sprite do
+    Build::SpritesBuilder.new.build
   end
 
   desc "Build HTML page containing schedule"
@@ -48,16 +54,9 @@ namespace :build do
   task :json do
     Build::Json.new.build
   end
-end
 
-desc "Build complete HTML page and team logos"
-task build: ["build:logos:download", "build:logos:sprite", "build:html", "build:json"]
-
-namespace :clean do
   desc "Delete generated HTML page and logos sprite sheet"
-  task :build do
-    Build.logos_path.children.each { |file| file.rmtree }
-
+  task :clean do
     logos_css_path = (Build.build_path + "css" + "logos.css")
     logos_css_path.delete if logos_css_path.exist?
 
@@ -70,6 +69,9 @@ namespace :clean do
     logos_png_path.delete if logos_png_path.exist?
   end
 end
+
+desc "Build complete HTML page and team logos"
+task build: ["build:sprite", "build:html", "build:json"]
 
 desc "Start an IRB console with the project and data loaded"
 task :console do
@@ -89,5 +91,5 @@ task :develop do
   exec("find . | entr rake -t build")
 end
 
-desc "Download data and then build HTML page and logos"
+desc "Download data and logos and then build HTML page"
 task default: [:data, :build]

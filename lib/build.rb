@@ -28,11 +28,11 @@ module Build
   end
 
   def self.logos_path
-    build_path + "logos"
+    data_path + "logos"
   end
 
   def self.used_logos_path
-    build_path + "used_logos"
+    data_path + "used_logos"
   end
 
   def self.output_path
