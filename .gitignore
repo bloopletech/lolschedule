@@ -1,8 +1,5 @@
-/data/2027.json
-/data/logos/
-/data/used_logos/
+/data
 /build/css/logos.css
 /build/logos.png
 /output/
-/vcr_cassettes
 /.env

@@ -7,12 +7,24 @@ module Build
     Pathname.new(__FILE__).dirname.parent
   end
 
+  def self.archived_path
+    root_path + "archived"
+  end
+
   def self.data_path
-    root_path + "data"
+    if ENV.key?("LOLSCHEDULE_DATA_DIR")
+      Pathname.new(ENV["LOLSCHEDULE_DATA_DIR"])
+    else
+      root_path + "data"
+    end
   end
 
   def self.year_path(year)
-    data_path + "#{year}.json"
+    if year == CURRENT_YEAR
+      data_path + "#{year}.json"
+    else
+      archived_path + "#{year}.json"
+    end
   end
 
   def self.current_year_path
@@ -23,16 +35,16 @@ module Build
     YEARS.map { |year| year_path(year) }
   end
 
-  def self.build_path
-    root_path + "build"
-  end
-
   def self.logos_path
     data_path + "logos"
   end
 
   def self.used_logos_path
     data_path + "used_logos"
+  end
+
+  def self.build_path
+    root_path + "build"
   end
 
   def self.output_path
