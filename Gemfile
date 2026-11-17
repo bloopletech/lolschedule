@@ -19,7 +19,8 @@ gem "dotenv"
 #   gem "guard-livereload"
 # end
 
-group :development, :test do
+group :development do
+  gem "pry"
   gem "vcr"
 end
 

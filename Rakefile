@@ -75,10 +75,10 @@ task build: ["build:sprite", "build:html", "build:json"]
 
 desc "Start an IRB console with the project and data loaded"
 task :console do
-  require "irb"
+  require "pry"
   ARGV.clear
   $store = Models::Persistence.load(*Build.year_paths)
-  IRB.start
+  Pry.start
 end
 
 desc "Load the generated HTML page in your default browser"
