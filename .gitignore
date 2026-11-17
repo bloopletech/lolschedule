@@ -1,5 +1,5 @@
 /data
-/build/css/logos.css
-/build/logos.png
+/views/css/logos.css
+/views/logos.png
 /output/
 /.env

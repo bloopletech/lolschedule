@@ -57,7 +57,7 @@ namespace :build do
 
   desc "Delete generated HTML page and logos sprite sheet"
   task :clean do
-    logos_css_path = (Build.build_path + "css" + "logos.css")
+    logos_css_path = (Build.views_path + "css" + "logos.css")
     logos_css_path.delete if logos_css_path.exist?
 
     Build::Html::SEASONS.each_pair do |year, file|

@@ -6,7 +6,7 @@ class Build::Html
   end
 
   def build
-    haml_context = Build::HamlContext.new(Build.build_path)
+    haml_context = Build::HamlContext.new(Build.views_path)
 
     store = Models::Persistence.load(*Build.year_paths)
 

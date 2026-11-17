@@ -43,8 +43,8 @@ module Build
     data_path + "used_logos"
   end
 
-  def self.build_path
-    root_path + "build"
+  def self.views_path
+    root_path + "views"
   end
 
   def self.output_path

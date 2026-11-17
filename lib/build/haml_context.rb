@@ -1,6 +1,6 @@
 class Build::HamlContext
-  def initialize(build_path)
-    @build_path = build_path
+  def initialize(views_path)
+    @views_path = views_path
     @haml_engine_cache = {}
   end
 
@@ -13,7 +13,7 @@ class Build::HamlContext
   end
 
   def include(path)
-    (@build_path + path).read
+    (@views_path + path).read
   end
 
   def haml_engine(path)
