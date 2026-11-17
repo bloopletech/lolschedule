@@ -7,8 +7,8 @@ module Build
     Pathname.new(__FILE__).dirname.parent
   end
 
-  def self.archived_path
-    root_path + "archived"
+  def self.archived_data_path
+    root_path + "archived_data"
   end
 
   def self.data_path
@@ -23,7 +23,7 @@ module Build
     if year == CURRENT_YEAR
       data_path + "#{year}.json"
     else
-      archived_path + "#{year}.json"
+      archived_data_path + "#{year}.json"
     end
   end
 
